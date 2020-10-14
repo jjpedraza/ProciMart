@@ -33,7 +33,7 @@ $Pdbhost = "localhost";
 $Pdbuser  = "root";
 
 $Pdbpass = "3l-1t4vu";
-$Pdbpass = "";
+// $Pdbpass = "";
 
 $Pdbname = "rintera_procimart";
 

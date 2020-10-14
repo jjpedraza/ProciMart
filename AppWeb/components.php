@@ -1641,16 +1641,16 @@ if($WSConF = $WSCon -> fetch_array())
                                         text:      '<i class=\"fa fa-file-excel-o\"></i>',
                                         titleAttr: 'Excel'
                                     },
-                                    {
-                                        extend:    'csvHtml5',
-                                        text:      '<i class=\"fa fa-file-text-o\"></i>',
-                                        titleAttr: 'CSV'
-                                    },
-                                    {
-                                        extend:    'pdfHtml5',
-                                        text:      '<i class=\"fa fa-file-pdf-o\"></i>',
-                                        titleAttr: 'PDF'
-                                    }
+                                    // {
+                                    //     extend:    'csvHtml5',
+                                    //     text:      '<i class=\"fa fa-file-text-o\"></i>',
+                                    //     titleAttr: 'CSV'
+                                    // },
+                                    // {
+                                    //     extend:    'pdfHtml5',
+                                    //     text:      '<i class=\"fa fa-file-pdf-o\"></i>',
+                                    //     titleAttr: 'PDF'
+                                    // }
                                 ]
                                 ";
                  

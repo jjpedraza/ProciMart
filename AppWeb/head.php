@@ -100,8 +100,15 @@ text-align:center;
 // Init();
 ?>
 
-<div id='PreLoader'>
-    <div id='Loader'>
-        <img src='img/loader_classic.gif'><br>
+<div id='PreLoader' style='
+    background-color: <?php echo Preference("ColorPrincipal", "", ""); ?> ;
+    opacity: 0.7;
+'>
+    <div id='Loader' style='
+        left: 30%;
+        top: 26%;
+        '>
+        <img src='img/Logo.png' style='width:42px;'><br>
+        <b style='color:white;'>Cargando</b> <img src='img/loader_bar.gif' style='width:13px;'><br>
     </div>
 </div>

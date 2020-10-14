@@ -11,7 +11,7 @@ require_once("preference.php");
 $db0_host = 'localhost';	
 $db0_user = 'root';
 $db0_pass = '3l-1t4vu'; 
-$db0_pass = ''; 
+// $db0_pass = ''; 
 $db0_name = 'rintera_procimart';
 
 
