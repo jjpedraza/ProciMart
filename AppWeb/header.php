@@ -135,7 +135,7 @@ box-shadow: inset 0px -36px 13px -31px rgba(0,0,0,0.39);
 
     <td width=10px valign=midle style='background-color:".Preference("ColorPrincipal", "", "").";     ".$sombra."'>
 
-    <a href='logout.php'  title='Cerrar Sessión de ".$RinteraUserName."' style=''>    
+    <a href='index.php'  title='Cerrar Sessión de ".$RinteraUserName."' style=''>    
     <img src='icons/home.png' style='width:30px; margin-right:0px;'></a>
     
     </td>";

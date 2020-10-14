@@ -40,7 +40,7 @@ require("components.php");
 
     <style>
         body {
-            background-image: var(--RinteraBackground);
+            background-image: url('img/fondo3.jpg');
             background-size: 200%;
             /* background-color: #919191;
             background-blend-mode: screen; */
@@ -83,7 +83,7 @@ require("components.php");
 
                 <form class="form-signin" style="text-align:center;" method="POST" action="">
 
-                    <h5>Identificate! '.UserName($IdUser).'</h5>
+                    <h5>Procimart '.UserName($IdUser).'</h5>
                     <label for="txtIdUser" class="sr-only">IdUser </label>
                     <input type="text" id="txtIdUser" name="txtIdUser" class="form-control" placeholder="IdUser" value="'.$IdUser.'" required >
                     <label for="txtNIP" class="sr-only">Password</label><br>
@@ -103,7 +103,10 @@ require("components.php");
     
             <form class="form-signin" style="text-align:center;" method="POST" action="">
     
-                <h3><b>RINTERA:</b> Identificate!</h3>
+                <img src="img/Logo_large.png" style="width:50%;"><br>
+                
+                <b><b>Identificate</b>
+                
                 <label for="txtIdUser" class="sr-only">IdUser</label>
                 <input type="text" id="txtIdUser" name="txtIdUser" class="form-control" placeholder="IdUser" required autofocus>
                 <label for="txtNIP" class="sr-only">Password</label><br>

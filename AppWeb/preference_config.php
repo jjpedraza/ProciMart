@@ -34,7 +34,7 @@ $Pdbuser  = "root";
 
 $Pdbpass = "3l-1t4vu";
 
-$Pdbname = "rintera";
+$Pdbname = "rintera_procimart";
 
 if (function_exists('mysqli_connect')) {		
     $dbP = new mysqli($Pdbhost,$Pdbuser,$Pdbpass,$Pdbname);    

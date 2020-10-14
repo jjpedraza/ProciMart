@@ -37,6 +37,8 @@ require ("components.php");
     
     <!-- DATATABLE -->
     <script src="lib/datatables.min.js"></script>
+    <script src="lib/dataTables.fixedColumns.min.js"></script>
+    
     <link rel="stylesheet" href="lib/datatables.min.css">    
 
 
@@ -75,6 +77,7 @@ require ("components.php");
 </head>
 <body style="
 background-color: <?php echo Preference("ColorDeFondo", "", ""); ?>;
+text-align:center;
 ">
 <?php
 // Init();

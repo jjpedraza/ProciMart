@@ -87,7 +87,7 @@ if ($OK ==TRUE){
 
     //Insertar 
     
-    $sql = 'INSERT INTO reportes
+    $sql = "INSERT INTO reportes
     (
         
         rep_name,
@@ -121,37 +121,37 @@ if ($OK ==TRUE){
     )
 
    VALUES (
-    "'.$rep_name.'", 
-    "'.$rep_query.'", 
+    '".$rep_name."', 
+    '".$rep_query."', 
     '', 
     '', 
-    "'.$rep_descripcion.'", 
-    "'.$IdUser.'", 
-    "'.$fecha.'", 
-    "'.$hora.'", 
-    "'.$Orientacion.'", 
+    '".$rep_descripcion."', 
+    '".$IdUser."', 
+    '".$fecha."', 
+    '".$hora."', 
+    '".$Orientacion."', 
     '1', 
-    "'.$IdUser.'",
-    "'.$db.'",
-    "'.$PageSize.'",
-    "'.$Formato.'",
-    "'.$var1.'",
-    "'.$var1_type.'",
-    "'.$var1_label.'",
-    "'.$var2.'",
-    "'.$var2_type.'",
-    "'.$var2_label.'",
-    "'.$var3.'",
-    "'.$var3_type.'",
-    "'.$var3_label.'",
-    "'.$var1_sql.'",
-    "'.$var2_sql.'",
-    "'.$var3_sql.'",
+    '".$IdUser."',
+    '".$db."',
+    '".$PageSize."',
+    '".$Formato."',
+    '".$var1."',
+    '".$var1_type."',
+    '".$var1_label."',
+    '".$var2."',
+    '".$var2_type."',
+    '".$var2_label."',
+    '".$var3."',
+    '".$var3_type."',
+    '".$var3_label."',
+    '".$var1_sql."',
+    '".$var2_sql."',
+    '".$var3_sql."',
     '',
-    "'.$var1_IdCon.'",
-    "'.$var2_IdCon.'",
-    "'.$var3_IdCon.'"    
-    )';
+    '".$var1_IdCon."',
+    '".$var2_IdCon."',
+    '".$var3_IdCon."'    
+    )";
     
     // echo $sql;
     // mensaje($sql,'login.php');

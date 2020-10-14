@@ -19,3 +19,19 @@ contraseña: dw=[web!9F5kp];
 
 
 http://192.168.159.11/ws_procimart.asp?method=GET&token=Pr0C1M4rt&sql=select%20@@version
+
+
+nformación para webmasters
+Plataforma	Linux	Windows
+DNS Dominios	DNS Primario: ns1.donweb.com
+DNS Secundario: ns2.donweb.com
+Panel Control	Usuario: c1551508
+Contraseña: renine01PO
+URL: https://mipanel.ferozo.com
+FTP	Usuario: c1551508
+Contraseña: renine01PO
+Puerto: 21
+Host o servidor: c1551508.ferozo.com
+Carpeta pública: /public_html/
+
+Al subir los archivos de tu sitio por primera vez, recuerda eliminar primero los achivos index.html, index.php o defaulp.asp que se encuentren en esta carpeta.

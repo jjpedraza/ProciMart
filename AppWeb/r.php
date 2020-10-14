@@ -67,11 +67,13 @@ $ClaseDiv  = "ContenedorDeReporte"; $ClaseTabla = "tabla";
     echo "<div id='C' style='
     width:100%;
     text-align:center;
-    ' class='col-9'
+    
+    ' class='col-12'
 
     >";
     echo "<div id='DivReporte' 
-    style='padding-left: 21px;
+    style='
+    
     margin: 0px;
     text-align: center;
     width:100%;
@@ -192,9 +194,9 @@ $ClaseDiv  = "ContenedorDeReporte"; $ClaseTabla = "tabla";
 
 
 
-echo "<div class='col-3'>";
-    UltimasBusquedas($RinteraUser);
-echo "</div>";
+// echo "<div class='col-3'>";
+//     UltimasBusquedas($RinteraUser);
+// echo "</div>";
 
 echo "</div>";
 

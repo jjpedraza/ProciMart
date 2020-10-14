@@ -532,6 +532,37 @@ function TituloReporte($id_rep){
 }
 
 
+function ReporteFixedColLeft($id_rep){
+    require("rintera-config.php");   
+    // var_dump($dbUser);
+    $sql = "select * from reportes WHERE id_rep ='".$id_rep."'";        
+    
+    $r= $db0 -> query($sql);
+    if($f = $r -> fetch_array())
+    {
+        return $f['FixedColLeft'];
+    } else {
+        return 0;
+    }
+        
+}
+
+
+function ReporteFixedColRight($id_rep){
+    require("rintera-config.php");   
+    // var_dump($dbUser);
+    $sql = "select * from reportes WHERE id_rep ='".$id_rep."'";        
+    
+    $r= $db0 -> query($sql);
+    if($f = $r -> fetch_array())
+    {
+        return $f['FixedColRight'];
+    } else {
+        return 0;
+    }
+        
+}
+
 function ReporteFooter($id_rep){
     require("rintera-config.php");   
     // var_dump($dbUser);
@@ -1334,6 +1365,9 @@ if($WSConF = $WSCon -> fetch_array())
         $sql = $Query;
         $token = $wsP1_value;
 
+        $FixedColLeft = ReporteFixedColLeft($id_rep);
+        $FixedColRight = ReporteFixedColRight($id_rep);
+
         //Peticion
         $myObj = new stdClass;
         $myObj->token = $token;
@@ -1355,7 +1389,7 @@ if($WSConF = $WSCon -> fetch_array())
         ini_set('max_execution_time', 0);
         $context = stream_context_create($opciones);            
         $archivo_web = file_get_contents($url, false, $context);            
-        var_dump($archivo_web);
+        // var_dump($archivo_web);
         $data = json_decode($archivo_web);
         
         switch ($Tipo) {
@@ -1460,8 +1494,17 @@ if($WSConF = $WSCon -> fetch_array())
                         } else {
                             if ($row < $limit){
                                 if ($rowC == 0){$tabla_th.="<tr>";}                            
+                                if ($rowC == 0){
+                                    $tabla_th.="<td style='background-color:".Preference("ColorResaltado", "", "").";'>".$key."</td>"; //cambiar th por td para datatable
+                                } else {
+                                    if ($rowC == ($limit-1)){
+                                        $tabla_th.="<td style='background-color:".Preference("ColorPrincipal", "", "").";'>".$key."</td>"; //cambiar th por td para datatable
+                                    } else {
+                                        $tabla_th.="<td>".$rowC."=".$key."</td>"; //cambiar th por td para datatable
+                                    }
+                                    
+                                }
                                 
-                                $tabla_th.="<td >".$key."</td>"; //cambiar th por td para datatable
                             }                        
                         $rowC = $rowC + 1;
                         $row = $row + 1;
@@ -1484,8 +1527,38 @@ if($WSConF = $WSCon -> fetch_array())
                                 // echo "---".$limit."<br>";
                             }
                             // echo "rowC=".$rowC."(".$row.")<br>";
-                            // $tabla_content.="<td>".$row."(".$rowC.")".$val."</td>";                  
-                            $tabla_content.="<td>".$val."</td>";                  
+                            // $tabla_content.="<td>".$row."(".$rowC.")".$val."</td>";    
+                           
+
+                            $tabla_content.="<td";
+                            if ($FixedColLeft>0 and $rowC<=$FixedColLeft){
+                                $tabla_content.= " style='background-color:".Preference("ColorResaltado", "", "")."; opacity:0.7;' ";
+                            } 
+
+                            if ($FixedColRight>0 and $rowC==($limit - ($FixedColRight-1) ) ){
+                                $tabla_content.= " style='background-color:".Preference("ColorSecundario", "", "")."; opacity:0.7;' ";
+                            }
+                            
+
+                            $tabla_content.=">";
+                            $tabla_content.=$val.""; 
+                            $tabla_content.="</td>";
+                            
+                             
+                            // if (ReporteFixedColRight($id_rep)>0){
+                            //         if ($rowC == ($limit)){
+                            //             $tabla_content.="<td style='background-color:".Preference("ColorPrincipal", "", "")."; opacity:0.7;'>".$val."</td>"; //cambiar th por td para datatable
+                            //         } else {
+                            //             $tabla_content.="<td>".$val."</td>"; //cambiar th por td para datatable
+                            //         }
+                            //     } else {
+                            //         $tabla_content.="<td>".$val."</td>"; //cambiar th por td para datatable
+                            //     }
+                                
+                                
+                            // }
+
+                            // $tabla_content.="<td>".$val."</td>";                  
                             if ($rowC == $limit){
                                 $tabla_content.="</tr>";
                                 $rowC = 1;
@@ -1516,13 +1589,24 @@ if($WSConF = $WSCon -> fetch_array())
                     echo '<script>
                             $(document).ready(function() {
                                 $("#'.$IdTabla.'").DataTable( {
-                                    "scrollX": true,
+                                    "scrollX":        true,
+                                    "scrollY":        true,                                                                  
                                     "scrollCollapse": true,
                                     "paging":         true,
                                     "language": {
                                         "decimal": ",",
                                         "thousands": "."
-                                    }
+                                    },
+                                    
+                                   
+                                    fixedColumns:   {
+                                        leftColumns: 1,
+                                        rightColumns: 1
+                                    },
+                                    
+                                    responsive: true
+                                 
+
                                 } );
                             } );
                             </script>';

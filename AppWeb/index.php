@@ -76,7 +76,7 @@ margin-top:  -21px;
 <?php
 if (Preference("MostrarApps", "", "")=='TRUE'){
     echo '
-    <div class="row">
+    <div class="row" style="margin:0px;">
     <section id="Resultados" >
     
 
@@ -93,7 +93,7 @@ if (Preference("MostrarApps", "", "")=='TRUE'){
 } else {
     echo '
     
-    <section id="Resultados">    
+    <section id="Resultados" style="width:100%">    
 
     </section>
 
@@ -103,9 +103,17 @@ if (Preference("MostrarApps", "", "")=='TRUE'){
 ?>
 
 <div id='DashBoard'>
-    <div class="card" style="width: 18rem;">
-    Modulo 1
+    <div id="TablaPrincipal"  style="width: 70%;">
+    
+
+    
     </div>
+
+    <div id="GraficasPrincipales" style="width: 28%;">
+    Gracias
+    
+    </div>
+
 
 
     
