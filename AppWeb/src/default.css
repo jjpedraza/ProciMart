@@ -31,6 +31,21 @@
     src: url("OpenSans-ExtraBold.ttf") format("truetype")
 }
 
+.icon img {
+    width: 13px;
+}
+
+.Buble {
+    display: inline-block;
+    padding: 10px;
+    border-radius: 20px;
+    margin: 10px;
+}
+
+#UltimasBusquedas_buble {
+    width: 100%;
+}
+
 #TablaPrincipal,
 #GraficasPrincipales {
     display: inline-block;
@@ -1059,6 +1074,19 @@ hr {
     }
     #UltimasBusquedas {
         display: none;
+    }
+    #C {
+        padding: 0px;
+    }
+    #DivReporte {
+        padding: 0px;
+        margin: 0px;
+        border-radius: 0px;
+    }
+    .ContenedorDeReporte {
+        padding: 0px;
+        margin: 0px;
+        border-radius: 0px;
     }
 }
 

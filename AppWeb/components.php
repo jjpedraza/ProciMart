@@ -1471,7 +1471,7 @@ if($WSConF = $WSCon -> fetch_array())
                     );
                 
                     // var_dump( $jsonIterator);
-                    $tabla= "<table  id='".$IdTabla."' width=100% border=0 class='".$ClaseTabla."'>";          
+                    $tabla= "<table  id='".$IdTabla."' width=100% border=0 class=' row-border  responsive nowrap ".$ClaseTabla."'>";          
                     $tabla_content = ""; $tabla_th = "";  
                     $row=0; $rowC = 0;
                     $limit = 0 ; foreach ($jsonIterator as $key => $val) {
@@ -1494,16 +1494,20 @@ if($WSConF = $WSCon -> fetch_array())
                         } else {
                             if ($row < $limit){
                                 if ($rowC == 0){$tabla_th.="<tr>";}                            
-                                if ($rowC == 0){
-                                    $tabla_th.="<td style='background-color:".Preference("ColorResaltado", "", "").";'>".$key."</td>"; //cambiar th por td para datatable
-                                } else {
-                                    if ($rowC == ($limit-1)){
-                                        $tabla_th.="<td style='background-color:".Preference("ColorPrincipal", "", "").";'>".$key."</td>"; //cambiar th por td para datatable
-                                    } else {
-                                        $tabla_th.="<td>".$rowC."=".$key."</td>"; //cambiar th por td para datatable
-                                    }
-                                    
-                                }
+           
+                                
+                            $tabla_th.="<td";
+                            if ($FixedColLeft>0 and ($rowC+1)<=$FixedColLeft){
+                                $tabla_th.= " style='background-color:".Preference("ColorResaltado", "", "")."; opacity:0.7;' ";
+                            } 
+
+                            if ($FixedColRight>0 and $rowC==($limit - ($FixedColRight) ) ){
+                                $tabla_th.= " style='background-color:".Preference("ColorSecundario", "", "")."; opacity:0.7;' ";
+                            }
+                            
+                            $tabla_th.=">";
+                            $tabla_th.=$key.""; 
+                            $tabla_th.="</td>";
                                 
                             }                        
                         $rowC = $rowC + 1;
@@ -1577,10 +1581,12 @@ if($WSConF = $WSCon -> fetch_array())
                     
                     
                     }                                       
-                    $tabla.=$tabla_th."<tbody class='".$ClaseTabla."'>".$tabla_content."</tbody></table>";     // tabla constuida a partir del ws
+                    $tabla.=$tabla_th."<tbody class=' ".$ClaseTabla."'>".$tabla_content."</tbody></table>";     // tabla constuida a partir del ws
                     // echo $tabla;
                     //Escribimos en el dom
-                    echo "<div id='".$IdDiv."' class='".$ClaseDiv."'>".ReporteEncabezado($id_rep).$tabla.ReporteFooter($id_rep)."</div>";
+                    
+                    echo "<div id='".$IdDiv."' class='".$ClaseDiv."'>".ReporteEncabezado($id_rep).                    
+                    $tabla.ReporteFooter($id_rep)."</div>";
                     
                     
 
@@ -1596,15 +1602,63 @@ if($WSConF = $WSCon -> fetch_array())
                                     "language": {
                                         "decimal": ",",
                                         "thousands": "."
-                                    },
+                                    }
+                                    ';
+
+                                    if ($FixedColLeft >0 || $FixedColRight > 0){
+                                        echo ',fixedColumns:   {';
+                                            if ($FixedColLeft >0 ){
+                                                echo 'leftColumns: '.$FixedColLeft.'';
+                                            } 
+                                            
+                                            if ($FixedColLeft >0  and $FixedColRight > 0){
+                                                echo ',';
+                                            }
+                                            
+
+                                            if ($FixedColRight >0 ){
+                                                echo 'rightColumns: '.$FixedColRight.'';
+                                            }
+
+                                    }
+
+                                    if ($FixedColLeft >0 || $FixedColRight > 0){
+                                        echo '}';
+
+                                    }
+
                                     
-                                   
-                                    fixedColumns:   {
-                                        leftColumns: 1,
-                                        rightColumns: 1
+                                $Botones = "
+                                dom: 'Bfrtip',
+                                buttons: [
+                                    {
+                                        extend:    'copyHtml5',
+                                        text:      '<i class=\"fa fa-files-o\"></i>',
+                                        titleAttr: 'Copy'
                                     },
+                                    {
+                                        extend:    'excelHtml5',
+                                        text:      '<i class=\"fa fa-file-excel-o\"></i>',
+                                        titleAttr: 'Excel'
+                                    },
+                                    {
+                                        extend:    'csvHtml5',
+                                        text:      '<i class=\"fa fa-file-text-o\"></i>',
+                                        titleAttr: 'CSV'
+                                    },
+                                    {
+                                        extend:    'pdfHtml5',
+                                        text:      '<i class=\"fa fa-file-pdf-o\"></i>',
+                                        titleAttr: 'PDF'
+                                    }
+                                ]
+                                ";
+                 
+                                echo '
                                     
-                                    responsive: true
+                                    ,responsive: true
+                                    ,'.$Botones.'
+                                    
                                  
 
                                 } );
@@ -2566,6 +2620,31 @@ function UltimasBusquedas($IdUser){
     }
 
 }
+
+function UltimasBusquedas_buble($IdUser){
+    require("rintera-config.php");	    
+    $sql = "select DISTINCT Search from search where IdUser = '".$IdUser."' order by IdSearch DESC limit 10";
+    // echo $sql;
+    $rx = $db0->query($sql);    
+    if ($db0->query($sql) == TRUE){
+        echo "<div id='UltimasBusquedas_buble'>";
+        
+        while($fx= $rx -> fetch_array()) {  
+           
+            echo "<a class='Buble'  style='background-color:".Preference("ColorSecundario", "", "").";'           
+            href='index.php?q=".$fx['Search']."' title='haga clic aqui para realizar esta busqueda'>".$fx['Search']."</a>";
+            
+        }
+        
+        echo "</div>";
+        
+
+    } else {
+        
+    }
+
+}
+
 
 
 

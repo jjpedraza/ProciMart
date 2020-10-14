@@ -165,10 +165,23 @@ echo "
 
             
     }
+    
     // Search();
     </script>
 
-";?>
+";
+if (isset($_GET['q'])){
+    if ($_GET['q']<>''){
+        echo '
+        <script>
+            Search();
+        </script>
+        ';
+    }
+}
+?>
+
+<a href='#DivModal' rel=MyModal:open onclick='URLModal(1)' class='icon'><img src='icons/check3.png'></a>
 
 
 

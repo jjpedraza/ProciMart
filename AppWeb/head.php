@@ -30,6 +30,7 @@ require ("components.php");
     <!-- JQUERY -->
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
 
+    
     <!-- BOOTSTRAP -->
     <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">    
@@ -37,9 +38,25 @@ require ("components.php");
     
     <!-- DATATABLE -->
     <script src="lib/datatables.min.js"></script>
-    <script src="lib/dataTables.fixedColumns.min.js"></script>
+    <!-- <script src="lib/jquery.dataTables.min.js"></script> -->
+    <script src="lib/dataTables.fixedColumns.min.js"></script>    
+    <script src="lib/dataTables.buttons.min.js"></script>    
+    <script src="lib/jszip.min.js"></script>    
+    <script src="lib/pdfmake.min.js"></script>    
+    <script src="lib/vfs_fonts.js"></script>    
+    <script src="lib/buttons.html5.min.js"></script>    
     
-    <link rel="stylesheet" href="lib/datatables.min.css">    
+   
+    
+    
+    <link rel="stylesheet" href="lib/jquery.dataTables.min.css">    
+    <link rel="stylesheet" href="lib/buttons.dataTables.min.css">    
+    
+    <!-- fontawesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">    
+
+    
+   
 
 
     <!-- TOAST -->

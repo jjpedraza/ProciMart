@@ -61,6 +61,16 @@ require("components.php");
             -moz-box-shadow: 1px 7px 13px 1px rgba(0, 0, 0, 0.75);
             box-shadow: 1px 7px 13px 1px rgba(0, 0, 0, 0.75);
         }
+
+        @media only screen and (max-width:600px) {
+            #Login {
+                width:100%;
+                left:0px;
+                top:0px;
+                border-radius:0px;
+                height:100%;
+            }
+        }
     </style>
 </head>
 
