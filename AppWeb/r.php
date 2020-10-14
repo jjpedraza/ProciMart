@@ -173,6 +173,12 @@ $ClaseDiv  = "ContenedorDeReporte"; $ClaseTabla = "";
             if (isset($_POST['var1_str'])){$Parametros.= "".$_POST['var1_str'];}
             if (isset($_POST['var2_str'])){$Parametros.= ", ".$_POST['var2_str'];}
             if (isset($_POST['var3_str'])){$Parametros.= ", ".$_POST['var3_str'];}
+
+            if (isset($_GET['var1_str'])){$Parametros.= "".$_GET['var1_str'];}
+            if (isset($_GET['var2_str'])){$Parametros.= ", ".$_GET['var2_str'];}
+            if (isset($_GET['var3_str'])){$Parametros.= ", ".$_GET['var3_str'];}
+
+
             if ($Parametros == ''){
                 Historia($RinteraUser, "Reporte", "No encontro informacion del reporte ".$id_rep."");
             } else {

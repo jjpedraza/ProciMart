@@ -181,9 +181,9 @@ if (isset($_GET['q'])){
 }
 ?>
 
-<a href='#DivModal' rel=MyModal:open onclick='URLModal(1)' class='icon'><img src='icons/check3.png'></a>
+<!-- <a href='#DivModal' rel=MyModal:open onclick='URLModal(1)' class='icon'><img src='icons/check3.png'></a> -->
 
-
+<a href="app_detalles.php?id=1&amp;tipo=AROMA&amp;var1=1" rel="MyModal:open" class="icon"><img src="icons/info.png"></a>
 
 <?php
 

@@ -4,15 +4,19 @@
     Ip= "192.168.159.7"    
     Instance = "DCCENTRAL"         
     DbPort="1433"
-    DbName ="Creditos_Victoria"
+    DbName ="Procimart"
+    ' DbUser = "user_web"
+    ' DbPassword = "dw=[web!9F5kp];"
+
     DbUser = "itv_dba"
     DbPassword = "818t3m41t4vu"
     Token = "Pr0C1M4rt" 'Esta es la contraseña para que accedan al webservice
 '-----------------------------------------------------------------------
 '----------------------------------------------------------------------
 ' http://localhost/ws_procimart.asp?method=GET&token=Pr0C1M4rt&sql=select%20@@version
+' http://192.168.159.11/ws_procimart.asp?method=GET&token=Pr0C1M4rt&sql=select%20@@version
 '========================================================================
-    
+    Call Response.AddHeader("Access-Control-Allow-Origin", "*")
      Mode = Request.QueryString("method")
      if Mode = "GET" then       
          SQLsolicitado = Request.QueryString("sql")
@@ -25,31 +29,66 @@
 
      end if
      
-
+       
     if (Token = ElToken) then
             CadenaDeConeccion = "PROVIDER=SQLOLEDB;DATA SOURCE=" & Ip & "\" & Instance & ";UID=" & DbUser & ";PWD=" & DbPassword & ";DATABASE=" & DbName
+             on error resume next
             Set cnnSolicitada = Server.CreateObject("ADODB.Connection")                    
             cnnSolicitada.Errors.Clear()
             cnnSolicitada.ConnectionTimeout = 0                    
             cnnSolicitada.CommandTimeout = 0 
             cnnSolicitada.open CadenaDeConeccion        
+               
+               set rsSolcitada=cnnSolicitada.Execute(SQLsolicitado) 
+                ' dim objErr
+                ' set objErr=Server.GetLastError()
 
-                set rsSolcitada=cnnSolicitada.Execute(SQLsolicitado) 
-                if not rsSolcitada.eof then
-                    ' Response.ContentType = "text/html"
-                    Response.CodePage = 65001
-                    Response.CharSet = "UTF-8"                                           
-                    Response.ContentType = "application/json"                         
-                    response.Write "" & JSONData(rsSolcitada, "") & "" 
-                else
+                ' response.write("ASPCode=" & objErr.ASPCode)
+                ' response.write("<br>")
+                ' response.write("ASPDescription=" & objErr.ASPDescription)
+                ' response.write("<br>")
+                ' response.write("Category=" & objErr.Category)
+                ' response.write("<br>")
+                ' response.write("Column=" & objErr.Column)
+                ' response.write("<br>")
+                ' response.write("Description=" & objErr.Description)
+                ' response.write("<br>")
+                ' response.write("File=" & objErr.File)
+                ' response.write("<br>")
+                ' response.write("Line=" & objErr.Line)
+                ' response.write("<br>")
+                ' response.write("Number=" & objErr.Number)
+                ' response.write("<br>")
+                ' response.write("Source=" & objErr.Source)
+                
+                
+                if Err.number = 0 then
+                    if not rsSolcitada.eof then
+                        ' Response.ContentType = "text/html"
+                        Response.CodePage = 65001
+                        Response.CharSet = "UTF-8"                                           
+                        Response.ContentType = "application/json"                         
+                        response.Write "" & JSONData(rsSolcitada, "") & "" 
+                    else
+                        Response.CodePage = 65001
+                        Response.CharSet = "UTF-8"                            
+                        response.ContentType = "application/json"
+                        data = ""
+                        data = data & "[{"
+                        data = data &  """" & "r" & """" & ":""" & "Sin resultados"  & """"
+                        data = data & "}]"
+                        response.Write (data)
+                    end if
+                else 
                     Response.CodePage = 65001
                     Response.CharSet = "UTF-8"                            
                     response.ContentType = "application/json"
                     data = ""
                     data = data & "[{"
-                    data = data &  """" & "r" & """" & ":""" & "Sin resultados"  & """"
+                    data = data &  """" & "r" & """" & ":""" & "Error de Consulta"   & """"
                     data = data & "}]"
                     response.Write (data)
+
                 end if
 
 

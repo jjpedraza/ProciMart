@@ -613,21 +613,42 @@ function DescripcionReporte($id_rep){
     if($f = $r -> fetch_array())
     {
         $LaDescripcion = $f['rep_description'].". ";
-        if (isset($_POST['var1_str'])){
-            $LaDescripcion.= "".$f['var1_label']."=".$_POST['var1_str'].". ";
-            
-        }
+        if (isset($_GET['var1'])){
+            if (isset($_GET['var1'])){
+                $LaDescripcion.= "".$f['var1_label']."=".$_GET['var1'].". ";
+                
+            }
+    
+            if (isset($_GET['var2'])){
+                $LaDescripcion.= "".$f['var2_label']."=".$_GET['var2']."." ;
+                
+            }
+    
+    
+            if (isset($_GET['var3'])){
+                $LaDescripcion.= "".$f['var3_label']."=".$_POST['var3'].". ";
+                
+            }
 
-        if (isset($_POST['var2_str'])){
-            $LaDescripcion.= "".$f['var2_label']."=".$_POST['var2_str']."." ;
-            
+        } else {
+            if (isset($_POST['var1_str'])){
+                $LaDescripcion.= "".$f['var1_label']."=".$_POST['var1_str'].". ";
+                
+            }
+    
+            if (isset($_POST['var2_str'])){
+                $LaDescripcion.= "".$f['var2_label']."=".$_POST['var2_str']."." ;
+                
+            }
+    
+    
+            if (isset($_POST['var3_str'])){
+                $LaDescripcion.= "".$f['var3_label']."=".$_POST['var3_str'].". ";
+                
+            }
+    
         }
-
-
-        if (isset($_POST['var3_str'])){
-            $LaDescripcion.= "".$f['var3_label']."=".$_POST['var3_str'].". ";
-            
-        }
+        
         return " ".$LaDescripcion."";
     } else {
         return "FALSE";
@@ -1109,8 +1130,9 @@ function TableToPDF($TablaHTML, $IdUser, $titulo, $descripcion, $PageSize, $orie
             if ($this->PageSize == "0"){ //Configuracion CARTA
                 if ($this->orientacion == 'L') { //horizontal CARTA						
                     $image_file = K_PATH_IMAGES.'../../../../img/Logo.png';
-                    $icono = K_PATH_IMAGES.'user.png';		
-                    $this->Image($image_file, 15, 7, 30, '', 'PNG', '', 'T', false, 300, '', false, false, 0, false, false, false);
+                    $icono = K_PATH_IMAGES.'user.png';
+                    $widthLogo = Preference("LogoPDFWidth", "", "");		
+                    $this->Image($image_file, 15, 7, $widthLogo, '', 'PNG', '', 'T', false, 300, '', false, false, 0, false, false, false);
                     $this->SetFont('helvetica', 'B', 10);
                     $LogitudTitulo=150;
                     $this->Text(57, 7, ''.substr($this->titulo,0,$LogitudTitulo).""); 
@@ -1123,8 +1145,9 @@ function TableToPDF($TablaHTML, $IdUser, $titulo, $descripcion, $PageSize, $orie
     
                 } else { //VERTICAL CARTA
                     $image_file = K_PATH_IMAGES.'../../../../img/Logo.png';
-                    $icono = K_PATH_IMAGES.'user.png';		
-                    $this->Image($image_file, 15, 7, 40, '', 'PNG', '', 'T', false, 300, '', false, false, 0, false, false, false);
+                    $icono = K_PATH_IMAGES.'user.png';	
+                    $widthLogo = Preference("LogoPDFWidth", "", "");			
+                    $this->Image($image_file, 15, 7, $widthLogo, '', 'PNG', '', 'T', false, 300, '', false, false, 0, false, false, false);
                     $this->SetFont('helvetica', 'B', 10);
                     $LogitudTitulo=100;
                     $this->Text(57, 7, ''.substr($this->titulo,0,$LogitudTitulo).""); 
@@ -1140,7 +1163,8 @@ function TableToPDF($TablaHTML, $IdUser, $titulo, $descripcion, $PageSize, $orie
                 if ($this->orientacion == 'L') { //horizontal OFICIO.
                     $image_file = K_PATH_IMAGES.'../../../../img/Logo.png';
                     $icono = K_PATH_IMAGES.'user.png';		
-                    $this->Image($image_file, 15, 7, 40, '', 'PNG', '', 'T', false, 300, '', false, false, 0, false, false, false);
+                    $widthLogo = Preference("LogoPDFWidth", "", "");			
+                    $this->Image($image_file, 15, 7, $widthLogo, '', 'PNG', '', 'T', false, 300, '', false, false, 0, false, false, false);
                     $this->SetFont('helvetica', 'B', 10);
                     $LogitudTitulo=220;
                     $this->Text(57, 7, ''.substr($this->titulo,0,$LogitudTitulo).""); 
@@ -1154,7 +1178,8 @@ function TableToPDF($TablaHTML, $IdUser, $titulo, $descripcion, $PageSize, $orie
                 } else { //VERTICAL OFICIO
                     $image_file = K_PATH_IMAGES.'../../../../img/Logo.png';
                     $icono = K_PATH_IMAGES.'user.png';		
-                    $this->Image($image_file, 15, 7, 40, '', 'PNG', '', 'T', false, 300, '', false, false, 0, false, false, false);
+                    $widthLogo = Preference("LogoPDFWidth", "", "");			
+                    $this->Image($image_file, 15, 7, $widthLogo, '', 'PNG', '', 'T', false, 300, '', false, false, 0, false, false, false);
                     $this->SetFont('helvetica', 'B', 10);
                     $LogitudTitulo=100;
                     $this->Text(57, 7, ''.substr($this->titulo,0,$LogitudTitulo).""); 
@@ -1319,7 +1344,41 @@ function DataFromSQLSERVERTOJSON($id_rep, $Tipo, $ClaseTabla, $ClaseDiv, $IdUser
 require("rintera-config.php");	
 $Query = QueryReporte($id_rep);
     // echo "Query = ".$Query."<br>";
+    if (isset($_GET['var1'])){
+        if (isset($_GET['var1'])){
+            $var1_str = VarClean($_GET['var1']);
+            $Query = str_replace("{var1}", $var1_str, $Query); //actualizamos la consulta
+        }
 
+        if (isset($_GET['var2'])){
+            $var2_str = VarClean($_GET['var2']);
+            $Query = str_replace("{var2}", $var2_str, $Query); //actualizamos la consulta
+        }
+
+        if (isset($_GET['var3'])){
+            $var3_str = VarClean($_GET['var3']);
+            $Query = str_replace("{var3}", $var3_str, $Query); //actualizamos la consulta
+        }
+    }
+
+    if (isset($_POST['var1_str'])){    
+        
+        if (isset($_POST['var1_str'])){
+            $var1_str = VarClean($_POST['var1_str']);
+            $Query = str_replace("{var1}", $var1_str, $Query); //actualizamos la consulta
+        }
+
+        if (isset($_POST['var2_str'])){
+            $var2_str = VarClean($_POST['var2_str']);
+            $Query = str_replace("{var2}", $var2_str, $Query); //actualizamos la consulta
+        }
+
+        if (isset($_POST['var3_str'])){
+            $var3_str = VarClean($_POST['var3_str']);
+            $Query = str_replace("{var3}", $var3_str, $Query); //actualizamos la consulta
+        }
+    }
+// echo $Query;
 $IdCon = IdConReporte($id_rep); 
     // echo "IdCon=".$IdCon."<br>";
 
@@ -1657,6 +1716,8 @@ if($WSConF = $WSCon -> fetch_array())
                                 echo '
                                     
                                     ,responsive: true
+                                   
+                                    
                                     ,'.$Botones.'
                                     
                                  
@@ -2064,21 +2125,41 @@ function DataFromMySQL($ClaseDiv, $ClaseTabla, $Tipo, $IdUser,$id_rep){
     require("rintera-config.php");	
     $Query = QueryReporte($id_rep); 
     
+    if (isset($_GET['var1'])){
+        if (isset($_GET['var1'])){
+            $var1_str = VarClean($_GET['var1']);
+            $Query = str_replace("{var1}", $var1_str, $Query); //actualizamos la consulta
+        }
+
+        if (isset($_GET['var2'])){
+            $var2_str = VarClean($_GET['var2']);
+            $Query = str_replace("{var2}", $var2_str, $Query); //actualizamos la consulta
+        }
+
+        if (isset($_GET['var3'])){
+            $var3_str = VarClean($_GET['var3']);
+            $Query = str_replace("{var3}", $var3_str, $Query); //actualizamos la consulta
+        }
+    }
+
     if (isset($_POST['var1_str'])){
-        $var1_str = VarClean($_POST['var1_str']);
-        $Query = str_replace("{var1}", $var1_str, $Query); //actualizamos la consulta
-    }
+    
+        
+        if (isset($_POST['var1_str'])){
+            $var1_str = VarClean($_POST['var1_str']);
+            $Query = str_replace("{var1}", $var1_str, $Query); //actualizamos la consulta
+        }
 
-    if (isset($_POST['var2_str'])){
-        $var2_str = VarClean($_POST['var2_str']);
-        $Query = str_replace("{var2}", $var2_str, $Query); //actualizamos la consulta
-    }
+        if (isset($_POST['var2_str'])){
+            $var2_str = VarClean($_POST['var2_str']);
+            $Query = str_replace("{var2}", $var2_str, $Query); //actualizamos la consulta
+        }
 
-    if (isset($_POST['var3_str'])){
-        $var3_str = VarClean($_POST['var3_str']);
-        $Query = str_replace("{var3}", $var3_str, $Query); //actualizamos la consulta
+        if (isset($_POST['var3_str'])){
+            $var3_str = VarClean($_POST['var3_str']);
+            $Query = str_replace("{var3}", $var3_str, $Query); //actualizamos la consulta
+        }
     }
-
     // echo $Query;
     echo "<script>$('#FormVar').hide();</script>";
     // echo "Query = ".$Query."<br>";
@@ -2290,9 +2371,15 @@ if ($Con_Val == TRUE){
         } else {
             $Con_Msg .= "<br><br><br><p>No se han encontrado resultados!. Intentelo nuevamente con otro criterio</p>";
             $Parametros = "";
+         
             if (isset($_POST['var1_str'])){$Parametros.= "".$_POST['var1_str'];}
             if (isset($_POST['var2_str'])){$Parametros.= ", ".$_POST['var2_str'];}
             if (isset($_POST['var3_str'])){$Parametros.= ", ".$_POST['var3_str'];}
+
+            if (isset($_GET['var1_str'])){$Parametros.= "".$_GET['var1_str'];}
+            if (isset($_GET['var2_str'])){$Parametros.= ", ".$_GET['var2_str'];}
+            if (isset($_GET['var3_str'])){$Parametros.= ", ".$_GET['var3_str'];}
+
             if ($Parametros == ''){
                 Historia($IdUser, "Reporte", "No encontro informacion del reporte ".$id_rep."");
             } else {
@@ -2348,7 +2435,7 @@ function Reporte($id_rep, $Tipo, $ClaseDiv, $ClaseTabla, $IdUser ){
             case 2:  //MSQLSERVERTOJSON      
                 
                 // $Data =  DataFromSQLSERVERTOJSON($IdCon, $Tipo,$ClaseTabla,$ClaseDiv, $IdUser);
-                $Data =  DataFromSQLSERVERTOJSON($id_rep, $Tipo, $ClaseTabla, $ClaseDiv, $IdUser);
+                $Data =  DataFromSQLSERVERTOJSON($id_rep, $Tipo, $ClaseTabla, $ClaseDiv, $IdUser, );
                 break;
             
         }
@@ -2725,7 +2812,7 @@ if($WSConF = $WSCon -> fetch_array())
         $context = stream_context_create($opciones);            
         $archivo_web = file_get_contents($url, false, $context);            
         $data = json_decode($archivo_web);
-        var_dump($archivo_web);
+        // var_dump($opciones);
        
                 $tabla = "";                  
                 // //Recorrido del contenido
@@ -3377,4 +3464,52 @@ return $BorderColor.$BackgroundColor;
     //     'rgba(153, 102, 255, 1)',
     //     'rgba(255, 159, 64, 1)'
     // ],
+
+
+
+function ReporteTipo($id_rep){
+    require("rintera-config.php");   
+    // var_dump($dbUser);
+    $sql = "select * from reportes WHERE id_rep ='".$id_rep."'";        
+    
+    $r= $db0 -> query($sql);
+    if($f = $r -> fetch_array())
+    {
+        return $f['out_type'];
+    } else {
+        return "FALSE";
+    }
+        
 }
+}
+
+
+function Procimart_ClaveProducto($Producto){
+    require("rintera-config.php");   
+    // var_dump($dbUser);
+    $sql = "select * from cat_idproducto WHERE Tipo ='".$Producto."'";            
+    $r= $db0 -> query($sql);
+    if($f = $r -> fetch_array())
+    {
+        return $f['IdProducto'];
+    } else {
+        return "";
+    }
+        
+}
+
+function ClaveDelProducto_id_rep($IdProducto){
+    require("rintera-config.php");   
+    // var_dump($dbUser);
+    $sql = "select * from cat_idproducto WHERE IdProducto ='".$IdProducto."'";            
+    $r= $db0 -> query($sql);
+    if($f = $r -> fetch_array())
+    {
+        return $f['id_rep'];
+    } else {
+        return "";
+    }
+        
+}
+
+

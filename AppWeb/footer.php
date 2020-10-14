@@ -1,5 +1,7 @@
 <div id='R' style='display:none;'></div>
-<div id='DivModal' class='Mymodal'></div>
+
+
+
 <script>
     
 function URLModal(id) {
@@ -9,5 +11,8 @@ var $dialog = $('#DivModal')
 } 
 
 </script>
+
+
+<div id='DivModal' class='modal' style='display:none;'></div>
 </body> </html>
 
