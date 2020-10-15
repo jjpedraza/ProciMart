@@ -31,6 +31,68 @@
     src: url("OpenSans-ExtraBold.ttf") format("truetype")
 }
 
+#Dashboard {
+    background-color: #ffffff5c;
+    margin: 4px;
+    border-radius: 5px;
+}
+
+#DashboardCol1,
+#DashboardCol2 {
+    display: inline-block;
+    padding: 5px;
+    border-radius: 5px;
+    border: solid 1px silver, margin: 5px;
+}
+
+#DashboardCol1 {
+    width: 75%;
+}
+
+#DashboardCol2 {
+    width: 20%;
+}
+
+#DetallesTitulo,
+#DetallesInfo {
+    display: inline-block;
+    vertical-align: top;
+    padding: 5px;
+    margin: 10px;
+}
+
+#DetallesTitulo {
+    width: 60%;
+}
+
+#DetallesTitulo .Tit {
+    font-size: 20pt;
+}
+
+#DetallesTitulo .Sub {
+    font-size: 13pt;
+}
+
+#DetallesInfo {
+    width: 30%;
+}
+
+#DetallesTabla td {
+    border: 1px solid #dddbdb;
+}
+
+#DetallesTabla td:nth-child(odd) td {
+    background: #921c1c;
+    padding: 5px;
+    opacity: 0.8;
+}
+
+#DetallesTabla td:nth-child(even) td {
+    background: white;
+    padding: 5px;
+    opacity: 0.8;
+}
+
 .icon img {
     width: 13px;
 }
@@ -45,18 +107,6 @@
 #UltimasBusquedas_buble {
     width: 100%;
 }
-
-#TablaPrincipal,
-#GraficasPrincipales {
-    display: inline-block;
-    padding: 5px;
-    border-radius: 5px;
-    border: solid 1px silver, margin: 5px;
-}
-
-#TablaPrincipal {}
-
-#GraficasPrincipales {}
 
 .btnMaximizar {
     width: 20px;
@@ -685,6 +735,7 @@ body {
     /*background-image: url('https://source.unsplash.com/random/1920x1080/?nature');*/
     /* background-image: url('../../w4llp4p3r/?q=huesitos'); */
     background-size: cover;
+    /* background-blend-mode: screen; */
     text-align: center;
 }
 
@@ -724,6 +775,25 @@ hr {
 }
 
 .btn-Default:active {
+    box-shadow: 0 0 #797979;
+    top: 6px;
+}
+
+.btn-Light {
+    background-color: #d4d4d4;
+    color: gray;
+    font-family: "Regular";
+    box-shadow: 0 3px #797979;
+    text-shadow: 0px 0px 0px rgba(0, 0, 0, 0.6)
+}
+
+.btn-Light:hover {
+    box-shadow: 0 1px #797979;
+    background-color: #d4d4d4;
+    top: 2px;
+}
+
+.btn-Light:active {
     box-shadow: 0 0 #797979;
     top: 6px;
 }
@@ -1087,6 +1157,23 @@ hr {
         padding: 0px;
         margin: 0px;
         border-radius: 0px;
+    }
+    #DetallesTitulo {
+        width: 100%;
+        padding: 3px;
+        margin: 0px;
+        border-radius: 0px;
+    }
+    #DetallesInfo {
+        width: 100%;
+        padding: 3px;
+        margin: 0px;
+        border-radius: 0px;
+    }
+    #DashboardCol1,
+    #DashboardCol2 {
+        width: 100%;
+        margin: 0px;
     }
 }
 

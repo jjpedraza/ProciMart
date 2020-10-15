@@ -85,6 +85,7 @@ if (Preference("MostrarApps", "", "")=='TRUE'){
     <section id="MisApp" >
     ';
    
+   
     echo '
 
     </section>
@@ -102,16 +103,56 @@ if (Preference("MostrarApps", "", "")=='TRUE'){
 }
 ?>
 
-<div id='DashBoard'>
-    <div id="TablaPrincipal"  style="width: 70%;">
-    
+<div id='Dashboard'>
+    <div id="DashboardCol1"  >
+        <?php
+        // $QueryG = "select DISTINCT a.fecha as Fecha,
+        // (select count(*) from historia where fecha = a.fecha) as Actividad
+        // from historia a";
+        // $rF= $db0 -> query($QueryG);    
+        // $Datas = 0; $Labels="";
+        // while($Fr = $rF -> fetch_array()) {   
+        //     $Datas.= $Fr['Actividad'].", ";
+        //     $Labels.="'".$Fr['Fecha']."',";
+        // }
+        // unset($rf);unset($Fr);
+        // $Datas = substr($Datas, 0, -1); //quita la ultima coma.
+        // $Labels = substr($Labels, 0, -1); //quita la ultima coma.
+
+        //     echo '<div style="" class="Graficas">';
+        //     GraficaBar($Labels,$Datas,"Uso de Esta App");
+        //     echo '</div>';
+        ?>
 
     
     </div>
 
-    <div id="GraficasPrincipales" style="width: 28%;">
-    Gracias
+    <div id="DashboardCol2" >
     
+
+    <?php
+     $rF= $db0 -> query("select * from reportes where Portada=1");    
+     $repos = 0; $repolist="";
+     while($Fr = $rF -> fetch_array()) {   
+         $repolist.= "<a href='r.php?id=".$Fr['id_rep']."' title='Haga Clic aqui para ver el reporte' class='btn btn-Light'
+         style='
+            background-color: #e6e6e6;
+            color: #625f5f;
+            width: 100%;
+            font-size: 10pt;
+            text-align:left;
+         '
+         >".$Fr['rep_name']."</a><br><br>";
+         $repos = $repos + 1;
+     }
+    
+     unset($rf);unset($Fr);
+     if ($repos > 0 ){
+         echo "<h6 style='font-size: 8pt;
+         opacity: 0.6;'>Recomendados</h6>";
+         echo $repolist;
+     }
+    ?>
     </div>
 
 
@@ -120,6 +161,7 @@ if (Preference("MostrarApps", "", "")=='TRUE'){
 </div>
 
 <?php
+UltimasBusquedas_buble($RinteraUser);
 
 if (UserAdmin($RinteraUser) == TRUE) {
     if (Preference("NuevosReportes", "", "")=='TRUE'){
@@ -156,7 +198,9 @@ echo "
                 },
             success: function(data){
                 $('#Resultados').html(data);
+                
                 $('#PreloaderBuscando').hide();
+                $('#Dashboard').hide();
             }
             });
         
@@ -175,6 +219,7 @@ if (isset($_GET['q'])){
         echo '
         <script>
             Search();
+            $("#Dashboard").hide();
         </script>
         ';
     }

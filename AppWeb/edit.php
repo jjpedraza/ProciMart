@@ -961,7 +961,7 @@ Estadistica del Reporte
                 
                 echo "<tr>";
                 echo "<td width=50px>";
-                    echo "<img src='https://plataformaitavu.tamaulipas.gob.mx/ws/fotos/".$fe['IdUser'].".jpg' class='FotoUser'>";
+                    echo $fe['IdUser'];
                 echo "</td>";
                 echo "<td>".fecha_larga($fe['fecha'])."</td>";
                 echo "<td>".hora12($fe['hora'])."</td>";

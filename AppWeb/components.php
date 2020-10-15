@@ -1465,7 +1465,7 @@ if($WSConF = $WSCon -> fetch_array())
                 );
             
                 // var_dump( $jsonIterator);
-                $tabla= "<table id='".$IdTabla."'  width=100% border=0 class='".$ClaseTabla."'>";          
+                $tabla= "<table id='".$IdTabla."'  width=100% border=0 class=' ".$ClaseTabla."' >";          
                 $tabla_content = ""; $tabla_th = "";  
                 $row=0; $rowC = 0;
                 $limit = 0 ; foreach ($jsonIterator as $key => $val) {
@@ -1530,7 +1530,7 @@ if($WSConF = $WSCon -> fetch_array())
                     );
                 
                     // var_dump( $jsonIterator);
-                    $tabla= "<table  id='".$IdTabla."' width=100% border=0 class=' row-border  responsive nowrap ".$ClaseTabla."'>";          
+                    $tabla= "<table  id='".$IdTabla."' width=100% border=0 class=' ".$ClaseTabla."'>";          
                     $tabla_content = ""; $tabla_th = "";  
                     $row=0; $rowC = 0;
                     $limit = 0 ; foreach ($jsonIterator as $key => $val) {
@@ -2124,6 +2124,8 @@ if($WSConF = $WSCon -> fetch_array())
 function DataFromMySQL($ClaseDiv, $ClaseTabla, $Tipo, $IdUser,$id_rep){
     require("rintera-config.php");	
     $Query = QueryReporte($id_rep); 
+    $FixedColLeft = ReporteFixedColLeft($id_rep);
+    $FixedColRight = ReporteFixedColRight($id_rep);
     
     if (isset($_GET['var1'])){
         if (isset($_GET['var1'])){
@@ -2188,12 +2190,14 @@ function DataFromMySQL($ClaseDiv, $ClaseTabla, $Tipo, $IdUser,$id_rep){
 
     
 $Con_IdCon = IdConReporte($id_rep);
+
  include("con_init.php");
 
 if ($Con_Val == TRUE){    
     // echo $Query;
+    // var_dump($Con_Msg);
     if ($r = $LaConeccion -> query($Query)){
-        // var_dump($LaConeccion);
+        
         // var_dump($Query);
         if($f = $r -> fetch_array()){
         
@@ -2254,13 +2258,74 @@ if ($Con_Val == TRUE){
                     echo '<script>
                             $(document).ready(function() {
                                 $("#'.$IdTabla.'").DataTable( {
-                                    "scrollX": true,
+                                    "scrollX":        false,
+                                    "scrollY":        false,                                                                  
                                     "scrollCollapse": true,
                                     "paging":         true,
                                     "language": {
                                         "decimal": ",",
                                         "thousands": "."
                                     }
+                                    ';
+
+                                    if ($FixedColLeft >0 || $FixedColRight > 0){
+                                        echo ',fixedColumns:   {';
+                                            if ($FixedColLeft >0 ){
+                                                echo 'leftColumns: '.$FixedColLeft.'';
+                                            } 
+                                            
+                                            if ($FixedColLeft >0  and $FixedColRight > 0){
+                                                echo ',';
+                                            }
+                                            
+
+                                            if ($FixedColRight >0 ){
+                                                echo 'rightColumns: '.$FixedColRight.'';
+                                            }
+
+                                    }
+
+                                    if ($FixedColLeft >0 || $FixedColRight > 0){
+                                        echo '}';
+
+                                    }
+
+                                    
+                                $Botones = "
+                                dom: 'Bfrtip',
+                                buttons: [
+                                    {
+                                        extend:    'copyHtml5',
+                                        text:      '<i class=\"fa fa-files-o\"></i>',
+                                        titleAttr: 'Copy'
+                                    },
+                                    {
+                                        extend:    'excelHtml5',
+                                        text:      '<i class=\"fa fa-file-excel-o\"></i>',
+                                        titleAttr: 'Excel'
+                                    },
+                                    // {
+                                    //     extend:    'csvHtml5',
+                                    //     text:      '<i class=\"fa fa-file-text-o\"></i>',
+                                    //     titleAttr: 'CSV'
+                                    // },
+                                    // {
+                                    //     extend:    'pdfHtml5',
+                                    //     text:      '<i class=\"fa fa-file-pdf-o\"></i>',
+                                    //     titleAttr: 'PDF'
+                                    // }
+                                ]
+                                ";
+                 
+                                echo '
+                                    
+                                    ,responsive: true
+                                   
+                                    
+                                    ,'.$Botones.'
+                                    
+                                 
+
                                 } );
                             } );
                             </script>';
@@ -2413,6 +2478,7 @@ include("con_close.php");
 
 function Reporte($id_rep, $Tipo, $ClaseDiv, $ClaseTabla, $IdUser ){
     require("rintera-config.php");	
+    $ClaseTabla = "tabla table-striped table-hover";
     $IdCon = IdConReporte($id_rep);
     $ConType = ConType($IdCon);
 
@@ -3513,3 +3579,105 @@ function ClaveDelProducto_id_rep($IdProducto){
 }
 
 
+
+
+
+function Google_images($palabra, $clase, $img){
+$palabra= str_replace(" ", "+", $palabra);	
+// $url="http://www.google.com.mx/search?q=$palabra&source=lnms&tbm=isch&sa=X&ved=0ahUKEwiJs5L4hcPWAhXBLSYKHR9qDGAQ_AUICigB&biw=1680&bih=941";
+$url ="https://www.google.com.mx/search?q=$palabra&tbm=isch&tbs=isz:l&hl=es-419&sa=X&ved=0CAEQpwVqFwoTCPCI39iCt-wCFQAAAAAdAAAAABAC&biw=1663&bih=936";
+$html = file_get_contents($url);
+$doc = new DOMDocument();
+@$doc->loadHTML($html);
+$tags = $doc->getElementsByTagName('href');
+$n= 1;
+
+foreach ($tags as $tag) {
+			$img = $tag->getAttribute('src'); //echo "<img src='$img'>"."<br>";	
+			if (strlen($img)>4){
+				$ext = substr($img,-3);
+				//if (($ext <> 'gif') and ($ext <> 'png')){
+					$srcs[$n]=$img;
+
+					$n= $n+1;
+				//	}
+			}
+	
+}
+$imgs_encontradas = $n;
+$n_rnd =  rand(1, $imgs_encontradas);//seleccionar una en las que se encontro
+
+if ($img=="TRUE"){
+	return "<img title='$n_rnd' value='".$srcs[$n_rnd]."' class='$clase'>"; // la enviamos armada con la clase seleccionada
+	//return "<img src='".$srcs[0]."' class='$clase'>"; // la enviamos armada con la clase seleccionada
+}else{
+	return "".$srcs[$n_rnd].""; 
+}
+
+}
+
+
+
+function Bakcground($Tema){
+    $urlImg = PixaBay($Tema); 
+    echo '
+    <script>
+    $("body").css("background-image", "url('.$urlImg.')"); 
+    $("body").css("backgroundcolor", "#919191"); 
+    $("body").css("background-blend-mode", "screen"); 
+    
+    </script>';
+}
+function PixaBay($busqueda){        
+    $URL = "https://pixabay.com/api/?key=18722653-1de879e03170d4ad7cefea90b&q=$busqueda&image_type=photo&pretty=true&min_width=1024&image_type=foto&page=1";
+    // {
+    //     "total": 4692,
+    //     "totalHits": 500,
+    //     "hits": [
+    //         {
+    //             "id": 195893,
+    //             "pageURL": "https://pixabay.com/en/blossom-bloom-flower-195893/",
+    //             "type": "photo",
+    //             "tags": "blossom, bloom, flower",
+    //             "previewURL": "https://cdn.pixabay.com/photo/2013/10/15/09/12/flower-195893_150.jpg"
+    //             "previewWidth": 150,
+    //             "previewHeight": 84,
+    //             "webformatURL": "https://pixabay.com/get/35bbf209e13e39d2_640.jpg",
+    //             "webformatWidth": 640,
+    //             "webformatHeight": 360,
+    //             "largeImageURL": "https://pixabay.com/get/ed6a99fd0a76647_1280.jpg",
+    //             "fullHDURL": "https://pixabay.com/get/ed6a9369fd0a76647_1920.jpg",
+    //             "imageURL": "https://pixabay.com/get/ed6a9364a9fd0a76647.jpg",
+    //             "imageWidth": 4000,
+    //             "imageHeight": 2250,
+    //             "imageSize": 4731420,
+    //             "views": 7671,
+    //             "downloads": 6439,
+    //             "favorites": 1,
+    //             "likes": 5,
+    //             "comments": 2,
+    //             "user_id": 48777,
+    //             "user": "Josch13",
+    //             "userImageURL": "https://cdn.pixabay.com/user/2013/11/05/02-10-23-764_250x250.jpg",
+    //         },
+    //         {
+    //             "id": 73424,
+    //             ...
+    //         },
+    //         ...
+    //     ]
+    //     }
+    ini_set('max_execution_time', 7000);
+    ini_set('max_execution_time', 0);        
+    $data = file_get_contents($URL);
+    $Response = json_decode($data);
+    $UrlFinal = "";
+    $Imagenes = array();
+    foreach ($Response -> hits as $key => $value) {            
+            $UrlFinal = $value-> largeImageURL."<br>";
+            array_push($Imagenes, $UrlFinal);
+    }
+
+    // var_dump($Imagenes);
+    return $Imagenes[array_rand($Imagenes, 1)];
+}
