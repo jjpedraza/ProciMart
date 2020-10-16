@@ -22,18 +22,18 @@ require("components.php");
     echo '
              
 
-<script src="lib/jquery-3.3.1.js"></script> 
-<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
+        <script src="lib/jquery-3.3.1.js"></script> 
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
 
-<link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.css">
-<link rel="stylesheet" href="lib/jquery.toast.min.css">
-<script type="text/javascript" src="lib/jquery.toast.min.js"></script>
-<link rel="stylesheet" type="text/css" href="lib/datatables.min.css"/> 
-<script type="text/javascript" src="lib/datatables.min.js"></script>
-<script src="lib/jquery.modalpdz.js"></script> 
-<link rel="stylesheet" href="lib/jquery.modalcsspdz.css" />
-<link rel="stylesheet" href="src/default.css" />
-';
+        <link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.css">
+        <link rel="stylesheet" href="lib/jquery.toast.min.css">
+        <script type="text/javascript" src="lib/jquery.toast.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="lib/datatables.min.css"/> 
+        <script type="text/javascript" src="lib/datatables.min.js"></script>
+        <script src="lib/jquery.modalpdz.js"></script> 
+        <link rel="stylesheet" href="lib/jquery.modalcsspdz.css" />
+        <link rel="stylesheet" href="src/default.css" />
+    ';
 
 
     ?>
@@ -90,7 +90,6 @@ require("components.php");
             echo '
                 <div id="Login">
 
-
                 <form class="form-signin" style="text-align:center;" method="POST" action="">
 
                     <h5>Procimart '.UserName($IdUser).'</h5>
@@ -137,7 +136,7 @@ require("components.php");
 
 
     if (isset($_POST['FormLogin'])) {
-
+        error_reporting(E_ALL);
         $txtIdUser = VarClean($_POST['txtIdUser']);
         $txtNIP = VarClean($_POST['txtNIP']);
 
@@ -158,20 +157,24 @@ require("components.php");
 
                     if ($f['NIP'] == $txtNIP) {
 
-                        $IdUser = $f['IdUser'];    // variable de entorno      
+                        $IdUser = $f['IdUser'];    // variable de entorno    
+                        echo "OK";
+                        error_reporting(E_ALL);  
                         session_name($SesionName);
                         session_start();
-                        // session_regenerate_id();    
+                        session_regenerate_id();    
                         // echo "Id: ".session_id();            
 
 
                         $_SESSION['RinteraUser'] = $f['IdUser']; //session		
                         $_SESSION['RinteraUserName'] = $f['UserName']; //session		
                         $RinteraUser = $f['IdUser'];
-                        global $RinteraUser; //generalize       
+                        // global $RinteraUser; //generalize     
+                        
+                        // echo "Sesion=".$_SESSION['RinteraUser']." username=".$_SESSION['RinteraUserName'];
 
-                        Historia($RinteraUser, 'RinteraLogin', 'Acceso Rintera' . InfoEquipo() . '');
-                        SESSION_init(session_id(), $RinteraUser, $SesionName, InfoEquipo(), "");
+                        // Historia($RinteraUser, 'RinteraLogin', 'Acceso Rintera' . InfoEquipo() . '');
+                        // SESSION_init(session_id(), $RinteraUser, $SesionName, InfoEquipo(), "");
 
 
 

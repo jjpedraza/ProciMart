@@ -2,60 +2,27 @@
 //AUTORIZACION PARA WEBSITE DEL USUARIO
 require("rintera-config.php");
 
+// header("Set-Cookie: key=value; path=/; domain=example.org; HttpOnly; SameSite=Lax");
 session_name($SesionName);
-session_start();	
-// echo "id: ".session_id();
-// echo "error: ".$_SESSION['RinteraUser'];
-
-// if (isset($_SESSION['RinteraUser']) <> ''){
-// 	echo "Hay Session";
-// } else {
-// 	echo "NO Hay Session";
-// }
-
+session_start();
+// echo "Session ".$_SESSION['RinteraUser'];	
 
 if (isset($_SESSION['RinteraUser'])){
-
-
-	//SENTINELA DE SESSION
-	$IdSession = session_id();
-	if (SESSION_Validate($IdSession) == TRUE) { //<-- Si la session esta abierta
-
-		//actualizar el id de session
-		$id_sesion_antigua = session_id(); //<-- guardamos el id session actual
-		$RinteraUser = $_SESSION['RinteraUser']; //<-- Guardamos al usuario actual
-		$RinteraUserName = $_SESSION['RinteraUserName'];
-		
-		
-		session_regenerate_id();$id_sesion_nueva = session_id(); //<-- regneramos el id de session		
-		$_SESSION['RinteraUser'] = $RinteraUser; //<- Pasamos los valores a la nueva session
-
-		SESSION_closeRegenerate($id_sesion_antigua); //<-- Cerramos la sessión actual
-		SESSION_initRegenerate($id_sesion_nueva, $RinteraUser, $SesionName, URLActual(), ""); //<-- guardamos la nueva session
-
-
-		//De esta manera la proxima vez que entren a un link detectara si esta activa la session, y si esta activa
-		// la regenera
-		
-
-	} else {
-		$_SESSION = array(); 
-		session_destroy();		
-		unset($RinteraUser);
-		header("location:login.php?info=Sesion Expirada");	
-	}
-
-
-
+	// echo "Si hay session ".$_SESSION['RinteraUser'];
+	session_regenerate_id();
+	$RinteraUser = $_SESSION['RinteraUser'];
+	$RinteraUserName = $_SESSION['RinteraUserName'];
 
 					
 }
 else
 
 {	
-	
+	// echo "Sin session ";
+
 	$_SESSION = array(); session_destroy();		   
 	unset($IdUser);
+
 	if (isset($_GET['IdUser'])){
         $IdUser = VarClean($_GET['IdUser']);
     } else {$IdUser = "";}

@@ -2501,7 +2501,7 @@ function Reporte($id_rep, $Tipo, $ClaseDiv, $ClaseTabla, $IdUser ){
             case 2:  //MSQLSERVERTOJSON      
                 
                 // $Data =  DataFromSQLSERVERTOJSON($IdCon, $Tipo,$ClaseTabla,$ClaseDiv, $IdUser);
-                $Data =  DataFromSQLSERVERTOJSON($id_rep, $Tipo, $ClaseTabla, $ClaseDiv, $IdUser, );
+                $Data =  DataFromSQLSERVERTOJSON($id_rep, $Tipo, $ClaseTabla, $ClaseDiv, $IdUser );
                 break;
             
         }
