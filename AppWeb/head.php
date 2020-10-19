@@ -3,7 +3,10 @@
 require ("rintera-config.php");
 require ("components.php");
     include("seguridad.php");   
-    MiToken_CloseALL($RinteraUser);
+    if (isset($RinteraUser)){
+        MiToken_CloseALL($RinteraUser);
+    }
+    
 
 
 

@@ -146,8 +146,8 @@ box-shadow: inset 0px -36px 13px -31px rgba(0,0,0,0.39);
 
 
     //Validamos si se reseteo el nIp
-    if (UserNIP($RinteraUser) == $RinteraUser) {
-      echo '<script>window.location.replace("nip.php")</script>'; 
-    }
+   //  if (UserNIP($RinteraUser) == $RinteraUser) {
+   //    echo '<script>window.location.replace("nip.php")</script>'; 
+   //  }
 
 ?>

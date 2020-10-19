@@ -2,10 +2,13 @@
 
 
 <?php
-
+    if (isset($RinteraUser)){
     $MiToken = MiToken($RinteraUser, "Search");
     if ($MiToken == '') {
         $MiToken = MiToken_Init($RinteraUser, "Search");
+    }
+    } else {
+     
     }
 
 // echo "Token: ".$MiToken."";

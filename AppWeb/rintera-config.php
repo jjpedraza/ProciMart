@@ -185,11 +185,13 @@ if ($Error ==''){
 
 
 
-
+    //session.auto_start = 0 o 1;  si esta en 1, da error 
+    //Warning: session_name(): Cannot change session name when session is active, al utilizar session_name(); ya que agrega    session_start(); al automaticamente
+    
 
 }
 
 
 
-
+$session_auto_start = 1;
 ?>

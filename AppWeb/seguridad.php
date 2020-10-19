@@ -3,9 +3,11 @@
 require("rintera-config.php");
 
 // header("Set-Cookie: key=value; path=/; domain=example.org; HttpOnly; SameSite=Lax");
-session_name($SesionName);
-session_start();
-// echo "Session ".$_SESSION['RinteraUser'];	
+if ($session_auto_start == 0){
+	session_name($SesionName);
+	session_start();
+}
+// echo "Session ".$_SESSION['RinteraUser']."<br>";	
 
 if (isset($_SESSION['RinteraUser'])){
 	// echo "Si hay session ".$_SESSION['RinteraUser'];

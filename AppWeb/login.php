@@ -158,10 +158,17 @@ require("components.php");
                     if ($f['NIP'] == $txtNIP) {
 
                         $IdUser = $f['IdUser'];    // variable de entorno    
-                        echo "OK";
+                        // echo "OK";
+                            
                         error_reporting(E_ALL);  
-                        session_name($SesionName);
-                        session_start();
+                        // ob_end_clean();  
+                        // var_dump($session_auto_start);
+                        if ($session_auto_start == 0){
+                            session_name($SesionName);
+                            session_start();
+                        }
+                        
+                        
                         session_regenerate_id();    
                         // echo "Id: ".session_id();            
 
