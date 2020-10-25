@@ -166,10 +166,11 @@ require("components.php");
                         if ($session_auto_start == 0){
                             session_name($SesionName);
                             session_start();
+                            session_regenerate_id();    
                         }
                         
                         
-                        session_regenerate_id();    
+                        
                         // echo "Id: ".session_id();            
 
 

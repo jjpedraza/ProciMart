@@ -40,11 +40,11 @@ else
 	if ($id_rep <> '') {
 		$url.="&id_rep=".$id_rep;
 	}
-	if ($url <> '' ){
-		header("location:login.php?".$url);		
-	} else {
-		header("location:login.php");		
-	}
+	// if ($url <> '' ){
+	// 	header("location:login.php?".$url);		
+	// } else {
+	// 	header("location:login.php");		
+	// }
 	
 	
 }
