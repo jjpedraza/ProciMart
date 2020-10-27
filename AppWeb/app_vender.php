@@ -1,13 +1,14 @@
 <?php
 include("head.php");
 include("header.php");
+require("app_funciones.php");
 $IdAceiteLote = VarClean($_GET['id']);
 $IdRegreso = VarClean($_GET['back']);
 $Tipo = VarClean($_GET['tipo']);
 $ClaveDelProducto = Procimart_ClaveProducto($Tipo);
 $ClaveDelProducto_id_rep = ClaveDelProducto_id_rep($ClaveDelProducto);
 $id_rep = $ClaveDelProducto_id_rep; //Consulta para esa clave de producto
-
+// echo $id_rep;
 
 
 $QueryEncabezado = "
@@ -133,31 +134,78 @@ if($WSConF = $WSCon -> fetch_array())
     }
 
 }
-echo "<div style='margin-top:5px; text-align:right; margin-right:5px;'>
+
+//Trae tabla sola, columnas en lineas = 1 reg
+$TipoReporte = 5; $ClaseTabla ="table-striped table-hover"; $ClaseDiv="table container";         
+$Data =  DataFromSQLSERVERTOJSON($id_rep, $TipoReporte, $ClaseTabla, $ClaseDiv, $RinteraUser);
+
+//Trae con option
+$TipoReporte = 6; $ClaseTabla =""; $ClaseDiv="";        
+$ClienteOptions =  DataFromSQLSERVERTOJSON(11, $TipoReporte, $ClaseTabla, $ClaseDiv, $RinteraUser);
+// var_dump($ClienteOptions);
+
+$DetallesDeProducto = $Data;
+$Footer  =  ReporteFooter($id_rep);
+$Titulo = ""."".ReporteEncabezado($id_rep)."";
+$DetallesInfo = $TablaDetaT;
+$BotonRegresar = "<div style='margin-top:5px; text-align:right; margin-right:5px;'>
 <a href='r.php?id=".$IdRegreso."' class='btn btn-secondary' style='font-size:8pt;'><img src='icons/btn_izquierda.png' style='width:18px;'> Regresar</a><br></div>";
-echo "<div id='DetallesTitulo'>";
 
-echo $Der."<br>";
-
-echo "<div  id='DetallesTabla' class='row'style='background-color:white; margin:5px; border-radius:4px; margin-top:15px;
-width:97%;
-display:inline-block;
-
-'>
-        <div class='col-sm'>";
-        $TipoReporte = 1; $ClaseTabla ="table-striped table-hover"; $ClaseDiv="table container";         
-        $Data =  DataFromSQLSERVERTOJSON($id_rep, $TipoReporte, $ClaseTabla, $ClaseDiv, $RinteraUser);
-        echo $Data;
-        echo "</div>";
+echo "<div id='DetallesTitulo' style='
+background-color: #82828224;
+width: 98%;
+border-radius: 5px;
+'>"; 
+echo "<table width=100%><tr>";
+echo "<td>";
+echo "<img src='icons/ofertar.png' style='width:32px;' class='pc'>";
+echo "</td>";
+echo "<td>";
+    echo $Titulo."";
+echo "</td><td width=20% class='pc'>";
+echo $BotonRegresar;
+echo "</td></tr></table>";
 echo "</div>";
 
+
+echo "<div  id='DetallesTabla' class=''style='
+background-color: #f7f7f77d;
+margin: 5px;
+    margin-top: 5px;
+border-radius: 4px;
+margin-top: 15px;
+
+display: inline-block;
+padding: 10px;
+'>";       
+    
+echo "<select id='IdCliente' class='form-control'>";
+echo $ClienteOptions;
+echo "</select>";
+
+
+
+$IdTransaccion = IdTransaccion();
+echo "Ultimo Mov: ".$IdTransaccion;
+
+
 echo "</div>";
 
-echo "<div id='DetallesInfo'>";
 
 
-echo $TablaDetaT;
+echo "<div id='DetallesInfo' style='
+padding: 10px;
+background-color: #a8a8a845;
+border-radius: 5px;
+'>";
+    echo $DetallesInfo;
+    echo "<hr>";
+    echo $DetallesDeProducto;       
 echo "</div>";
+
+
+
+
 
 echo "<div style='font-size:7pt; color:gray;'>Id=".$IdAceiteLote.", Tipo=".$Tipo.", ClaveDelProducto=".$ClaveDelProducto.", idReporte=".$id_rep."</div>";
 

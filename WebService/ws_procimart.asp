@@ -17,6 +17,9 @@
 ' http://192.168.159.11/ws_procimart.asp?method=GET&token=Pr0C1M4rt&sql=select%20@@version
 '========================================================================
     Call Response.AddHeader("Access-Control-Allow-Origin", "*")
+    Response.CodePage = 65001 
+    Response.CharSet = "UTF-8" 
+
      Mode = Request.QueryString("method")
      if Mode = "GET" then       
          SQLsolicitado = Request.QueryString("sql")
@@ -28,15 +31,18 @@
         ElToken = Request.Form("token")
 
      end if
+    
      
+     ' response.write(SQLsolicitado) + "<br>"
        
     if (Token = ElToken) then
             CadenaDeConeccion = "PROVIDER=SQLOLEDB;DATA SOURCE=" & Ip & "\" & Instance & ";UID=" & DbUser & ";PWD=" & DbPassword & ";DATABASE=" & DbName
-             on error resume next
+             ' on error resume next
             Set cnnSolicitada = Server.CreateObject("ADODB.Connection")                    
             cnnSolicitada.Errors.Clear()
             cnnSolicitada.ConnectionTimeout = 0                    
             cnnSolicitada.CommandTimeout = 0 
+            ' cnnSolicitada.CharSet = "UTF-8"
             cnnSolicitada.open CadenaDeConeccion        
                
                set rsSolcitada=cnnSolicitada.Execute(SQLsolicitado) 
@@ -61,7 +67,8 @@
                 ' response.write("<br>")
                 ' response.write("Source=" & objErr.Source)
                 
-                
+                ' Response.write Err.Description
+
                 if Err.number = 0 then
                     if not rsSolcitada.eof then
                         ' Response.ContentType = "text/html"

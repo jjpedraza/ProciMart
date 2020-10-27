@@ -41,7 +41,7 @@ require("components.php");
     <style>
         body {
             background-image: url('img/fondo3.jpg');
-            background-size: 200%;
+            background-size: 150%;
             /* background-color: #919191;
             background-blend-mode: screen; */
 

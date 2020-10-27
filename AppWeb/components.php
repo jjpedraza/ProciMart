@@ -2074,9 +2074,179 @@ if($WSConF = $WSCon -> fetch_array())
         break;
 
 
+        case 5: // Tabla de 1 registro, Las columnas se transfrman en lineas
+            $tabla = "";
+            // //Recorrido del contenido
+            $jsonIterator = new RecursiveIteratorIterator(
+                new RecursiveArrayIterator(json_decode($archivo_web, TRUE)),
+                RecursiveIteratorIterator::SELF_FIRST
+            );
+        
+            // var_dump( $jsonIterator);
+            $tabla= "<table  id='".$IdTabla."' width=100% border=0 class='tabla ".$ClaseTabla."'>";          
+            $tabla_content = ""; $tabla_th = "";  
+            $row=0; $rowC = 0;
+            $limit = 0 ; foreach ($jsonIterator as $key => $val) {
+                if (is_numeric($key)){ //rows
+                // echo $limit."=".$key."=".$val."<br>";
+                $limit = 0;
+                }
+                else {
+                    // echo "*".$limit."=".$key."=".$val."<br>";
+                    $limit = $limit  + 1;
+                }
+                
+            }
+            // echo "limit=".$limit;
+
+            //Construccion de <th>
+            // foreach ($jsonIterator as $key => $val) {
+            //     if (is_numeric($key)){ //rows                        
+            //         $rowC = 0;
+            //     } else {
+            //         if ($row < $limit){
+            //             if ($rowC == 0){$tabla_th.="";}                            
+   
+                        
+            //         $tabla_th.="<tr><td";
+            //         if ($FixedColLeft>0 and ($rowC+1)<=$FixedColLeft){
+            //             $tabla_th.= " style='background-color:".Preference("ColorResaltado", "", "")."; opacity:0.7;' ";
+            //         } 
+
+            //         if ($FixedColRight>0 and $rowC==($limit - ($FixedColRight) ) ){
+            //             $tabla_th.= " style='background-color:".Preference("ColorSecundario", "", "")."; opacity:0.7;' ";
+            //         }
+                    
+            //         $tabla_th.=">";
+            //         $tabla_th.=$key.""; 
+            //         $tabla_th.="</td>";
+                    
+                    
+            //         $tabla_th.="<td>";
+            //         $tabla_th.=$val.""; 
+            //         $tabla_th.="</td></tr>";
+                    
+            //         }                        
+            //     $rowC = $rowC + 1;
+            //     $row = $row + 1;
+            //     }
+            // }
+            // $tabla_th =  "<thead>".$tabla_th."</tr></thead>";
+            // echo "<table border=1>".$tabla_th."</table>";
+            $row =1; $rowC = 1;
+            
+            // echo "limit=".$limit."<hr>";
+            foreach ($jsonIterator as $key => $val) {
+                
+                if (is_numeric($key)){ //rows                        
+                    // $rowC = 1;
+                }
+                else {           
+                    
+                    if ($rowC == 1){
+                        $tabla_content.=""; 
+                        // echo "---".$limit."<br>";
+                    }
+                    // echo "rowC=".$rowC."(".$row.")<br>";
+                    // $tabla_content.="<td>".$row."(".$rowC.")".$val."</td>";    
+                   
+
+                  
+                    
+
+                    $tabla_content.="<td align=right>";
+                    $tabla_content.=$key.""; 
+                    $tabla_content.="</td>";
+                    
+                    $tabla_content.="<td align=left>";
+                    $tabla_content.=$val.""; 
+                    $tabla_content.="</td></tr>";
+                    
+                    
+                     
+                    // if (ReporteFixedColRight($id_rep)>0){
+                    //         if ($rowC == ($limit)){
+                    //             $tabla_content.="<td style='background-color:".Preference("ColorPrincipal", "", "")."; opacity:0.7;'>".$val."</td>"; //cambiar th por td para datatable
+                    //         } else {
+                    //             $tabla_content.="<td>".$val."</td>"; //cambiar th por td para datatable
+                    //         }
+                    //     } else {
+                    //         $tabla_content.="<td>".$val."</td>"; //cambiar th por td para datatable
+                    //     }
+                        
+                        
+                    // }
+
+                    // $tabla_content.="<td>".$val."</td>";                  
+                    if ($rowC == $limit){
+                        // $tabla_content.="</tr>";
+                        $rowC = 1;
+                        //  echo "===".$limit."<br>"; 
+                    
+                    }  else {
+                        $rowC = $rowC + 1;       
+                    }  
+                    
+                       
+                    
+                    $row = $row + 1;
+                
+                }
+                
+            
+            
+            }                                       
+            $tabla.=$tabla_th."<tbody class=' ".$ClaseTabla."'>".$tabla_content."</tbody></table>";     // tabla constuida a partir del ws
+            // echo $tabla;
+            //Escribimos en el dom
+            
+            // $tabla.= "<div id='".$IdDiv."' class='".$ClaseDiv."'>".ReporteEncabezado($id_rep).                    
+            // $tabla.= ReporteFooter($id_rep)."</div>";
+
+            return $tabla;
+            
+        
+        break;
 
 
 
+        case 6: // select (options)
+            $r = "";
+            // //Recorrido del contenido
+            $jsonIterator = new RecursiveIteratorIterator(
+                new RecursiveArrayIterator(json_decode($archivo_web, TRUE)),
+                RecursiveIteratorIterator::SELF_FIRST
+            );
+        
+            // var_dump( $jsonIterator);
+            $row=0; $rowC = 0;
+            $limit = 0 ; foreach ($jsonIterator as $key => $val) {
+                if (is_numeric($key)){ //rows
+                // echo $limit."=".$key."=".$val."<br>";
+                $limit = 0;
+                }
+                else {
+                    
+
+                    if ($key == "value"){
+                        $r.="<option value='".$val."'>";
+                    } 
+                    if ($key == "data"){
+                        $r.=$val."</    option>";
+                    } 
+                    
+                    
+                    
+                    // $r.= "<option>".$key."</option>";
+                    $limit = $limit  + 1;
+                }
+                
+            }
+            
+            return $r;
+            
+
+        break;
 
 
 

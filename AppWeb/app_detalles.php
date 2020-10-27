@@ -133,31 +133,58 @@ if($WSConF = $WSCon -> fetch_array())
     }
 
 }
-echo "<div style='margin-top:5px; text-align:right; margin-right:5px;'>
+
+
+$TipoReporte = 5; $ClaseTabla ="table-striped table-hover"; $ClaseDiv="table container";         
+$Data =  DataFromSQLSERVERTOJSON($id_rep, $TipoReporte, $ClaseTabla, $ClaseDiv, $RinteraUser);
+
+$DetallesDeProducto = $Data;
+$Footer  =  ReporteFooter($id_rep);
+$Titulo = ""."".ReporteEncabezado($id_rep)."";
+$DetallesInfo = $TablaDetaT;
+$BotonRegresar = "<div style='margin-top:5px; text-align:right; margin-right:5px;'>
 <a href='r.php?id=".$IdRegreso."' class='btn btn-secondary' style='font-size:8pt;'><img src='icons/btn_izquierda.png' style='width:18px;'> Regresar</a><br></div>";
-echo "<div id='DetallesTitulo'>";
 
-echo $Der."<br>";
-
-echo "<div  id='DetallesTabla' class='row'style='background-color:white; margin:5px; border-radius:4px; margin-top:15px;
-width:97%;
-display:inline-block;
-
-'>
-        <div class='col-sm'>";
-        $TipoReporte = 1; $ClaseTabla ="table-striped table-hover"; $ClaseDiv="table container";         
-        $Data =  DataFromSQLSERVERTOJSON($id_rep, $TipoReporte, $ClaseTabla, $ClaseDiv, $RinteraUser);
-        echo $Data;
-        echo "</div>";
+echo "<div id='DetallesTitulo' style='
+background-color: #82828224;
+width: 98%;
+border-radius: 5px;
+'>"; 
+echo "<table width=100%><tr><td>"   ;
+    echo $Titulo."";
+echo "</td><td width=20%>";
+echo $BotonRegresar;
+echo "</td></tr></table>";
 echo "</div>";
 
+
+echo "<div  id='DetallesTabla' class=''style='
+background-color: #f7f7f77d;
+margin: 5px;
+    margin-top: 5px;
+border-radius: 4px;
+margin-top: 15px;
+
+display: inline-block;
+padding: 10px;
+'>";       
+    echo $DetallesDeProducto;        
 echo "</div>";
 
-echo "<div id='DetallesInfo'>";
 
 
-echo $TablaDetaT;
+echo "<div id='DetallesInfo' style='
+padding: 10px;
+background-color: #a8a8a845;
+border-radius: 5px;
+'>";
+    echo $DetallesInfo;
 echo "</div>";
+
+
+
+
+
 
 echo "<div style='font-size:7pt; color:gray;'>Id=".$IdAceiteLote.", Tipo=".$Tipo.", ClaveDelProducto=".$ClaveDelProducto.", idReporte=".$id_rep."</div>";
 
