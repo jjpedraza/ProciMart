@@ -22,6 +22,7 @@ function IdTransaccion(){
 
 
 function Transaccion_UltimoMov(){
+    require("rintera-config.php");
     $sql = "
 	select 
 	case when (select count(*) from ControlDeTransacciones a WHERE Año = year(getdate()) AND mes = MONTH(getdate())) = 1 then 
@@ -33,8 +34,9 @@ function Transaccion_UltimoMov(){
     
     ";
     // echo "<hr>".$sql;
-    $url = "https://plataformaitavu.tamaulipas.gob.mx/ws/ws_procimart.php";    
-    $token = "Pr0C1M4rt";
+    $url = $url_;
+    
+    $token = $token_;
     //Peticion
     $myObj = new stdClass;
     $myObj->token = $token;
@@ -76,6 +78,7 @@ function Transaccion_UltimoMov(){
 }
 
 function Transaccion_Insert(){
+    require("rintera-config.php");
     // $UltimoMov = Transaccion_UltimoMov();
     // $SiguienteMov = $UltimoMov + 1;
     // $SiguienteMov4zero =  str_pad($SiguienteMov, 4, '0', STR_PAD_LEFT);
@@ -90,8 +93,8 @@ function Transaccion_Insert(){
             
     ";
     // echo "<hr>".$sql;
-    $url = "https://plataformaitavu.tamaulipas.gob.mx/ws/ws_procimart.php";    
-    $token = "Pr0C1M4rt";
+    $url = $url_;
+    $token = $token_;
     //Peticion
     $myObj = new stdClass;
     $myObj->token = $token;
@@ -136,6 +139,7 @@ function Transaccion_Insert(){
 
 
 function Transaccion_Actualizar(){
+    require("rintera-config.php");
     $UltimoMov = Transaccion_UltimoMov();
     $SiguienteMov = $UltimoMov + 1;
     $SiguienteMov4zero =  str_pad($SiguienteMov, 4, '0', STR_PAD_LEFT);
@@ -149,8 +153,8 @@ function Transaccion_Actualizar(){
             
     ";
     // echo "<hr>".$sql;
-    $url = "https://plataformaitavu.tamaulipas.gob.mx/ws/ws_procimart.php";    
-    $token = "Pr0C1M4rt";
+    $url = $url_;
+    $token = $token_;
     //Peticion
     $myObj = new stdClass;
     $myObj->token = $token;

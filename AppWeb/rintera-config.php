@@ -5,6 +5,10 @@ $fecha = date('Y-m-d');
 $hora =  date ("H:i:s");
 $SesionName="R1nT3r4";
 
+$session_auto_start = 1;
+$url_ =  "https://plataformaitavu.tamaulipas.gob.mx/ws/ws_procimart.php"; 
+$token_ = "Pr0C1M4rt";
+
 require_once("preference.php");
 // require_once("components.php");
 //CONEXION DE LA BASE DE DATOS DE RINTERA	
@@ -193,5 +197,6 @@ if ($Error ==''){
 
 
 
-$session_auto_start = 1;
+
+
 ?>

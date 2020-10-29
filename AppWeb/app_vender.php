@@ -37,7 +37,7 @@ $QueryEncabezado = "
 $IdCon = 2;
 $WSSQL = "select * from dbs where IdCon='".$IdCon."' AND Active=1 AND ConType =2"; //SQLSERVERTOJSON
 $WSCon = $db0 -> query($WSSQL);
-
+$Produccion = 0;
 if($WSConF = $WSCon -> fetch_array())
 {
     if ($WSConF['wsurl'] <>'' &&  $WSConF['wsmethod']<>'' && $WSConF['wsjson']<>'' )    
@@ -114,6 +114,9 @@ if($WSConF = $WSCon -> fetch_array())
                         
                         break;
                 }
+                if ($key=='Produccion'){
+                    $Produccion = $val;
+                }
                 
                    
                     
@@ -141,7 +144,7 @@ $Data =  DataFromSQLSERVERTOJSON($id_rep, $TipoReporte, $ClaseTabla, $ClaseDiv, 
 
 //Trae con option
 $TipoReporte = 6; $ClaseTabla =""; $ClaseDiv="";        
-$ClienteOptions =  DataFromSQLSERVERTOJSON(11, $TipoReporte, $ClaseTabla, $ClaseDiv, $RinteraUser);
+$ClienteOptions =  DataFromSQLSERVERTOJSON(11, $TipoReporte, $ClaseTabla, $ClaseDiv, $RinteraUser)."<option value='' selected></opcion>";
 // var_dump($ClienteOptions);
 
 $DetallesDeProducto = $Data;
@@ -179,14 +182,59 @@ display: inline-block;
 padding: 10px;
 '>";       
     
-echo "<select id='IdCliente' class='form-control'>";
-echo $ClienteOptions;
-echo "</select>";
-
-
-
 $IdTransaccion = IdTransaccion();
-echo "Ultimo Mov: ".$IdTransaccion;
+echo "
+<div class='form-group'>
+<label>IdTransaccion: </label><br>
+<input type='text' id='IdTransaccion' name='IdTransaccion' value='".$IdTransaccion."' class='form-control disable ' readonly>
+</div>
+
+
+";
+
+echo "
+<div class='form-group'>
+<label>Cliente: </label><br>
+<select id='IdCliente' class='form-control'>";
+echo $ClienteOptions;
+echo "</select>
+</div>
+";
+
+echo "
+<div class='form-groupMid'>
+<table width=100% ><tr><td algin=right valing=top>
+<label>";
+echo "<img src='icons/calendar.png' style='width:22px'>";
+echo "</label></td><td align=left valign=top>
+<input type='date' id='Fecha' name='Fecha' class='form-control' value='";
+echo $fecha;
+echo "'> ";
+
+echo "</td></tr></table>
+</div>
+";
+
+
+echo "<input type='hidden' id='Produccion' value='".$Produccion."'>";
+echo "
+<div class='form-groupMid'>
+<table width=100% ><tr><td algin=right  valign=top>
+<label>";
+echo "<img src='icons/productos.png' style='width:18px'>";
+echo "<label><span id='LProduccion' title='Produccion' style='cursor:pointer'>".$Produccion."</span>";
+echo "</label></td><td align=left valign=top>
+<input type='number' id='Cantidad' name='Cantidad' class='form-control' value='0'  min='1' max='".$Produccion."'>";
+echo "</td></tr></table>
+</div>
+";
+
+
+
+
+
+
+
 
 
 echo "</div>";
@@ -210,6 +258,19 @@ echo "</div>";
 echo "<div style='font-size:7pt; color:gray;'>Id=".$IdAceiteLote.", Tipo=".$Tipo.", ClaveDelProducto=".$ClaveDelProducto.", idReporte=".$id_rep."</div>";
 
 
+?>
 
+
+<script>
+$("#Cantidad").bind('keyup mouseup', function () {
+    Cantidad = $('#Cantidad').val();
+    Produccion =  $('#Produccion').val();
+    PreInventario = Produccion - Cantidad;
+    $('#LProduccion').html(PreInventario)      
+});
+
+
+</script>
+<?php
 include("footer.php");
 ?>

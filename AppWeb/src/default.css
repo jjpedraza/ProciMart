@@ -31,6 +31,29 @@
     src: url("OpenSans-ExtraBold.ttf") format("truetype")
 }
 
+#LabelProduccion {
+    background-color: #ffa50094;
+    color: white;
+    border-radius: 2px;
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+.form-groupMid {
+    width: 30%;
+    display: inline-block;
+    vertical-align: top;
+    margin: 4px;
+}
+
+.form-group {
+    width: 40%;
+    display: inline-block;
+    vertical-align: top;
+    margin: 4px;
+    margin-bottom: 4px;
+}
+
 .DetallesInfo {
     padding: 12px;
     background-color: #ffffff85;
@@ -87,9 +110,6 @@
     padding: 10px;
     width: 60%;
     vertical-align: top;
-}
-#DetallesTabla td {
-    border: 1px solid #dddbdb;
 }
 #DetallesTabla td:nth-child(odd) td {
     background: #921c1c;
@@ -956,8 +976,20 @@ hr {
         margin: 0px;
         border-radius: 0px;
     }
+    
+    .form-group {
+        width: 95%;
+    }
+    
+    .form-groupMid {
+        width: 30%;
+    }
 }
 @media only screen and (max-width:600px) {
+    .form-groupMid {
+        width: 40%;
+    }
+    
     #Resultados {
         width: 100%;
         margin-bottom: 20px;
@@ -1112,6 +1144,10 @@ hr {
     #DashboardCol2 {
         width: 100%;
         margin: 0px;
+    }
+    
+    .form-group {
+        width: 95%;
     }
 }
 :root {
