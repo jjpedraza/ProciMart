@@ -1,16 +1,179 @@
 <?php
 ob_start();
+require("app_funciones.php");
+require("components.php");
+require("rintera-config.php");
+$IdLote = VarClean($_GET['IdLote']);
+$sqlCertificado = "select * from Aceites_COA_Certificados where Convert(varchar(max),Batch,103) = '".$IdLote."'";
 
-require_once('lib/pdf/tcpdf.php');
 
 $hoy = date("F j, Y");
 
-$material = 'Essential Oil # 223-M';
-$lotnumber = '021/8019PM';
-$supplier = 'PROCIMART S.A. de C.V.';
-$dateofManufacture = 'August 02, 2020';
-$dateofManufacture = $hoy;
-$dateofExpiration = $hoy;
+$IdCon = 2;
+$WSSQL = "select * from dbs where IdCon='".$IdCon."' AND Active=1 AND ConType =2"; //SQLSERVERTOJSON
+$WSCon = $db0 -> query($WSSQL);
+$Produccion = 0;
+if($WSConF = $WSCon -> fetch_array())
+{
+    if ($WSConF['wsurl'] <>'' &&  $WSConF['wsmethod']<>'' && $WSConF['wsjson']<>'' )    
+    {
+        $WSurl = $WSConF['wsurl'];
+        $WSmethod = $WSConF['wsmethod'];
+        $WSjson = $WSConF['wsjson'];
+        $WSparametros = $WSConF['parametros'];
+
+        $wsP1_id = $WSConF['wsP1_id'];  $wsP1_value = $WSConF['wsP1_value'];
+        $wsP2_id = $WSConF['wsP2_id'];  $wsP2_value = $WSConF['wsP2_value'];
+        $wsP3_id = $WSConF['wsP3_id'];  $wsP3_value = $WSConF['wsP3_value'];
+        $wsP4_id = $WSConF['wsP4_id'];  $wsP4_value = $WSConF['wsP4_value'];
+        $WS_Val = TRUE;        
+        $url = $WSurl;            
+        $sql = $sqlCertificado;
+        $token = $wsP1_value;
+
+        //Peticion
+        $myObj = new stdClass;
+        $myObj->token = $token;
+        $myObj->sql = $sqlCertificado;
+        $myJSON = json_encode($myObj,JSON_UNESCAPED_SLASHES);
+        
+        $datos_post = http_build_query(
+            $myObj
+        );
+
+        $opciones = array('http' =>
+            array(
+                'method'  => 'POST',
+                'header'  => 'Content-type: application/x-www-form-urlencoded',
+                'content' => $datos_post
+            )
+        );
+        ini_set('max_execution_time', 7000);
+        ini_set('max_execution_time', 0);
+        $context = stream_context_create($opciones);            
+        $archivo_web = file_get_contents($url, false, $context);                    
+        $data = json_decode($archivo_web);
+        // var_dump($opciones);
+
+        $jsonIterator = new RecursiveIteratorIterator(
+            new RecursiveArrayIterator(json_decode($archivo_web, TRUE)),
+            RecursiveIteratorIterator::SELF_FIRST
+        );
+
+        $TablaDeta = "";
+        $row = 0;    
+        foreach ($jsonIterator as $key => $val) {
+            if (is_numeric($key)){ //rows                        
+                $rowC = 0;
+            } else {
+                echo $key." = ".$val."<br>";
+           
+                if ($key == "CertificateType" and $val=="Certificado_General"){
+                    $Certificado_General = "pdfProcimart1.php";
+                }
+
+                if ($key == "CertificateType" and  $val=="Certificado_CocaCola"){
+                    $Certificado_CocaCola = "pdfProcimart2.php";
+                }
+
+                if ($key == "NameOfProduct") {
+                    $material = $val;
+                }
+
+                if ($key == "Batch") {
+                    $lotnumber = $val;
+                }
+                           
+                $supplier = 'PROCIMART S.A. de C.V.';
+
+                if ($key == "ProductionDate") {
+                    $dateofManufacture = $val;
+                }
+
+                if ($key == "ExpiryDate") {
+                    $dateofExpiration = $val;
+                }
+
+                // //RESULTADOS
+                if ($key == "Aldheydes") {
+                    $aldheydesR = $val." % ";
+                }
+                
+                if ($key == "GasCromatogram") {
+                    $gasR = $val." ";
+                }
+               
+                if ($key == "OpticalRotation") {
+                    $opticalR = $val." ";
+                }
+
+                if ($key == "RefractiveIndex") {
+                    $refractiveR = $val." ";
+                }
+
+                if ($key == "SpecificGravity") {
+                    $gravityR = $val." ";
+                }
+
+                if ($key == "AlcoholSolubility") {
+                    $alcoholR = $val." ";
+                }
+
+                if ($key == "ColdHaze") {
+                    $coldhazeR = $val." ";
+                }
+
+                if ($key == "Appearance") {
+                    $apperanceR = $val." ";
+                }
+
+                if ($key == "TasteAndOdor") {
+                    $tasteR = $val." ";
+                }
+
+                if ($key == "ErWeight") {
+                    $erweightR = $val." ";
+                }
+                
+                
+               
+                // $comments = '';
+
+                // //ESPECIFICACIONES
+                // $aldheydesS = '2.2 to 3.8 %';
+                // $gasS = '-';
+                // $opticalS = '57.0 to 65.6';
+                // $refractiveS = '1.473 to 1.476';
+                // $gravityS = '0.849 to 0.855';
+                // $alcoholS = 'Pass';
+                // $coldhazeS = 'Pass';
+                // $apperanceS = 'Clear';
+                // $tasteS = 'Characteristic';
+                // $erweightS = '-';
+
+                // //FIRMAS
+                // $submittedby  = 'Marco Gutiérrez Castillo';
+                
+            
+           
+            $row = $row + 1;    
+        }
+         
+        }
+    }
+
+}
+
+
+
+
+require_once('lib/pdf/tcpdf.php');
+// $material = 'Essential Oil # 223-M';
+// $lotnumber = '021/8019PM';
+// $supplier = 'PROCIMART S.A. de C.V.';
+// $dateofManufacture = 'August 02, 2020';
+// $dateofManufacture = $hoy;
+// $dateofExpiration = $hoy;
 
 //RESULTADOS
 $aldheydesR = '2.34%';

@@ -1,30 +1,236 @@
 <?php
+
+
+require("app_funciones.php");
+require("components.php");
+require("rintera-config.php");
+$IdLote = VarClean($_GET['IdLote']);
+$sqlCertificado = "select * from Aceites_COA_Certificados where Convert(varchar(max),Batch,103) = '".$IdLote."'";
+
+
+$hoy = date("F j, Y");
+
+$IdCon = 2;
+$WSSQL = "select * from dbs where IdCon='".$IdCon."' AND Active=1 AND ConType =2"; //SQLSERVERTOJSON
+$WSCon = $db0 -> query($WSSQL);
+$Produccion = 0;
+if($WSConF = $WSCon -> fetch_array())
+{
+    if ($WSConF['wsurl'] <>'' &&  $WSConF['wsmethod']<>'' && $WSConF['wsjson']<>'' )    
+    {
+        $WSurl = $WSConF['wsurl'];
+        $WSmethod = $WSConF['wsmethod'];
+        $WSjson = $WSConF['wsjson'];
+        $WSparametros = $WSConF['parametros'];
+
+        $wsP1_id = $WSConF['wsP1_id'];  $wsP1_value = $WSConF['wsP1_value'];
+        $wsP2_id = $WSConF['wsP2_id'];  $wsP2_value = $WSConF['wsP2_value'];
+        $wsP3_id = $WSConF['wsP3_id'];  $wsP3_value = $WSConF['wsP3_value'];
+        $wsP4_id = $WSConF['wsP4_id'];  $wsP4_value = $WSConF['wsP4_value'];
+        $WS_Val = TRUE;        
+        $url = $WSurl;            
+        $sql = $sqlCertificado;
+        $token = $wsP1_value;
+
+        //Peticion
+        $myObj = new stdClass;
+        $myObj->token = $token;
+        $myObj->sql = $sqlCertificado;
+        $myJSON = json_encode($myObj,JSON_UNESCAPED_SLASHES);
+        
+        $datos_post = http_build_query(
+            $myObj
+        );
+
+        $opciones = array('http' =>
+            array(
+                'method'  => 'POST',
+                'header'  => 'Content-type: application/x-www-form-urlencoded',
+                'content' => $datos_post
+            )
+        );
+        ini_set('max_execution_time', 7000);
+        ini_set('max_execution_time', 0);
+        $context = stream_context_create($opciones);            
+        $archivo_web = file_get_contents($url, false, $context);                    
+        $data = json_decode($archivo_web);
+        // var_dump($opciones);
+
+        $jsonIterator = new RecursiveIteratorIterator(
+            new RecursiveArrayIterator(json_decode($archivo_web, TRUE)),
+            RecursiveIteratorIterator::SELF_FIRST
+        );
+
+        $TablaDeta = "";
+        $row = 0;    
+        foreach ($jsonIterator as $key => $val) {
+            if (is_numeric($key)){ //rows                        
+                $rowC = 0;
+            } else {
+                // echo $key." = ".$val."<br>";
+           
+                if ($key == "CertificateType" and $val=="Certificado_General"){
+                    $Certificado_General = "pdfProcimart1.php";
+                }
+
+                if ($key == "CertificateType" and  $val=="Certificado_CocaCola"){
+                    $Certificado_CocaCola = "pdfProcimart2.php";
+                }
+
+                if ($key == "NameOfProduct") {
+                    $material = $val;
+                }
+
+                if ($key == "Batch") {
+                    $batch = $val;
+                      // $batch = 'LPACT01/19';
+                }
+                           
+                $supplier = 'PROCIMART S.A. de C.V.';
+
+                if ($key == "ProductionDate") {
+                    $productiondate = $val;
+                }
+
+                if ($key == "ExpiryDate") {
+                    $expirydate = $val;
+                }
+
+                // //RESULTADOS
+                if ($key == "Aldheydes") {
+                    if ($val == ''){
+                        $aldheydes = $val." N/A";
+                    } else {
+                        $aldheydes = $val." % ";
+                    }
+                }
+                
+                if ($key == "GasCromatogram") {
+                    $gascromatogram = $val." ";
+                }
+               
+                if ($key == "OpticalRotation") {
+                    $opticalrotation = $val." ";
+                }
+
+                if ($key == "RefractiveIndex") {
+                    $refractive = $val." ";
+                }
+
+                if ($key == "SpecificGravity") {
+                    $gravity = $val." ";
+                }
+
+                if ($key == "AlcoholSolubility") {
+                    $alcohol = $val." ";
+                }
+
+                if ($key == "ColdHaze") {
+                    $coldhaze = $val." ";
+                }
+
+                if ($key == "Appearance") {
+                    $appearance = $val." ";
+                }
+
+                if ($key == "TasteAndOdor") {
+                    $taste = $val." ";
+                }
+
+                if ($key == "ErWeight") {
+                    $erweight = $val." ";
+                }
+                
+                if ($key == "GallDrum") {
+                    if ($val == ''){
+                        $galldrum = $val."N/A";
+                    } else {
+                        $galldrum = $val." ";
+                    }
+                    
+                }
+                
+                if ($key == "NetWeigth") {
+                    if ($val == ''){
+                        $netweight = $val."N/A";
+                    } else {
+                        $netweight = $val." ";
+                    }
+                    
+                }
+                
+                             
+                if ($key == "ToDrum") {
+                    if ($val == ''){
+                        $todrum = $val."N/A";
+                    } else {
+                        $todrum = $val." ";
+                    }
+                    
+                }
+                
+
+                if ($key == "OfDrum") {
+                    if ($val == ''){
+                        $ofdrum = $val."N/A";
+                    } else {
+                        $ofdrum = $val." ";
+                    }
+                    
+                }
+                
+              
+                if ($key == "NDrums") {
+                    if ($val == ''){
+                        $ndrums = $val."N/A";
+                    } else {
+                        $ndrums = $val." ";
+                    }
+                    
+                }
+              
+                if ($key == "Additives") {
+                    if ($val == ''){
+                        $additives = $val."N/A";
+                    } else {
+                        $additives = $val." ";
+                    }
+                    
+                }
+                
+            
+                if ($key == "QualityAssurance") {
+                    
+                        $QualityAssurance  = $val;
+                    
+                    
+                }
+              
+              
+              
+             
+                
+               
+              
+            
+            
+           
+           
+            $row = $row + 1;    
+        }
+         
+        }
+    }
+
+}
+
+
+
 ob_start();
 require_once('lib/pdf/tcpdf.php');
 
 
 $hoy = date("F j, Y");
-
-$productiondate = $hoy;
-$expirydate = 'June 31, 2019';
-$batch = 'LPACT01/19';
-$galldrum = 'N/A';
-$netweight = '10,500';
-$ofdrum = '01';
-$todrum = '60';
-$ndrums = '60';
-$additives = 'Absent';
-$aldheydes = '4.57%';
-$gascromatogram = '-';
-$opticalrotation = '-';
-$refractive = '1.4842';
-$gravity = '0.8817';
-$alcohol = 'N/A';
-$coldhaze = 'N/A';
-$appearance = 'Characteristic';
-$taste = 'Characteristic';
-$erweight = '11.33';
-
 
 
 $orientacion='P';
@@ -133,10 +339,10 @@ $tabla = $tabla.'<table style="vertical-align:top" cellspacing="0" cellpadding="
     <td style="border-bottom:1pt solid black;"></td>
 </tr>
 <tr>
-    <td>Marco Antonio Gutiérrez</td>
+    <td>'.$QualityAssurance.'</td>
 </tr>
 <tr>
-    <td>Quality Assurance</td>
+    <td> Quality Assurance</td>
 </tr>
 <tr>
     <td>PROCIMART S.A. de C.V.</td>

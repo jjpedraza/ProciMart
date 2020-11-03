@@ -195,4 +195,11 @@ function Transaccion_Actualizar(){
     // return $r;
 }
 
+function ProductosMov(){
+    require("rintera-config.php");
+    $r= $db0 -> query("select * from dbs where Active=1");    
+    while($finfo = $r -> fetch_array()) {   
+        echo "<option value='".$finfo['IdCon']."'>".$finfo['ConName']."</opion>";
+    }
+}
 ?>
