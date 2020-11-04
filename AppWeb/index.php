@@ -109,28 +109,121 @@ if (Preference("MostrarApps", "", "")=='TRUE'){
 <div id='Dashboard'>
     <div id="DashboardCol1"  >
         <?php
-        // $QueryG = "select DISTINCT a.fecha as Fecha,
-        // (select count(*) from historia where fecha = a.fecha) as Actividad
-        // from historia a";
-        // $rF= $db0 -> query($QueryG);    
-        // $Datas = 0; $Labels="";
-        // while($Fr = $rF -> fetch_array()) {   
-        //     $Datas.= $Fr['Actividad'].", ";
-        //     $Labels.="'".$Fr['Fecha']."',";
-        // }
-        // unset($rf);unset($Fr);
-        // $Datas = substr($Datas, 0, -1); //quita la ultima coma.
-        // $Labels = substr($Labels, 0, -1); //quita la ultima coma.
+        $QueryG = "select DISTINCT a.IdClienteName,
+        (select count(*) from productosmov WHERE IdClienteName = a.IdClienteName) as Count
+        from productosmov a WHERE IdAdjudicacion ='VENTA'";
+        $rF= $db0 -> query($QueryG);    
+        $Datas = 0; $Labels="";
+        while($Fr = $rF -> fetch_array()) {   
+            $Datas.= $Fr['Count'].", ";
+            $Labels.="'".$Fr['IdClienteName']."',";
+        }
+        unset($rf);unset($Fr);
+        $Datas = substr($Datas, 0, -1); //quita la ultima coma.
+        $Labels = substr($Labels, 0, -1); //quita la ultima coma.
 
-        //     echo '<div style="" class="Graficas">';
-        //     GraficaBar($Labels,$Datas,"Uso de Esta App");
-        //     echo '</div>';
+        
+            echo '<div style="" class="Graficas">';
+            GraficaBar($Labels,$Datas,"Clientes Venta");
+            echo '</div>';
+
+
         ?>
 
-    
+        <?php
+        $QueryG = "select DISTINCT a.Tipo,
+        (select count(*) from productosmov WHERE Tipo = a.Tipo) as Count
+        from productosmov a";
+        $rF= $db0 -> query($QueryG);    
+        $Datas = 0; $Labels="";
+        while($Fr = $rF -> fetch_array()) {   
+            $Datas.= $Fr['Count'].", ";
+            $Labels.="'".$Fr['Tipo']."',";
+        }
+        unset($rf);unset($Fr);
+        $Datas = substr($Datas, 0, -1); //quita la ultima coma.
+        $Labels = substr($Labels, 0, -1); //quita la ultima coma.
+
+        
+            echo '<div style="" class="Graficas">';
+            GraficaBar($Labels,$Datas,"Tipo con mas Mov");
+            echo '</div>';
+
+            
+        ?>
+
+<?php
+        $QueryG = "select DISTINCT a.IdAdjudicacion,
+        CAST((select sum(Cantidad) from productosmov WHERE IdAdjudicacion = a.IdAdjudicacion) as INT) as Count
+        from productosmov a
+        ";
+        $rF= $db0 -> query($QueryG);    
+        $Datas = 0; $Labels="";
+        while($Fr = $rF -> fetch_array()) {   
+            $Datas.= $Fr['Count'].", ";
+            $Labels.="'".$Fr['IdAdjudicacion']."',";
+        }
+        unset($rf);unset($Fr);
+        $Datas = substr($Datas, 0, -1); //quita la ultima coma.
+        $Labels = substr($Labels, 0, -1); //quita la ultima coma.
+
+        
+            echo '<div style="" class="Graficas">';
+            GraficaDona($Labels,$Datas,"OFERTA/VENTA");
+            echo '</div>';
+
+            
+        ?>
+
+
+
+<?php
+        $QueryG = "select DISTINCT a.IdClienteName,
+        CAST((select sum(Costo) from productosmov WHERE IdAdjudicacion = a.IdAdjudicacion and IdClienteName = a.IdClienteName) as INT) as Count
+        from productosmov a WHERE IdAdjudicacion = 'OFERTA'
+        ";
+        $rF= $db0 -> query($QueryG);    
+        $Datas = 0; $Labels="";
+        while($Fr = $rF -> fetch_array()) {   
+            $Datas.= $Fr['Count'].", ";
+            $Labels.="'".$Fr['IdClienteName']."',";
+        }
+        unset($rf);unset($Fr);
+        $Datas = substr($Datas, 0, -1); //quita la ultima coma.
+        $Labels = substr($Labels, 0, -1); //quita la ultima coma.
+
+        
+            echo '<div style="" class="Graficas">';
+            GraficaBarLine($Labels,$Datas,"Ofertados / Cliente","false");
+            echo '</div>';
+
+            
+        ?>
+
+       <?php
+        $QueryG = "select DISTINCT a.IdClienteName,
+        (select count(*) from productosmov WHERE IdClienteName = a.IdClienteName) as Count
+        from productosmov a WHERE IdAdjudicacion ='OFERTA'";
+        $rF= $db0 -> query($QueryG);    
+        $Datas = 0; $Labels="";
+        while($Fr = $rF -> fetch_array()) {   
+            $Datas.= $Fr['Count'].", ";
+            $Labels.="'".$Fr['IdClienteName']."',";
+        }
+        unset($rf);unset($Fr);
+        $Datas = substr($Datas, 0, -1); //quita la ultima coma.
+        $Labels = substr($Labels, 0, -1); //quita la ultima coma.
+
+        
+            echo '<div style="" class="Graficas">';
+            GraficaBar($Labels,$Datas,"Clientes Ofertas");
+            echo '</div>';
+
+
+        ?>
     </div>
 
-    <div id="DashboardCol2" >
+    <div id="DashboardCol2" style="vertical-align:top;">
     
 
     <?php
@@ -155,11 +248,23 @@ if (Preference("MostrarApps", "", "")=='TRUE'){
          opacity: 0.6;'>Recomendados</h6>";
          echo $repolist;
      }
+
+     echo "<a href='app_movs.php' title='Haga Clic aqui para ver la activivad' class='btn btn-Light'
+         style='
+            background-color: #e6e6e6;
+            color: #625f5f;
+            width: 100%;
+            font-size: 10pt;
+            text-align:left;
+         '
+         >";
+     echo "<img src='icons/permisos.png' style='width:32px;'> Movimientos";
+     echo "</a>";
     ?>
     </div>
 
 
-
+    
     
 </div>
 

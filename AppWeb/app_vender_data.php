@@ -65,7 +65,11 @@ Historia($RinteraUser, "Guardo Producto", "".$sql."");
 
 echo '
 <script>
-        CargaMovs("'.$IdProducto.'","'.$Tipo.'");
+function redireccionarPagina() {
+    window.location = "app_movs.php";
+  }
+  setTimeout("redireccionarPagina()", 3000);
 </script>';
+
 
 ?>

@@ -66,7 +66,7 @@ if($WSConF = $WSCon -> fetch_array())
             if (is_numeric($key)){ //rows                        
                 $rowC = 0;
             } else {
-                echo $key." = ".$val."<br>";
+                // echo $key." = ".$val."<br>";
            
                 if ($key == "CertificateType" and $val=="Certificado_General"){
                     $Certificado_General = "pdfProcimart1.php";
@@ -135,25 +135,68 @@ if($WSConF = $WSCon -> fetch_array())
                     $erweightR = $val." ";
                 }
                 
-                
+                if ($key == "comments") {
+                    $comments = $val." ";
+                }
                
                 // $comments = '';
 
                 // //ESPECIFICACIONES
+                if ($key == "Aldeheydes_Rangos") {
+                    $aldheydesS = $val." ";
+                }               
                 // $aldheydesS = '2.2 to 3.8 %';
+
+                if ($key == "GasCromatogram_Rangos") {
+                    $gasS = $val." ";
+                }  
                 // $gasS = '-';
+
+                if ($key == "OpticalRotation_Rangos") {
+                    $opticalS = $val." ";
+                }  
                 // $opticalS = '57.0 to 65.6';
+
+                if ($key == "RefractiveIndex_Rangos") {
+                    $refractiveS = $val." ";
+                }  
                 // $refractiveS = '1.473 to 1.476';
+
+                if ($key == "SpecificGravity_Rangos") {
+                    $gravityS = $val." ";
+                }
                 // $gravityS = '0.849 to 0.855';
+
+                if ($key == "AlcoholSolubility_Rangos") {
+                    $alcoholS = $val." ";
+                }
                 // $alcoholS = 'Pass';
+
+                if ($key == "ColdHaze_Rangos") {
+                    $coldhazeS = $val." ";
+                }
                 // $coldhazeS = 'Pass';
+
+                if ($key == "Appearance_Rangos") {
+                    $apperanceS = $val." ";
+                }
                 // $apperanceS = 'Clear';
+
+                if ($key == "TasteAndOdor_Rangos") {
+                    $tasteS = $val." ";
+                }
                 // $tasteS = 'Characteristic';
+
+                if ($key == "ErWeight_Rangos") {
+                    $erweightS = $val." ";
+                }
                 // $erweightS = '-';
 
                 // //FIRMAS
                 // $submittedby  = 'Marco Gutiérrez Castillo';
-                
+                if ($key == "QualityAssurance") {
+                    $submittedby = $val." ";
+                }
             
            
             $row = $row + 1;    
@@ -254,7 +297,7 @@ $cont = $cont.'<table align="center">
 <table>
 <tr>
     <td width="100px;">Submitted by:</td> <td width="250px;" style="border-bottom:1pt solid black;"> '.$submittedby.'</td>
-    <td width="100px;" align="right">Date:</td>         <td width="180px;" style="border-bottom:1pt solid black;"> '.$date.'</td>
+    <td width="100px;" align="right">Date:</td>         <td width="180px;" style="border-bottom:1pt solid black;"> '.$dateofManufacture.'</td>
 </tr>
 </table>
 <BR>

@@ -11,7 +11,8 @@ $id_rep = $ClaveDelProducto_id_rep; //Consulta para esa clave de producto
 // echo $id_rep;
 $Envasado = "";
 $IdLote = "";
-
+$Certificado_General ="";
+$Certificado_CocaCola = "";
 $QueryEncabezado = "
     Select 
     ISNULL(Aldehidos,'') as Aldehidos
@@ -514,11 +515,12 @@ if ($ClaveDelProducto == "A"){
 
 
     
+    echo "<a href='app_movs.php' class='form-group btn btn-primary' id='btnGuadar' >";
+    echo "<img src='icons/permisos.png' style='width:32px;'> Movimientos";
+    echo "</a>";
 
 
-    echo "<div class='pc' Id='InfoMov' style='width:100%;'>";
 
-    echo "</div>";
     
 
 

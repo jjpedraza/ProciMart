@@ -10,17 +10,13 @@ include("seguridad.php");
 // $Tipo = VarClean($_POST['Tipo']);
 $sql = "
 Select 
-IdMov,
-Adjudicacion,
-Producto,
-CONCAT(Cantidad, ' - $',Costo) as Cantidad,
-Cliente,
+CONCAT(Adjudicacion,'<br><b>',Producto, '</b><br>', Cantidad, ' - $',Costo, '<br><cite>',Cliente,'</cite>') as Producto,
 X
 
 from Movs order by IdMov DESC";
-$IdTabla = "MiTabla";
+$IdTabla = "MiTabl2a";
 $Clase = "tabla ReporteFooter ";
 $db= 0 ;        
 echo "<h5>Movimientos de productos: </h5>";
-DynamicTable_MySQL($sql, "DivUsuarios", $IdTabla, $Clase, 0, $db);
+DynamicTable_MySQL($sql, "DivUsuarios2", $IdTabla, $Clase, 0, $db);
 ?>

@@ -36,6 +36,14 @@ label {
     margin: 0px;
 }
 
+#InfoMov2 {
+    display: none;
+}
+
+#InfoMov {
+    display: inline-block;
+}
+
 #LabelProduccion {
     background-color: #ffa50094;
     color: white;
@@ -1162,6 +1170,18 @@ hr {
     
     #DivCosto {
         width: 90%;
+    }
+    
+    #DashboardCol1 {
+        display: none;
+    }
+    
+    #InfoMov2 {
+        display: inline-block;
+    }
+    
+    #InfoMov {
+        display: none;
     }
 }
 :root {
