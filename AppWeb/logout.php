@@ -1,20 +1,18 @@
-<?php 	require("components.php"); ?>
-<?php 	require_once("rintera-config.php"); ?>
 <?php 
-
+session_start();
 
 $RinteraUser = "";
 $RinteraUserName = "";
 
  //Crear sesión
- session_name($SesionName);
- session_start();
+//  session_name($SesionName);
+//  session_start();
 
  //Vaciar sesión
  $_SESSION = array();
 
 
- SESSION_close(session_id());
+//  SESSION_close(session_id());
  //Destruir Sesión
  session_unset();
  session_destroy();

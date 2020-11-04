@@ -32,7 +32,8 @@ if ($IdAdjudicacion == "VENTA"){ //VENTA
 }
 
      $sql = "INSERT INTO productosmov 
-     (IdProducto, Tipo, ClaveDelProducto,IdUser,IdTransaccion, IdCliente,IdClienteName, FechaOperacion,Cantidad,Costo,IdIncoterms, IdIncotermsName, TiempoDeEnvio, Muestra, IdAdjudicacion, Fecha, Hora, IdLote) 
+     (IdProducto, Tipo, ClaveDelProducto,IdUser,IdTransaccion, IdCliente,IdClienteName, FechaOperacion,Cantidad,
+     Costo,IdIncoterms, IdIncotermsName, TiempoDeEnvio, Muestra, IdAdjudicacion, Fecha, Hora, IdLote) 
     VALUES (
         '".$IdProducto."',".
         "'".$Tipo."',".
@@ -68,7 +69,7 @@ echo '
 function redireccionarPagina() {
     window.location = "app_movs.php";
   }
-  setTimeout("redireccionarPagina()", 3000);
+  setTimeout("redireccionarPagina()", 1000);
 </script>';
 
 

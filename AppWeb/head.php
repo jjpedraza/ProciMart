@@ -1,8 +1,8 @@
-
 <?php
+require ("seguridad.php");   
 require ("rintera-config.php");
 require ("components.php");
-    include("seguridad.php");   
+
     if (isset($RinteraUser)){
         MiToken_CloseALL($RinteraUser);
     }
@@ -94,6 +94,7 @@ background-color: <?php echo Preference("ColorDeFondo", "", ""); ?>;
 text-align:center;
 ">
 <?php
+//   echo   "1".$_SESSION['RinteraUser'];
 // Init();
 ?>
 

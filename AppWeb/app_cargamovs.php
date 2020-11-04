@@ -17,7 +17,7 @@ CONCAT(Cantidad, ' - $',Costo) as Cantidad,
 Cliente,
 X
 
-from Movs order by IdMov DESC";
+from movs order by IdMov DESC";
 $IdTabla = "MiTabla";
 $Clase = "tabla ReporteFooter ";
 $db= 0 ;        

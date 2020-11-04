@@ -1,7 +1,8 @@
 <?php
+session_start();
 //AUTORIZACION PARA WEBSITE DEL USUARIO
 require("rintera-config.php");
-
+// session_start();
 // header("Set-Cookie: key=value; path=/; domain=example.org; HttpOnly; SameSite=Lax");
 if ($session_auto_start == 0){
 	session_name($SesionName);
@@ -11,11 +12,11 @@ if ($session_auto_start == 0){
 
 if (isset($_SESSION['RinteraUser'])){
 	// echo "Si hay session ".$_SESSION['RinteraUser'];
-	session_regenerate_id();
+	// session_regenerate_id();
 	$RinteraUser = $_SESSION['RinteraUser'];
 	$RinteraUserName = $_SESSION['RinteraUserName'];
 
-					
+
 }
 else
 
@@ -43,8 +44,10 @@ else
 	}
 	if ($url <> '' ){
 		header("location:login.php?".$url);		
+		echo '<script>window.location.href="login.php?'.$url.'";</script>';
 	} else {
-		header("location:login.php");		
+		// header("location:login.php");		
+		echo '<script>window.location.href="login.php";</script>';
 	}
 	
 	

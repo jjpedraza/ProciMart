@@ -153,9 +153,8 @@ if (Preference("MostrarApps", "", "")=='TRUE'){
         ?>
 
 <?php
-        $QueryG = "select DISTINCT a.IdAdjudicacion,
-        CAST((select sum(Cantidad) from productosmov WHERE IdAdjudicacion = a.IdAdjudicacion) as INT) as Count
-        from productosmov a
+        $QueryG = "
+        select DISTINCT a.IdAdjudicacion, (select sum(Cantidad) from productosmov WHERE IdAdjudicacion = a.IdAdjudicacion) as Count from productosmov a
         ";
         $rF= $db0 -> query($QueryG);    
         $Datas = 0; $Labels="";
@@ -166,7 +165,7 @@ if (Preference("MostrarApps", "", "")=='TRUE'){
         unset($rf);unset($Fr);
         $Datas = substr($Datas, 0, -1); //quita la ultima coma.
         $Labels = substr($Labels, 0, -1); //quita la ultima coma.
-
+        // echo $Datas."|".$Labels;
         
             echo '<div style="" class="Graficas">';
             GraficaDona($Labels,$Datas,"OFERTA/VENTA");
@@ -179,7 +178,7 @@ if (Preference("MostrarApps", "", "")=='TRUE'){
 
 <?php
         $QueryG = "select DISTINCT a.IdClienteName,
-        CAST((select sum(Costo) from productosmov WHERE IdAdjudicacion = a.IdAdjudicacion and IdClienteName = a.IdClienteName) as INT) as Count
+        (select sum(Costo) from productosmov WHERE IdAdjudicacion = a.IdAdjudicacion and IdClienteName = a.IdClienteName) as Count
         from productosmov a WHERE IdAdjudicacion = 'OFERTA'
         ";
         $rF= $db0 -> query($QueryG);    
@@ -191,7 +190,7 @@ if (Preference("MostrarApps", "", "")=='TRUE'){
         unset($rf);unset($Fr);
         $Datas = substr($Datas, 0, -1); //quita la ultima coma.
         $Labels = substr($Labels, 0, -1); //quita la ultima coma.
-
+    //     echo $Datas."|".$Labels;
         
             echo '<div style="" class="Graficas">';
             GraficaBarLine($Labels,$Datas,"Ofertados / Cliente","false");

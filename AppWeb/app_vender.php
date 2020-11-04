@@ -523,6 +523,10 @@ if ($ClaveDelProducto == "A"){
 
     
 
+    echo "<div class='form-group ' id='btnGuadar' id='InfoMov' >";
+    
+    echo "</div>";
+
 
 echo "</div>";
 
@@ -647,7 +651,7 @@ if (go == ''){
 
 function CargaMovs(IdProducto, Tipo){
     $.ajax({
-        url: 'app_cargamovs.php',
+        url: 'app_cargamovs2.php',
         type: 'post',
         data: {
             IdProducto:IdProducto,
@@ -661,7 +665,7 @@ function CargaMovs(IdProducto, Tipo){
 
 
 }
-CargaMovs("<?php echo $IdAceiteLote; ?>", "<?php echo $Tipo; ?>");
+CargaMovs("");
 function toFinalNumberFormat(controlToCheck){
 var enteredNumber = '' + controlToCheck.value;
 enteredNumber = enteredNumber.replace(/[^0-9\.]+/g, ''); // remove any non-numeric, non-period character

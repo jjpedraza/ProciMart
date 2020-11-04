@@ -1,8 +1,7 @@
 <?php
-
+session_start();
 require("rintera-config.php");
 require("components.php");
-
 ?>
 
 <!DOCTYPE html>
@@ -40,10 +39,12 @@ require("components.php");
 
     <style>
         body {
-            background-image: url('img/fondo3.jpg');
+            /* background-image: url('img/fondo3.jpg'); */
             background-size: 150%;
+            background-color: #416f35;
             /* background-color: #919191;
             background-blend-mode: screen; */
+            color:white;
 
         }
 
@@ -173,23 +174,24 @@ require("components.php");
                         
                         // echo "Id: ".session_id();            
 
-
+                        // session_start();                        
                         $_SESSION['RinteraUser'] = $f['IdUser']; //session		
                         $_SESSION['RinteraUserName'] = $f['UserName']; //session		
                         $RinteraUser = $f['IdUser'];
-                        // global $RinteraUser; //generalize     
+                        
                         
                         // echo "Sesion=".$_SESSION['RinteraUser']." username=".$_SESSION['RinteraUserName'];
 
                         // Historia($RinteraUser, 'RinteraLogin', 'Acceso Rintera' . InfoEquipo() . '');
                         // SESSION_init(session_id(), $RinteraUser, $SesionName, InfoEquipo(), "");
-
+                        
 
 
                         if ($id_rep <> ''){
-                            echo '<script>window.location.replace("r.php?id='.$id_rep.'")</script>'; 
+                            echo '<script>window.location.href="r.php?id='.$id_rep.'"</script>'; 
                         } else {
-                            echo '<script>window.location.replace("index.php?home=")</script>'; 
+                            echo '<script>window.location.href="index.php?home="</script>'; 
+                            
                         }
 
                         
