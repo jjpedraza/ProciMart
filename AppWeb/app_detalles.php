@@ -143,7 +143,7 @@ $Footer  =  ReporteFooter($id_rep);
 $Titulo = ""."".ReporteEncabezado($id_rep)."";
 $DetallesInfo = $TablaDetaT;
 $BotonRegresar = "<div style='margin-top:5px; text-align:right; margin-right:5px;'>
-<a href='r.php?id=".$IdRegreso."' class='btn btn-secondary' style='font-size:8pt;'><img src='icons/btn_izquierda.png' style='width:18px;'> Regresar</a><br></div>";
+<a href='r.php?id=".$IdRegreso."' class='btn btn-secondary' style='font-size:8pt;'><img src='icon/btn_izquierda.png' style='width:18px;'> Regresar</a><br></div>";
 
 echo "<div id='DetallesTitulo' style='
 background-color: #82828224;

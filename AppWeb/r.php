@@ -57,6 +57,16 @@ else {
 
 
 <?php
+
+if (TestConectionWS(2) ==  FALSE) {
+    echo '
+    <div class="alert alert-danger" role="alert">
+    <b>Sin Comunicacion con la Base de Datos de la Planta.</b>
+    <cite>Se recomienda verificar que este encendido y en condiciones el equipo donde se encuentra dicha base de datos.<br></cite>
+    
+    </div>
+  ';
+} else {
 $id_rep = VarClean($_GET['id']);
 $Tipo = ReporteTipo($id_rep); // $Tipo = 1; // 0 = html, 1= DataTable, 2 = PDF, 3 = Excel, 4 = Word
 // var_dump($Tipo);
@@ -210,7 +220,10 @@ echo "</div>";
 
 } else {
     Error("No tienes acceso a este Reporte");
-}?>
+}
+
+}
+?>
 
 <?php
 include ("footer.php");

@@ -70,10 +70,10 @@ if (MiToken_valida($ElToken, $IdUser, "Search")==TRUE){//Valido
                 if ($f['var1']=='1' || $f['var2']=='1' || $f['var3']=='1'){
                     //PDF Interactivo
                     echo "<img class='icono32' 
-                            src='icons/html.png' title='IdReporte=".$f['id_rep']." | "." | Orientacion: ".$f['orientacion']." | Formato: HTML Interactivo. 
+                            src='icon/html.png' title='IdReporte=".$f['id_rep']." | "." | Orientacion: ".$f['orientacion']." | Formato: HTML Interactivo. 
                             Este reporte requiere alimentarse con datos proporcionados por el usuario'>";
                 } else {//interactivo
-                    echo "<img class='icono32' src='icons/html0.png'
+                    echo "<img class='icono32' src='icon/html0.png'
                      title='IdReporte=".$f['id_rep']." | "." | Orientacion: ".$f['orientacion'].", Formato:HTML | 
                      '>";
                 }
@@ -84,10 +84,10 @@ if (MiToken_valida($ElToken, $IdUser, "Search")==TRUE){//Valido
                 if ($f['var1']=='1' || $f['var2']=='1' || $f['var3']=='1'){
                     //PDF Interactivo
                     echo "<img class='icono32' 
-                            src='icons/datatable.png' title='IdReporte=".$f['id_rep']." | "." | Orientacion: ".$f['orientacion']." | Formato: DataTable Interactivo. 
+                            src='icon/datatable.png' title='IdReporte=".$f['id_rep']." | "." | Orientacion: ".$f['orientacion']." | Formato: DataTable Interactivo. 
                             Este reporte requiere alimentarse con datos proporcionados por el usuario'>";
                 } else {//interactivo
-                    echo "<img class='icono32' src='icons/datatable0.png'
+                    echo "<img class='icono32' src='icon/datatable0.png'
                      title='IdReporte=".$f['id_rep']." | "." | Orientacion: ".$f['orientacion'].", Formato:DataTable | 
                      '>";
                 }
@@ -97,10 +97,10 @@ if (MiToken_valida($ElToken, $IdUser, "Search")==TRUE){//Valido
                 if ($f['var1']=='1' || $f['var2']=='1' || $f['var3']=='1'){
                     //PDF Interactivo
                     echo "<img class='icono32' 
-                            src='icons/pdf2.png' title='IdReporte=".$f['id_rep']." | "." | Orientacion: ".$f['orientacion']." | Formato: PDF Interactivo. 
+                            src='icon/pdf2.png' title='IdReporte=".$f['id_rep']." | "." | Orientacion: ".$f['orientacion']." | Formato: PDF Interactivo. 
                             Este reporte requiere alimentarse con datos proporcionados por el usuario'>";
                 } else {//interactivo
-                    echo "<img class='icono32' src='icons/pdf.png'
+                    echo "<img class='icono32' src='icon/pdf.png'
                      title='IdReporte=".$f['id_rep']." | "." | Orientacion: ".$f['orientacion'].", Formato:PDF | 
                      '>";
                 }
@@ -110,10 +110,10 @@ if (MiToken_valida($ElToken, $IdUser, "Search")==TRUE){//Valido
                 if ($f['var1']=='1' || $f['var2']=='1' || $f['var3']=='1'){
                     //PDF Interactivo
                     echo "<img class='icono32' 
-                            src='icons/excel2.png' title='IdReporte=".$f['id_rep']." | "." | Orientacion: ".$f['orientacion']." | Formato: Excel Interactivo. 
+                            src='icon/excel2.png' title='IdReporte=".$f['id_rep']." | "." | Orientacion: ".$f['orientacion']." | Formato: Excel Interactivo. 
                             Este reporte requiere alimentarse con datos proporcionados por el usuario'>";
                 } else {//interactivo
-                    echo "<img class='icono32' src='icons/excel.png'
+                    echo "<img class='icono32' src='icon/excel.png'
                      title='IdReporte=".$f['id_rep']." | "." | Orientacion: ".$f['orientacion'].", Formato:Excel | 
                      '>";
                 }
@@ -123,10 +123,10 @@ if (MiToken_valida($ElToken, $IdUser, "Search")==TRUE){//Valido
                 if ($f['var1']=='1' || $f['var2']=='1' || $f['var3']=='1'){
                     //PDF Interactivo
                     echo "<img class='icono32' 
-                            src='icons/word2.png' title='IdReporte=".$f['id_rep']." | "." | Orientacion: ".$f['orientacion']." | Formato: Word Interactivo. 
+                            src='icon/word2.png' title='IdReporte=".$f['id_rep']." | "." | Orientacion: ".$f['orientacion']." | Formato: Word Interactivo. 
                             Este reporte requiere alimentarse con datos proporcionados por el usuario'>";
                 } else {//interactivo
-                    echo "<img class='icono32' src='icons/word.png'
+                    echo "<img class='icono32' src='icon/word.png'
                      title='IdReporte=".$f['id_rep']." | "." | Orientacion: ".$f['orientacion'].", Formato:Word | 
                      '>";
                 }
@@ -140,7 +140,7 @@ if (MiToken_valida($ElToken, $IdUser, "Search")==TRUE){//Valido
         }
         echo "</td><td align=right valign=top width=20px>";
         if (UserAdmin($IdUser)==TRUE){
-            echo "<a href='edit.php?id=".$f['id_rep']."' title='Haga clic aquí para editar el Reporte'><img src='icons/mas.png'
+            echo "<a href='edit.php?id=".$f['id_rep']."' title='Haga clic aquí para editar el Reporte'><img src='icon/mas.png'
             class='iconoMore'
             ></a>";
         }
@@ -154,12 +154,12 @@ if (MiToken_valida($ElToken, $IdUser, "Search")==TRUE){//Valido
         if (PermisoReporte_Ver($IdUser,$f['id_rep'])==TRUE){
             echo "<div style='height:20px;'></div>";
         } else {
-            echo "<a target=_blank href='solicita/?id=".$f['id_rep']."' title='Haga clic aqui para imprimir el formato de solicitud'><img src='icons/candado.png' style='width:15px;cursor:pointer;'
+            echo "<a target=_blank href='solicita/?id=".$f['id_rep']."' title='Haga clic aqui para imprimir el formato de solicitud'><img src='icon/candado.png' style='width:15px;cursor:pointer;'
             title='Haga clic aquí para solicitar acceso' download> Sin acceso</a>";
         }
         echo "</td><td align=right valign=bottom width=20px>";
         // if (PermisoReporte_Share($IdUser,$f['id_rep'])==TRUE){
-        //     echo "<img src='icons/share.png'
+        //     echo "<img src='icon/share.png'
         
         // style='
         //     width:13px;

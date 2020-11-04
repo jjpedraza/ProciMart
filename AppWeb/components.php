@@ -1010,11 +1010,14 @@ function TestConectionWS($IdCon){
             );
             
             $context = stream_context_create($opciones);            
-            $archivo_web = file_get_contents($url, false, $context);            
-            $data = json_decode($archivo_web);
+            $archivo_web = @file_get_contents($url, false, $context);    
+            if ($archivo_web){
+                $data = json_decode($archivo_web);            
+                
+           
         
 
-            var_dump($data);
+            // var_dump($data);
             // echo "<hr>";
 
             //Recorrido
@@ -1037,12 +1040,17 @@ function TestConectionWS($IdCon){
             }
               
             if ($Exito == TRUE){
-                Toast("Conección exitosa",4,"");
+                Toast("Conección exitosa a la Planta, Cd. Victoria",4,"");
                 return TRUE;
             } else {
-                Toast("Conección fallida",2,"");
+                Toast("Fallo al conectar a la Planta, Cd. Victori",2,"");
                 return FALSE;
             }
+
+        } else {
+            // Deal with it.
+            return FALSE;
+        }   
             
         } else {
 
@@ -3287,7 +3295,7 @@ function GraficaDona($Labels, $Datas, $Titulo){
     $len = 16;    $cadena_base =  'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';   $cadena_base .= '0123456789' ;  $limite = strlen($cadena_base) - 1;      
     $STR = '';  for ($i=0; $i < $len; $i++){ $STR .= $cadena_base[rand(0, $limite)]; }  $IdDiv = $STR;
     
-    echo '<div style="width:92%; text-align:right;"><a href="#'.$IdDiv.'_modal" rel=MyModal:open><img src="icons/max.png" style="" class="btnMaximizar"></a></div>
+    echo '<div style="width:92%; text-align:right;"><a href="#'.$IdDiv.'_modal" rel=MyModal:open><img src="icon/max.png" style="" class="btnMaximizar"></a></div>
     <canvas id="'.$IdDiv.'" width="100%" height="100%"></canvas>';
     echo '<canvas id="'.$IdDiv.'_modal" class="modal" style="display:none;" width="100%" height="50%"></canvas>';
 
@@ -3368,7 +3376,7 @@ function GraficaPie($Labels, $Datas, $Titulo){
     $len = 16;    $cadena_base =  'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';   $cadena_base .= '0123456789' ;  $limite = strlen($cadena_base) - 1;      
     $STR = '';  for ($i=0; $i < $len; $i++){ $STR .= $cadena_base[rand(0, $limite)]; }  $IdDiv = $STR;
     
-    echo '<div style="width:92%; text-align:right;"><a href="#'.$IdDiv.'_modal" rel=MyModal:open><img src="icons/max.png" style="" class="btnMaximizar"></a></div>
+    echo '<div style="width:92%; text-align:right;"><a href="#'.$IdDiv.'_modal" rel=MyModal:open><img src="icon/max.png" style="" class="btnMaximizar"></a></div>
     <canvas id="'.$IdDiv.'" width="100%" height="100%"></canvas>';
     echo '<canvas id="'.$IdDiv.'_modal" class="modal" style="display:none;" width="100%" height="100%"></canvas>';
 
@@ -3453,7 +3461,7 @@ function GraficaBarHorizontal($Labels, $Datas, $Titulo){
     $len = 16;    $cadena_base =  'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';   $cadena_base .= '0123456789' ;  $limite = strlen($cadena_base) - 1;      
     $STR = '';  for ($i=0; $i < $len; $i++){ $STR .= $cadena_base[rand(0, $limite)]; }  $IdDiv = $STR;
     
-    echo '<div style="width:92%; text-align:right;"><a href="#'.$IdDiv.'_modal" rel=MyModal:open><img src="icons/max.png" style="" class="btnMaximizar"></a></div>
+    echo '<div style="width:92%; text-align:right;"><a href="#'.$IdDiv.'_modal" rel=MyModal:open><img src="icon/max.png" style="" class="btnMaximizar"></a></div>
     <canvas id="'.$IdDiv.'" width="100%" height="100%"></canvas>';
     echo '<canvas id="'.$IdDiv.'_modal" class="modal" style="display:none;" width="100%" height="100%"></canvas>';
 
@@ -3523,7 +3531,7 @@ function GraficaBarLine($Labels, $Datas, $Titulo,$Fill){
     $len = 16;    $cadena_base =  'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';   $cadena_base .= '0123456789' ;  $limite = strlen($cadena_base) - 1;      
     $STR = '';  for ($i=0; $i < $len; $i++){ $STR .= $cadena_base[rand(0, $limite)]; }  $IdDiv = $STR;
     
-    echo '<div style="width:92%; text-align:right;"><a href="#'.$IdDiv.'_modal" rel=MyModal:open><img src="icons/max.png" style="" class="btnMaximizar"></a></div>
+    echo '<div style="width:92%; text-align:right;"><a href="#'.$IdDiv.'_modal" rel=MyModal:open><img src="icon/max.png" style="" class="btnMaximizar"></a></div>
     <canvas id="'.$IdDiv.'" width="100%" height="100%"></canvas>';
     echo '<canvas id="'.$IdDiv.'_modal" class="modal" style="display:none;" width="100%" height="50%"></canvas>';
 
@@ -3603,7 +3611,7 @@ function GraficaBar($Labels, $Datas, $Titulo){
     $len = 16;    $cadena_base =  'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';   $cadena_base .= '0123456789' ;  $limite = strlen($cadena_base) - 1;      
     $STR = '';  for ($i=0; $i < $len; $i++){ $STR .= $cadena_base[rand(0, $limite)]; }  $IdDiv = $STR;
     
-    echo '<div style="width:92%; text-align:right;"><a href="#'.$IdDiv.'_modal" rel=MyModal:open><img src="icons/max.png" style="" class="btnMaximizar"></a></div>
+    echo '<div style="width:92%; text-align:right;"><a href="#'.$IdDiv.'_modal" rel=MyModal:open><img src="icon/max.png" style="" class="btnMaximizar"></a></div>
     <canvas id="'.$IdDiv.'" width="100%" height="100%"></canvas>';
 
     echo '<canvas id="'.$IdDiv.'_modal" class="modal" style="display:none;" width="100%" height="50%"></canvas>';

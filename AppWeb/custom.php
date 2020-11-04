@@ -58,26 +58,26 @@ if (UserAdmin($RinteraUser) == TRUE) {
         $IdCard = 'Card' . $f['IdCon'];
         $IdCollapsed = 'Coll' . $f['IdCon'];
         if ($f['ConType'] == 0) {
-            $btnText = '<table width=100% border=0><tr><td width=20px align=left><img  title="Base de Datos MYSQL | Rintera" src="icons/dbr.png" style="width:20px"></td><td
+            $btnText = '<table width=100% border=0><tr><td width=20px align=left><img  title="Base de Datos MYSQL | Rintera" src="icon/dbr.png" style="width:20px"></td><td
             id ="Tit_' . $f['IdCon'] . '"
             >[' . $f['IdCon'] . '] ' . $f['ConName'] . '</td></tr></table>';
         }
 
         if ($f['ConType'] == 1) {
-            $btnText = '<table width=100% border=0><tr><td width=20px align=left><img title="Base de Datos MYSQL" src="icons/db.png" style="width:20px"></td><td
+            $btnText = '<table width=100% border=0><tr><td width=20px align=left><img title="Base de Datos MYSQL" src="icon/db.png" style="width:20px"></td><td
             id ="Tit_' . $f['IdCon'] . '"
             >[' . $f['IdCon'] . '] ' . $f['ConName'] . '</td></tr></table>';
         }
 
         if ($f['ConType'] == 2) {
-            $btnText = '<table width=100% border=0><tr><td width=20px align=left><img title="WebService" src="icons/ws.png" style="width:20px"></td><td
+            $btnText = '<table width=100% border=0><tr><td width=20px align=left><img title="WebService" src="icon/ws.png" style="width:20px"></td><td
             id ="Tit_' . $f['IdCon'] . '"
             >[' . $f['IdCon'] . '] ' . $f['ConName'] . '</td></tr></table>';
         }
 
 
         if ($f['ConType'] == 3) {
-            $btnText = '<table width=100% border=0><tr><td width=20px align=left><img title="WebService: Rintera SQLSERVER-toJSON ASP" src="icons/wsms.png" style="width:20px"></td><td
+            $btnText = '<table width=100% border=0><tr><td width=20px align=left><img title="WebService: Rintera SQLSERVER-toJSON ASP" src="icon/wsms.png" style="width:20px"></td><td
             id ="Tit_' . $f['IdCon'] . '"
             >[' . $f['IdCon'] . '] ' . $f['ConName'] . '</td></tr></table>';
         }
@@ -442,7 +442,7 @@ if (UserAdmin($RinteraUser) == TRUE) {
 
             <td align=right>
                     <button type="button" class="btn btn-success"  onclick="Active(' . $f['IdCon'] . ');" >
-                        <img src="icons/ok2.png" style="width:22px;">
+                        <img src="icon/ok2.png" style="width:22px;">
                     </button>
             </td></tr></table>
 
@@ -501,7 +501,7 @@ if (UserAdmin($RinteraUser) == TRUE) {
 
         <td align=right valign=bottom>
                 <button type="button" class="btn btn-success"  onclick="SaveEmpresa();" >
-                    <img src="icons/ok2.png" style="width:22px;">
+                    <img src="icon/ok2.png" style="width:22px;">
                 </button>
         </td></tr></table>
 
@@ -672,7 +672,7 @@ if (UserAdmin($RinteraUser) == TRUE) {
 
     <td align=left valign=top>  
                     <button type="button" class="btn btn-success"  onclick="SaveVisual();" >
-                        <img src="icons/ok2.png" style="width:22px;">
+                        <img src="icon/ok2.png" style="width:22px;">
                     </button>
     </td>
 </tr>             
@@ -817,7 +817,7 @@ echo '
 
     <td align=left valign=top>  
                     <button type="button" class="btn btn-success"  onclick="SavePrivacidad();" >
-                        <img src="icons/ok2.png" style="width:22px;">
+                        <img src="icon/ok2.png" style="width:22px;">
                     </button>
     </td>
 </tr>             

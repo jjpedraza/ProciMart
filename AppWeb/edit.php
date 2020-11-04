@@ -627,7 +627,7 @@ echo '
 
 
     // if ($UsuariosForaneaos == "FALSE"){
-    //     echo "<br><label>Usuario Administrador: <a href='users.php' title='Haga clic para administrar los usuarios'><img src='icons/user_add.png' style='width:17px;'></a></label><br>";
+    //     echo "<br><label>Usuario Administrador: <a href='users.php' title='Haga clic para administrar los usuarios'><img src='icon/user_add.png' style='width:17px;'></a></label><br>";
     //     echo "<select name='ReporteIdUser' id='ReporteIdUser' class='form-control'>";
     //     echo "<option value=''>Seleccione</option>";         
     // } else {    

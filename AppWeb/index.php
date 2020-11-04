@@ -54,7 +54,7 @@ background-color: <?php echo Preference("ColorPrincipal", "", ""); ?>;
     box-shadow: 0 3px  #4d4c49; margin:10px;
 
     "> 
-    <img src='icons/busqueda.png' style='width:24px;'></button>
+    <img src='icon/busqueda.png' style='width:24px;'></button>
 </td>
 </tr>
 </table>
@@ -258,7 +258,7 @@ if (Preference("MostrarApps", "", "")=='TRUE'){
             text-align:left;
          '
          >";
-     echo "<img src='icons/permisos.png' style='width:32px;'> Movimientos";
+     echo "<img src='icon/permisos.png' style='width:32px;'> Movimientos";
      echo "</a>";
     ?>
     </div>
@@ -286,6 +286,18 @@ if (UserAdmin($RinteraUser) == TRUE) {
 
 
 <?php
+
+
+if (TestConectionWS(2) ==  FALSE) {
+    echo '
+    <div class="alert alert-danger" role="alert">
+    <b>Sin Comunicacion con la Base de Datos de la Planta.</b>
+    <cite>Se recomienda verificar que este encendido y en condiciones el equipo donde se encuentra dicha base de datos.<br></cite>
+    
+    </div>
+  ';
+    
+}
 echo "
 <script> 
 $('.InputBusqueda').css('background-color','".Preference("ColorPrincipal", "", "")."');
@@ -334,9 +346,9 @@ if (isset($_GET['q'])){
 }
 ?>
 
-<!-- <a href='#DivModal' rel=MyModal:open onclick='URLModal(1)' class='icon'><img src='icons/check3.png'></a> -->
+<!-- <a href='#DivModal' rel=MyModal:open onclick='URLModal(1)' class='icon'><img src='icon/check3.png'></a> -->
 
-<!-- <a href="app_detalles.php?id=1&amp;tipo=AROMA&amp;var1=1" rel="MyModal:open" class="icon"><img src="icons/info.png"></a> -->
+<!-- <a href="app_detalles.php?id=1&amp;tipo=AROMA&amp;var1=1" rel="MyModal:open" class="icon"><img src="icon/info.png"></a> -->
 
 <?php
 Historia($RinteraUser, "HOME", "Acceso a la pagina principal");

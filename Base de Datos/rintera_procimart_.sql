@@ -252,7 +252,7 @@ UserName,
 IF(RinteraLevel=1,"Administrador",
 	IF (RinteraLevel = 0,"No Definido","Consulta")
 ) as RinteraLevel,
-CONCAT("<a href='?x=",IdUser,"' title='Haga clic para Eliminar al Usuario' class='btn btn-warning'><img src='icons/x.png' style='width:17px;'></a>") as Eliminar
+CONCAT("<a href='?x=",IdUser,"' title='Haga clic para Eliminar al Usuario' class='btn btn-warning'><img src='icon/x.png' style='width:17px;'></a>") as Eliminar
 
 
 

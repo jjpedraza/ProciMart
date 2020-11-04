@@ -166,7 +166,7 @@ $Footer  =  ReporteFooter($id_rep);
 $Titulo = ""."".ReporteEncabezado($id_rep)."";
 $DetallesInfo = $TablaDetaT;
 $BotonRegresar = "<div style='margin-top:5px; text-align:right; margin-right:5px;'>
-<a href='r.php?id=".$IdRegreso."' class='btn btn-secondary' style='font-size:8pt;'><img src='icons/btn_izquierda.png' style='width:18px;'> Regresar</a><br></div>";
+<a href='r.php?id=".$IdRegreso."' class='btn btn-secondary' style='font-size:8pt;'><img src='icon/btn_izquierda.png' style='width:18px;'> Regresar</a><br></div>";
 
 echo "<div id='DetallesTitulo' style='
 background-color: #82828224;
@@ -175,7 +175,7 @@ border-radius: 5px;
 '>"; 
 echo "<table width=100%><tr>";
 echo "<td>";
-echo "<img src='icons/ofertar.png' style='width:32px;' class='pc'>";
+echo "<img src='icon/ofertar.png' style='width:32px;' class='pc'>";
 echo "</td>";
 echo "<td>";
     echo $Titulo."";
@@ -220,7 +220,7 @@ echo "
 <div class='form-groupMid'>
 <table width=100% border=0>";
 echo "<tr><td colspan=3><label style='margin:0px;'>Fecha:</label></td></tr>";
-echo "<tr><td class='pc' align=right  valign=top><label style='margin:0px;'><img src='icons/calendar.png' style='width:22px'>";
+echo "<tr><td class='pc' align=right  valign=top><label style='margin:0px;'><img src='icon/calendar.png' style='width:22px'>";
 echo "</label></td><td align=left valign=top>
 <input type='date' id='Fecha' name='Fecha' class='form-control' value='";
 echo $fecha;
@@ -290,7 +290,7 @@ echo "</div>";
 echo "
 <div class='form-group' id='Incoterms'>
 <table width=100% border=0>";
-echo "<tr><td colspan=3><label style='margin:0px;'>Tipo de incoterms: <a href='#IncotermsHelp' rel='MyModal:open'><img src='icons/ayuda.png' style='width:16px;'></a></label></td></tr>";
+echo "<tr><td colspan=3><label style='margin:0px;'>Tipo de incoterms: <a href='#IncotermsHelp' rel='MyModal:open'><img src='icon/ayuda.png' style='width:16px;'></a></label></td></tr>";
 echo "<tr>";
 echo "<td  align=left valign=top>";
 echo "<select id='IdIncoterms' name='IdIncoterms' class='form-control'>";
@@ -467,7 +467,7 @@ if ($ClaveDelProducto == "A"){
         echo "<td  align=left valign=middle>";
         echo "
         <a href='pdfProcimart1.php?IdLote=".$IdLote."' title='Haga clic aqui para ver el certificado' download>
-        <img src='icons/pdf.png' style='width:32px;'>
+        <img src='icon/pdf.png' style='width:32px;'>
         </a>
 
         ";
@@ -492,7 +492,7 @@ if ($ClaveDelProducto == "A"){
         echo "<td  align=left valign=middle>";
         echo "
         <a href='pdfProcimart.php?IdLote=".$IdLote."' title='Haga clic aqui para ver el certificado' download>
-        <img src='icons/pdf.png' style='width:32px;'>
+        <img src='icon/pdf.png' style='width:32px;'>
         </a>
 
         ";
@@ -510,13 +510,13 @@ if ($ClaveDelProducto == "A"){
 
 
     echo "<div class='form-group btn btn-success' id='btnGuadar' onclick='Save();' >";
-    echo "<img src='icons/guardar.png' style='width:32px;'>Guardar";
+    echo "<img src='icon/guardar.png' style='width:32px;'>Guardar";
     echo "</div>";
 
 
     
     echo "<a href='app_movs.php' class='form-group btn btn-primary' id='btnGuadar' >";
-    echo "<img src='icons/permisos.png' style='width:32px;'> Movimientos";
+    echo "<img src='icon/permisos.png' style='width:32px;'> Movimientos";
     echo "</a>";
 
 

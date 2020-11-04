@@ -12,7 +12,7 @@ if ($db0->query($sql) == TRUE)
     $('#ResultadoNIP').show();
     </script>";
 
-    echo "<img src='icons/ok.png' style='width:32px;'>Se ha actualizado correctamente.
+    echo "<img src='icon/ok.png' style='width:32px;'>Se ha actualizado correctamente.
     <a href='login.php' class='btn btn-success'>Continuar</a>
     ";
 }
@@ -22,7 +22,7 @@ else {
     $('#ResultadoNIP').show();
     </script>";
 
-    echo "<img src='icons/x.png' style='width:32px;'>Ha Habido un error.
+    echo "<img src='icon/x.png' style='width:32px;'>Ha Habido un error.
     <a href='index.php' class='btn btn-warning'>Intentarlo Nuevamente</a>
     ";
 }

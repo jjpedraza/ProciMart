@@ -226,7 +226,7 @@ if (UserAdmin($RinteraUser)==TRUE){
         <b>USUARIOS REGISTRADOS:</b>
         </td><td width=30px align=right>
         <a href='?new=' title='Haga clic aqui para agregar un nuevo usuario'>
-        <img src='icons/user_add.png' style='width:32px;'>
+        <img src='icon/user_add.png' style='width:32px;'>
         </a>
 
         </td>
@@ -242,7 +242,7 @@ if (UserAdmin($RinteraUser)==TRUE){
 	IdUser,
 	`rintera`.`users`.`UserName` AS `UserName`,
 
-	concat( '<a href=\'?x=', `rintera`.`users`.`IdUser`, '\' title=\'Haga clic para Eliminar al Usuario\' class=\'btn btn-warning\'><img src=\'icons/x.png\' style=\'width:17px;\'></a>' ) AS `Eliminar` 
+	concat( '<a href=\'?x=', `rintera`.`users`.`IdUser`, '\' title=\'Haga clic para Eliminar al Usuario\' class=\'btn btn-warning\'><img src=\'icon/x.png\' style=\'width:17px;\'></a>' ) AS `Eliminar` 
 FROM
 	`users`
         

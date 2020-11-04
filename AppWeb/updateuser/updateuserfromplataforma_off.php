@@ -81,7 +81,7 @@ if ($Vaciada == TRUE){
         } else {
             echo "<p style='font-weight:bold; color:black; background-color:white;
             padding:10px; border-radius:10px;width:90%;
-            '><img src='../icons/ok.png' style='width:32px;'>Se han actualizado correctamente ".$c." usuarios desde la Plataforma ITAVU.<br> <cite>
+            '><img src='../icon/ok.png' style='width:32px;'>Se han actualizado correctamente ".$c." usuarios desde la Plataforma ITAVU.<br> <cite>
             Los NIP de acceso, son los mismos de la plataforma.<br>
             * Con Excepcion de tu usuario = ".$RinteraUser."
             </cite></p>";

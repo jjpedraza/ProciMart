@@ -68,7 +68,7 @@ box-shadow: inset 0px -36px 13px -31px rgba(0,0,0,0.39);
     color: white;
     padding-right: 5px;
     ".$sombra."
-    '><img src='icons/atencion.png' style='width:17px;' class='pc'><span class='pc'> ".$RinteraUserName."</span> </td>";
+    '><img src='icon/atencion.png' style='width:17px;' class='pc'><span class='pc'> ".$RinteraUserName."</span> </td>";
 
    
     echo "<td  valing=middle  style='
@@ -77,7 +77,7 @@ box-shadow: inset 0px -36px 13px -31px rgba(0,0,0,0.39);
     color: white;
     padding-right: 5px;
     ".$sombra."
-    '><a href='nip.php'><img src='icons/candado.png' style='width:17px;'></a> </td>";
+    '><a href='nip.php'><img src='icon/candado.png' style='width:17px;'></a> </td>";
 
     if (UserAdmin($RinteraUser)==TRUE){
         
@@ -94,7 +94,7 @@ box-shadow: inset 0px -36px 13px -31px rgba(0,0,0,0.39);
          '
          >";
         echo "<a href='custom.php?db=' title='Haga clic aqui para ajustar las preferencias'>";
-        echo " <img src='icons/config.png' style='width:22px; margin:3px;'> ";
+        echo " <img src='icon/config.png' style='width:22px; margin:3px;'> ";
         echo "</a>";
         echo "</td>";
         }
@@ -125,7 +125,7 @@ box-shadow: inset 0px -36px 13px -31px rgba(0,0,0,0.39);
     <td width=10px valign=midle style='background-color:".Preference("ColorPrincipal", "", "").";     ".$sombra."'>
 
     <a href='logout.php'  title='Cerrar Sessión de ".$RinteraUserName."' style=''>    
-    <img src='icons/salir2.png' style='width:17px; margin-right:4px;'></a>
+    <img src='icon/salir2.png' style='width:17px; margin-right:4px;'></a>
     
     </td>";
     
@@ -136,7 +136,7 @@ box-shadow: inset 0px -36px 13px -31px rgba(0,0,0,0.39);
     <td width=10px valign=midle style='background-color:".Preference("ColorPrincipal", "", "").";     ".$sombra."'>
 
     <a href='index.php'  title='Cerrar Sessión de ".$RinteraUserName."' style=''>    
-    <img src='icons/home.png' style='width:30px; margin-right:0px;'></a>
+    <img src='icon/home.png' style='width:30px; margin-right:0px;'></a>
     
     </td>";
     

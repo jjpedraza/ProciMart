@@ -17,7 +17,7 @@ $IdCon = IdConReporte($id_rep);
 $Tipo = 0;
 
 if ($Query == "FALSE") {
-    echo "<img src='icons/word.png' style='width:15px'>ERROR: Reporte ".$id_rep." con datos insuficientes";    
+    echo "<img src='icon/word.png' style='width:15px'>ERROR: Reporte ".$id_rep." con datos insuficientes";    
 } else {
     // 0 = Base de mysql de rintera
     // 1 = MySQL

@@ -73,7 +73,7 @@ background-color:  <?php echo Preference("ColorResaltado", "", ""); ?>;
 box-shadow: 0 3px  #4d4c49; margin:10px;
 
 "> 
-<img src='icons/busqueda.png' style='width:50px;'></button>
+<img src='icon/busqueda.png' style='width:50px;'></button>
 
 </td></table>
 <div style='
