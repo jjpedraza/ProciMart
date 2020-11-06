@@ -1123,8 +1123,10 @@ function TableToPDF($TablaHTML, $IdUser, $titulo, $descripcion, $PageSize, $orie
     $t2="";
     $t3="";
 
-    // ob_end_clean();  
+    ob_end_clean();  
     
+
+        
     class PDFReporteUniversal extends TCPDF {
         public $str;
         public $titulo;
@@ -1266,7 +1268,14 @@ function TableToPDF($TablaHTML, $IdUser, $titulo, $descripcion, $PageSize, $orie
 }
 }
 $pdf = new PDFReporteUniversal(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
-
+// $pdf->jpeg_quality = 75;
+// // initialize some settings
+// TCPDF_FONTS::utf8Bidi(array(''), '', false, $pdf->isunicode, $pdf->CurrentFont);
+// TCPDF_FONTS::utf8Bidi(array(), '', false, $pdf->isunicode, $pdf->CurrentFont);
+// // set default font
+// $pdf->SetFont($pdf->FontFamily, $pdf->FontStyle, $pdf->FontSizePt);
+// $pdf->setHeaderFont(array($pdf->FontFamily, $pdf->FontStyle, $pdf->FontSizePt));
+// ob_end_clean();  
 $pdf->SetCreator(PDF_CREATOR);
 // $pdf->SetAuthor($autor);
 // $pdf->SetTitle("d".strtoupper($titulo));

@@ -1664,23 +1664,50 @@ class TCPDF_FONTS {
 	 * @public static
 	 */
 	public static function unichr($c, $unicode=true) {
-		if (!$unicode) {
-			return chr($c);
-		} elseif ($c <= 0x7F) {
-			// one byte
-			return chr($c);
-		} elseif ($c <= 0x7FF) {
-			// two bytes
-			return chr(0xC0 | $c >> 6).chr(0x80 | $c & 0x3F);
-		} elseif ($c <= 0xFFFF) {
-			// three bytes
-			return chr(0xE0 | $c >> 12).chr(0x80 | $c >> 6 & 0x3F).chr(0x80 | $c & 0x3F);
-		} elseif ($c <= 0x10FFFF) {
-			// four bytes
-			return chr(0xF0 | $c >> 18).chr(0x80 | $c >> 12 & 0x3F).chr(0x80 | $c >> 6 & 0x3F).chr(0x80 | $c & 0x3F);
-		} else {
-			return '';
+		//Ajuste para el Error: Warning: chr() expects parameter 1 to be int, string given...
+
+		
+		if(is_numeric($c))
+        {
+            if (!$unicode) {
+                return chr($c);
+            } elseif ($c <= 0x7F) {
+                // one byte
+                return chr($c);
+            } elseif ($c <= 0x7FF) {
+                // two bytes
+                return chr(0xC0 | $c >> 6).chr(0x80 | $c & 0x3F);
+            } elseif ($c <= 0xFFFF) {
+                // three bytes
+                return chr(0xE0 | $c >> 12).chr(0x80 | $c >> 6 & 0x3F).chr(0x80 | $c & 0x3F);
+            } elseif ($c <= 0x10FFFF) {
+                // four bytes
+                return chr(0xF0 | $c >> 18).chr(0x80 | $c >> 12 & 0x3F).chr(0x80 | $c >> 6 & 0x3F).chr(0x80 | $c & 0x3F);
+            } else {
+                return '';
+            }
 		}
+
+		// if (!$unicode) {
+		// 	return chr($c);
+		// } elseif ($c <= 0x7F) {
+		// 	// one byte
+		// 	return chr($c);
+			
+		// 	// $c = intval($c);
+		// 	// return $c;
+		// } elseif ($c <= 0x7FF) {
+		// 	// two bytes
+		// 	return chr(0xC0 | $c >> 6).chr(0x80 | $c & 0x3F);
+		// } elseif ($c <= 0xFFFF) {
+		// 	// three bytes
+		// 	return chr(0xE0 | $c >> 12).chr(0x80 | $c >> 6 & 0x3F).chr(0x80 | $c & 0x3F);
+		// } elseif ($c <= 0x10FFFF) {
+		// 	// four bytes
+		// 	return chr(0xF0 | $c >> 18).chr(0x80 | $c >> 12 & 0x3F).chr(0x80 | $c >> 6 & 0x3F).chr(0x80 | $c & 0x3F);
+		// } else {
+		// 	return '';
+		// }
 	}
 
 	/**
