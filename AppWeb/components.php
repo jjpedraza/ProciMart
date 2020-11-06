@@ -1040,7 +1040,7 @@ function TestConectionWS($IdCon){
             }
               
             if ($Exito == TRUE){
-                Toast("Conección exitosa a la Planta, Cd. Victoria",4,"");
+                Toast("Conexión exitosa a la Planta, Cd. Victoria",4,"");
                 return TRUE;
             } else {
                 Toast("Fallo al conectar a la Planta, Cd. Victori",2,"");

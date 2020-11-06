@@ -159,13 +159,14 @@ if (Preference("MostrarApps", "", "")=='TRUE'){
         $rF= $db0 -> query($QueryG);    
         $Datas = 0; $Labels="";
         while($Fr = $rF -> fetch_array()) {   
-            $Datas.= $Fr['Count'].", ";
+            $Datas.= intval($Fr['Count']).", ";
             $Labels.="'".$Fr['IdAdjudicacion']."',";
         }
         unset($rf);unset($Fr);
         $Datas = substr($Datas, 0, -1); //quita la ultima coma.
         $Labels = substr($Labels, 0, -1); //quita la ultima coma.
         // echo $Datas."|".$Labels;
+        
         
             echo '<div style="" class="Graficas">';
             GraficaDona($Labels,$Datas,"OFERTA/VENTA");
@@ -184,7 +185,7 @@ if (Preference("MostrarApps", "", "")=='TRUE'){
         $rF= $db0 -> query($QueryG);    
         $Datas = 0; $Labels="";
         while($Fr = $rF -> fetch_array()) {   
-            $Datas.= $Fr['Count'].", ";
+            $Datas.= intval($Fr['Count']).", ";
             $Labels.="'".$Fr['IdClienteName']."',";
         }
         unset($rf);unset($Fr);
