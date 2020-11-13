@@ -109,13 +109,15 @@ if (Preference("MostrarApps", "", "")=='TRUE'){
 <div id='Dashboard'>
     <div id="DashboardCol1"  >
         <?php
-        $QueryG = "select DISTINCT a.IdClienteName,
-        (select count(*) from productosmov WHERE IdClienteName = a.IdClienteName) as Count
-        from productosmov a WHERE IdAdjudicacion ='VENTA'";
+        $QueryG = "
+        select DISTINCT a.IdClienteName,
+        (select SUM(Cantidad) from productosmov WHERE IdClienteName = a.IdClienteName) as Count
+        from productosmov a WHERE IdAdjudicacion ='VENTA'
+        ";
         $rF= $db0 -> query($QueryG);    
         $Datas = 0; $Labels="";
         while($Fr = $rF -> fetch_array()) {   
-            $Datas.= $Fr['Count'].", ";
+            $Datas.= intval($Fr['Count']).", ";
             $Labels.="'".$Fr['IdClienteName']."',";
         }
         unset($rf);unset($Fr);
@@ -126,6 +128,29 @@ if (Preference("MostrarApps", "", "")=='TRUE'){
             echo '<div style="" class="Graficas">';
             GraficaBar($Labels,$Datas,"Clientes Venta");
             echo '</div>';
+
+
+        $QueryG = "
+        select DISTINCT a.IdClienteName,
+        (select SUM(Cantidad) from productosmov WHERE IdClienteName = a.IdClienteName) as Count
+        from productosmov a WHERE IdAdjudicacion ='OFERTA'
+        ";
+        $rF= $db0 -> query($QueryG);    
+        $Datas = 0; $Labels="";
+        while($Fr = $rF -> fetch_array()) {   
+            $Datas.= intval($Fr['Count']).", ";
+            $Labels.="'".$Fr['IdClienteName']."',";
+        }
+        unset($rf);unset($Fr);
+        $Datas = substr($Datas, 0, -1); //quita la ultima coma.
+        $Labels = substr($Labels, 0, -1); //quita la ultima coma.
+
+        
+            echo '<div style="" class="Graficas">';
+            GraficaBar($Labels,$Datas,"Clientes OFERTA");
+            echo '</div>';
+
+
 
 
         ?>
@@ -178,45 +203,19 @@ if (Preference("MostrarApps", "", "")=='TRUE'){
 
 
 <?php
-        $QueryG = "select DISTINCT a.IdClienteName,
-        (select sum(Costo) from productosmov WHERE IdAdjudicacion = a.IdAdjudicacion and IdClienteName = a.IdClienteName) as Count
-        from productosmov a WHERE IdAdjudicacion = 'OFERTA'
-        ";
-        $rF= $db0 -> query($QueryG);    
-        $Datas = 0; $Labels="";
-        while($Fr = $rF -> fetch_array()) {   
-            $Datas.= intval($Fr['Count']).", ";
-            $Labels.="'".$Fr['IdClienteName']."',";
-        }
-        unset($rf);unset($Fr);
-        $Datas = substr($Datas, 0, -1); //quita la ultima coma.
-        $Labels = substr($Labels, 0, -1); //quita la ultima coma.
-    //     echo $Datas."|".$Labels;
-        
-            echo '<div style="" class="Graficas">';
-            GraficaBarLine($Labels,$Datas,"Ofertados / Cliente","false");
-            echo '</div>';
-
-            
+       
         ?>
 
        <?php
-        $QueryG = "select DISTINCT a.IdClienteName,
-        (select count(*) from productosmov WHERE IdClienteName = a.IdClienteName) as Count
-        from productosmov a WHERE IdAdjudicacion ='OFERTA'";
-        $rF= $db0 -> query($QueryG);    
-        $Datas = 0; $Labels="";
-        while($Fr = $rF -> fetch_array()) {   
-            $Datas.= $Fr['Count'].", ";
-            $Labels.="'".$Fr['IdClienteName']."',";
-        }
+        $Datas = SilosData('Data');
+        $Labels = SilosData('Label');
         unset($rf);unset($Fr);
         $Datas = substr($Datas, 0, -1); //quita la ultima coma.
         $Labels = substr($Labels, 0, -1); //quita la ultima coma.
 
         
             echo '<div style="" class="Graficas">';
-            GraficaBar($Labels,$Datas,"Clientes Ofertas");
+            GraficaBar($Labels,$Datas,"Silos (Capacidad Max. 97200)");
             echo '</div>';
 
 
@@ -230,32 +229,34 @@ if (Preference("MostrarApps", "", "")=='TRUE'){
      $rF= $db0 -> query("select * from reportes where Portada=1");    
      $repos = 0; $repolist="";
      while($Fr = $rF -> fetch_array()) {   
-         $repolist.= "<a href='r.php?id=".$Fr['id_rep']."' title='Haga Clic aqui para ver el reporte' class='btn btn-Light'
+         $repolist.= "<a href='r.php?id=".$Fr['id_rep']."' title='Haga Clic aqui para ver el reporte' class='btn btn-success'
          style='
-            background-color: #e6e6e6;
-            color: #625f5f;
+            // background-color: #e6e6e6;
+            // color: #625f5f;
             width: 100%;
             font-size: 10pt;
             text-align:left;
+            margin-bottom:5px;
          '
-         >".$Fr['rep_name']."</a><br><br>";
+         >".$Fr['rep_name']."</a>";
          $repos = $repos + 1;
      }
     
      unset($rf);unset($Fr);
      if ($repos > 0 ){
          echo "<h6 style='font-size: 8pt;
-         opacity: 0.6;'>Recomendados</h6>";
+         opacity: 0.6;'>Inventarios</h6>";
          echo $repolist;
      }
 
-     echo "<a href='app_movs.php' title='Haga Clic aqui para ver la activivad' class='btn btn-Light'
+     echo "<a href='app_movs.php' title='Haga Clic aqui para ver la activivad' class='btn btn-primary'
          style='
-            background-color: #e6e6e6;
-            color: #625f5f;
+            // background-color: #e6e6e6;
+            // color: #625f5f;
             width: 100%;
             font-size: 10pt;
             text-align:left;
+            margin-top:10px;
          '
          >";
      echo "<img src='icon/permisos.png' style='width:32px;'> Movimientos";
@@ -354,7 +355,121 @@ if (isset($_GET['q'])){
 Historia($RinteraUser, "HOME", "Acceso a la pagina principal");
 
 
+function SilosData($Data){
+require("rintera-config.php");
 
+$QueryEncabezado = "
+Select * from NivelesDeLosSilos order by IdSilo
+";
+
+$IdCon = 2;
+$WSSQL = "select * from dbs where IdCon='".$IdCon."' AND Active=1 AND ConType =2"; //SQLSERVERTOJSON
+$WSCon = $db0 -> query($WSSQL);
+
+if($WSConF = $WSCon -> fetch_array())
+{
+if ($WSConF['wsurl'] <>'' &&  $WSConF['wsmethod']<>'' && $WSConF['wsjson']<>'' )    
+{
+    $WSurl = $WSConF['wsurl'];
+    $WSmethod = $WSConF['wsmethod'];
+    $WSjson = $WSConF['wsjson'];
+    $WSparametros = $WSConF['parametros'];
+
+    $wsP1_id = $WSConF['wsP1_id'];  $wsP1_value = $WSConF['wsP1_value'];
+    $wsP2_id = $WSConF['wsP2_id'];  $wsP2_value = $WSConF['wsP2_value'];
+    $wsP3_id = $WSConF['wsP3_id'];  $wsP3_value = $WSConF['wsP3_value'];
+    $wsP4_id = $WSConF['wsP4_id'];  $wsP4_value = $WSConF['wsP4_value'];
+    $WS_Val = TRUE;        
+    $url = $WSurl;            
+    $sql = $QueryEncabezado;
+    $token = $wsP1_value;
+
+    //Peticion
+    $myObj = new stdClass;
+    $myObj->token = $token;
+    $myObj->sql = $QueryEncabezado;
+    $myJSON = json_encode($myObj,JSON_UNESCAPED_SLASHES);
+    
+    $datos_post = http_build_query(
+        $myObj
+    );
+
+    $opciones = array('http' =>
+        array(
+            'method'  => 'POST',
+            'header'  => 'Content-type: application/x-www-form-urlencoded',
+            'content' => $datos_post
+        )
+    );
+    ini_set('max_execution_time', 7000);
+    ini_set('max_execution_time', 0);
+    $context = stream_context_create($opciones);            
+    $archivo_web = file_get_contents($url, false, $context);                    
+    $data = json_decode($archivo_web);
+
+    $jsonIterator = new RecursiveIteratorIterator(
+        new RecursiveArrayIterator(json_decode($archivo_web, TRUE)),
+        RecursiveIteratorIterator::SELF_FIRST
+    );
+
+    $Der = "";
+    // var_dump( $jsonIterator);    
+    $TablaDeta = "";
+    $row = 0;    
+    $DataG ="";
+    $LabelG = "";
+    foreach ($jsonIterator as $key => $val) {
+        if (is_numeric($key)){ //rows                        
+            $rowC = 0;
+        } else {
+            switch ($row) {                    
+                case 0:
+                   
+                    break;
+                case 1:
+                    
+                    break;
+                default:
+                    
+                if ($key == 'silo'){
+                    $LabelG.= "'".$val."',";
+                }
+                if ($key == 'Existencia'){
+                    $DataG.= "".$val.",";
+                }
+
+                    
+                    // $TablaDeta.= "<tr><td>".$key."</td><td>".$val."</td></tr>";
+                    
+                    break;
+            }
+            
+               
+                
+            $row = $row + 1;    
+        }
+         
+    }
+    // $TablaDetaT="<table class='tabla' border=1>".$TablaDeta."</table>";
+    
+   
+       
+        
+   
+    
+    
+    
+    
+}
+
+}
+if ($Data == 'Data'){
+    return $DataG;
+}
+if ($Data = 'Label'){
+    return $LabelG;
+}
+}
 
 
 include ("footer.php");

@@ -36,6 +36,36 @@ label {
     margin: 0px;
 }
 
+#Detalles {
+    width: 98%;
+    display: inline-block;
+    padding: 10px;
+    background-color: #ffffff80;
+    border-radius: 5px;
+    margin: 5px;
+}
+
+#DetallesVender,
+#FormVender {
+    display: inline-block;
+    padding: 10px;
+    background-color: #ffffff80;
+    border-radius: 5px;
+    vertical-align: top;
+    margin: 5px;
+}
+
+#DetallesVender {
+    width: 30%;
+    font-size: 10pt;
+    vertical-align: top;
+    margin: 5px;
+}
+
+#FormVender {
+    width: 65%;
+}
+
 #InfoMov2 {
     display: none;
 }
@@ -998,7 +1028,30 @@ hr {
         width: 30%;
     }
 }
+@media only screen and (max-width:1000px) {
+    #DetallesVender {
+        width: 50%;
+        font-size: 10pt;
+        vertical-align: top;
+        margin: 5px;
+    }
+    
+    #FormVender {
+        width: 40%;
+    }
+}
 @media only screen and (max-width:600px) {
+    #DetallesVender {
+        width: 97%;
+        font-size: 10pt;
+        vertical-align: top;
+        margin: 5px;
+    }
+    
+    #FormVender {
+        width: 97%;
+    }
+    
     .form-groupMid {
         width: 40%;
     }

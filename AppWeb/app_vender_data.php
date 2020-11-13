@@ -56,7 +56,7 @@ if ($IdAdjudicacion == "VENTA"){ //VENTA
         ")";
         if ($db0->query($sql) == TRUE)
         {
-            Toast("Guardado con exito",4,"");
+            Toast("Guardado con exito, haga clic en movimientos para verlo",4,"");
         }
         else {
             Toast("Error al guardar",2,"");
@@ -64,13 +64,13 @@ if ($IdAdjudicacion == "VENTA"){ //VENTA
 
 Historia($RinteraUser, "Guardo Producto", "".$sql."");
 
-echo '
-<script>
-function redireccionarPagina() {
-    window.location = "app_movs.php";
-  }
-  setTimeout("redireccionarPagina()", 1000);
-</script>';
+// echo '
+// <script>
+// function redireccionarPagina() {
+//     window.location = "app_movs.php";
+//   }
+//   setTimeout("redireccionarPagina()", 1000);
+// </script>';
 
 
 ?>
