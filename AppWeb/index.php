@@ -212,7 +212,7 @@ if (Preference("MostrarApps", "", "")=='TRUE'){
         unset($rf);unset($Fr);
         $Datas = substr($Datas, 0, -1); //quita la ultima coma.
         $Labels = substr($Labels, 0, -1); //quita la ultima coma.
-
+        // echo $Labels."|".$Datas;
         
             echo '<div style="" class="Graficas">';
             GraficaBar($Labels,$Datas,"Silos (Capacidad Max. 97200)");
@@ -426,9 +426,7 @@ if ($WSConF['wsurl'] <>'' &&  $WSConF['wsmethod']<>'' && $WSConF['wsjson']<>'' )
                 case 0:
                    
                     break;
-                case 1:
-                    
-                    break;
+               
                 default:
                     
                 if ($key == 'silo'){
