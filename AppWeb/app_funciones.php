@@ -1,4 +1,15 @@
 <?php
+
+function ReferenciaN(){
+    require_once("preference.php");
+    
+    $n = Preference("ReferenciaN", "", "") + 1;
+    PreferenceEdit("ReferenciaN", "", "", $n);
+
+    $n2 = Preference("ReferenciaN", "", "");
+    return $n2;
+
+}
 function IdTransaccion(){
     $UltimoMov = Transaccion_UltimoMov();
     $SiguienteMov = 0;

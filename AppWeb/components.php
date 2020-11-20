@@ -3387,7 +3387,7 @@ function GraficaPie($Labels, $Datas, $Titulo){
     
     echo '<div style="width:92%; text-align:right;"><a href="#'.$IdDiv.'_modal" rel=MyModal:open><img src="icon/max.png" style="" class="btnMaximizar"></a></div>
     <canvas id="'.$IdDiv.'" width="100%" height="100%"></canvas>';
-    echo '<canvas id="'.$IdDiv.'_modal" class="modal" style="display:none;" width="100%" height="100%"></canvas>';
+    echo '<canvas id="'.$IdDiv.'_modal" class="modal" style="display:none;" width="100%" height="50%"></canvas>';
 
     echo "
 
@@ -3680,6 +3680,85 @@ function GraficaBar($Labels, $Datas, $Titulo){
     
 }
 
+
+function GraficaBar2($Labels, $Datas, $Titulo){
+
+    $len = 16;    $cadena_base =  'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';   $cadena_base .= '0123456789' ;  $limite = strlen($cadena_base) - 1;      
+    $STR = '';  for ($i=0; $i < $len; $i++){ $STR .= $cadena_base[rand(0, $limite)]; }  $IdDiv = $STR;
+    
+    echo '<div style="width:92%; text-align:right;"><a href="#'.$IdDiv.'_modal" rel=MyModal:open><img src="icon/max.png" style="" class="btnMaximizar"></a></div>
+    <canvas id="'.$IdDiv.'" width="100%" height="100%"></canvas>';
+
+    echo '<canvas id="'.$IdDiv.'_modal" class="modal" style="display:none;" width="100%" height="50%"></canvas>';
+
+    echo "
+
+    <script>
+    var ctx = document.getElementById('".$IdDiv."');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: [".$Labels."],
+            datasets: [{
+                label: '".$Titulo."',
+                data: [".$Datas."],
+                ".GraficaInserColores()."
+                borderWidth: 1
+            },
+            {
+                label: 'Capacidad maxima 97200',
+                data: [97200, 97200, 97200, 97200, 97200, 97200],    
+                
+                type: 'line'
+            }]
+
+            
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+
+
+    var ctx2 = document.getElementById('".$IdDiv."_modal');
+    var myChart = new Chart(ctx2, {
+        type: 'bar',
+        data: {
+            labels: [".$Labels."],
+            datasets: [{
+                label: '".$Titulo."',
+                data: [".$Datas."],
+                ".GraficaInserColores()."
+                borderWidth: 1
+            },
+            {
+                label: 'Capacidad maxima 97200',
+                data: [97200, 97200, 97200, 97200, 97200, 97200],    
+                
+                type: 'line'
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+    
+    </script>
+    ";
+    
+}
 function GraficaInserColores(){
 require("rintera-config.php");
 $sql = "select 

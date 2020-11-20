@@ -69,7 +69,7 @@ function PreferenceEdit($Preference, $GroupA, $GroupB, $Value){
     $sql = "UPDATE preferences 
     SET Value='".$Value."'
     WHERE Preference ='".$Preference."' and GroupA='".$GroupA."' and GroupB='".$GroupA."'";    
-    echo $sql;
+    // echo $sql;
     if ($dbP->query($sql) == TRUE)
     {return TRUE;}
     else {return FALSE;}

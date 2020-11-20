@@ -212,10 +212,29 @@ if (Preference("MostrarApps", "", "")=='TRUE'){
         unset($rf);unset($Fr);
         $Datas = substr($Datas, 0, -1); //quita la ultima coma.
         $Labels = substr($Labels, 0, -1); //quita la ultima coma.
-        // echo $Labels."|".$Datas;
+        // echo "<br>Labels=".$Labels."<br>Datas=".$Datas."<br>";
         
             echo '<div style="" class="Graficas">';
-            GraficaBar($Labels,$Datas,"Silos (Capacidad Max. 97200)");
+            GraficaBar2($Labels,$Datas,"Silos");
+            echo '</div>';
+
+
+        ?>
+
+
+        <?php
+        $Total = SilosDataTotal('Data');
+        $CapacidadMaxima = 97200*6;
+        $CapacidadRestante = $CapacidadMaxima - $Total;
+        $Datas = $CapacidadRestante.", ".$Total.",";
+        $Labels = "'Capacidad Disponible', 'Ocupacion en Silos',";
+        unset($rf);unset($Fr);
+        $Datas = substr($Datas, 0, -1); //quita la ultima coma.
+        $Labels = substr($Labels, 0, -1); //quita la ultima coma.
+        // echo "<br>Labels=".$Labels."<br>Datas=".$Datas."<br>";
+        
+            echo '<div style="" class="Graficas">';
+            GraficaPie($Labels,$Datas,"Capacidad en Silos");
             echo '</div>';
 
 
@@ -469,6 +488,118 @@ if ($Data = 'Label'){
 }
 }
 
+
+
+function SilosDataTotal($Data){
+    require("rintera-config.php");
+    
+    $QueryEncabezado = "
+    Select * from NivelesDeLosSilos order by IdSilo
+    ";
+    
+    $IdCon = 2;
+    $WSSQL = "select * from dbs where IdCon='".$IdCon."' AND Active=1 AND ConType =2"; //SQLSERVERTOJSON
+    $WSCon = $db0 -> query($WSSQL);
+    
+    if($WSConF = $WSCon -> fetch_array())
+    {
+    if ($WSConF['wsurl'] <>'' &&  $WSConF['wsmethod']<>'' && $WSConF['wsjson']<>'' )    
+    {
+        $WSurl = $WSConF['wsurl'];
+        $WSmethod = $WSConF['wsmethod'];
+        $WSjson = $WSConF['wsjson'];
+        $WSparametros = $WSConF['parametros'];
+    
+        $wsP1_id = $WSConF['wsP1_id'];  $wsP1_value = $WSConF['wsP1_value'];
+        $wsP2_id = $WSConF['wsP2_id'];  $wsP2_value = $WSConF['wsP2_value'];
+        $wsP3_id = $WSConF['wsP3_id'];  $wsP3_value = $WSConF['wsP3_value'];
+        $wsP4_id = $WSConF['wsP4_id'];  $wsP4_value = $WSConF['wsP4_value'];
+        $WS_Val = TRUE;        
+        $url = $WSurl;            
+        $sql = $QueryEncabezado;
+        $token = $wsP1_value;
+    
+        //Peticion
+        $myObj = new stdClass;
+        $myObj->token = $token;
+        $myObj->sql = $QueryEncabezado;
+        $myJSON = json_encode($myObj,JSON_UNESCAPED_SLASHES);
+        
+        $datos_post = http_build_query(
+            $myObj
+        );
+    
+        $opciones = array('http' =>
+            array(
+                'method'  => 'POST',
+                'header'  => 'Content-type: application/x-www-form-urlencoded',
+                'content' => $datos_post
+            )
+        );
+        ini_set('max_execution_time', 7000);
+        ini_set('max_execution_time', 0);
+        $context = stream_context_create($opciones);            
+        $archivo_web = file_get_contents($url, false, $context);                    
+        $data = json_decode($archivo_web);
+    
+        $jsonIterator = new RecursiveIteratorIterator(
+            new RecursiveArrayIterator(json_decode($archivo_web, TRUE)),
+            RecursiveIteratorIterator::SELF_FIRST
+        );
+    
+        $Der = "";
+        // var_dump( $jsonIterator);    
+        $TablaDeta = "";
+        $row = 0;    
+        $DataG ="";
+        $LabelG = "";
+        $Total = 0;
+        foreach ($jsonIterator as $key => $val) {
+            if (is_numeric($key)){ //rows                        
+                $rowC = 0;
+            } else {
+                switch ($row) {                    
+                    case 0:
+                       
+                        break;
+                   
+                    default:
+                        
+                    if ($key == 'silo'){
+                        $LabelG.= "'".$val."',";
+                    }
+                    if ($key == 'Existencia'){
+                        $DataG.= "".$val.",";
+                        $Total = $Total + $val;
+                    }
+    
+                        
+                        // $TablaDeta.= "<tr><td>".$key."</td><td>".$val."</td></tr>";
+                        
+                        break;
+                }
+                
+                   
+                    
+                $row = $row + 1;    
+            }
+             
+        }
+        // $TablaDetaT="<table class='tabla' border=1>".$TablaDeta."</table>";
+        
+       
+           
+            
+       
+        
+        
+        
+        
+    }
+    
+    }
+    return $Total;
+    }
 
 include ("footer.php");
 ?>

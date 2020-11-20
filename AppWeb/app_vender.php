@@ -343,7 +343,7 @@ if (isset($_GET['id'])) {
             echo "<tr><td colspan=3><label style='margin:0px;'>Tiempo de Envio (dias): </label></td></tr>";
             echo "<tr>";
             echo "<td  align=left valign=top>";
-            echo "<input type='number' id='TiempoDeEnvio' name='TiempoDeEnvio' class='form-control'>";
+            echo "<input type='number' id='TiempoDeEnvio' name='TiempoDeEnvio' class='form-control' value='0'>";
 
             echo "</td>";
             echo "</tr></table>
