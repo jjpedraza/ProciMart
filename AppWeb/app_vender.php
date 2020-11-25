@@ -271,6 +271,24 @@ if (isset($_GET['id'])) {
             </div>
             ";
 
+            echo "
+            <div class='form-groupMid' id='DivPrecio'>
+            <table width=100% border=0>";
+            echo "<tr><td colspan=3><label style='margin:0px;'>Precio:</label></td></tr>";
+
+            echo "<tr>";
+            echo "<td align=left valign=top width=60%>
+            <input type='text' id='Precio' name='Precio' class='form-control'  onBlur='toFinalNumberFormat(this);' placeholder='$#,###.00'  >";
+            echo "</td>";
+            echo "<td width=30% align=left valign=top>";
+            echo "<select id='IdMoneda' name='IdMoneda' class='form-control'>";
+            echo $MonedaOptions;
+            echo "</select>";
+
+            echo "</td>";
+            echo "</tr></table>
+            </div>
+            ";
 
 
             $OptionsIncoterms = "";
@@ -1206,11 +1224,12 @@ function Save(){
 if (go == ''){
     $('#PreLoader').show();
     IdTransaccion = $('#IdTransaccion').val();
-    IdCliente = $('#IdTransaccion').val();
+    IdCliente = $('#IdCliente').val();
     IdClienteName = $("#IdCliente option:selected").text();
     FechaOperacion = $("#Fecha").val();
     Cantidad = $('#Cantidad').val();
     Costo = $('#Costo').val().replace('$','');
+    Precio = $('#Precio').val().replace('$','');
     IdIncoterms = $('#IdIncoterms').val();
     IdIncotermsName = $('#IdIncoterms option:selected').text();
     TiempoDeEnvio = $('#TiempoDeEnvio').val();
@@ -1233,6 +1252,7 @@ if (go == ''){
             FechaOperacion:FechaOperacion,
             Cantidad:Cantidad,
             Costo:Costo,
+            Precio:Precio,
             IdIncoterms:IdIncoterms,
             IdIncotermsName: IdIncotermsName,
             TiempoDeEnvio:TiempoDeEnvio,

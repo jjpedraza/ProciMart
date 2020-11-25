@@ -13,7 +13,8 @@ Select
 IdMov,
 Adjudicacion,
 Producto,
-CONCAT(Cantidad, ' - $',Costo) as Cantidad,
+Cantidad,
+CONCAT('Costo = $',Costo, ',  Precio = $',Precio) as Precio,
 Cliente,
 X
 
