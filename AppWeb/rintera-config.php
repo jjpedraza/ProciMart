@@ -16,7 +16,7 @@ $db0_host = 'localhost';
 $db0_user = 'root';
 $db0_pass = ''; 
 // $db0_pass = ''; 
-$db0_name = 'rintera_procimart';
+$db0_name = 'c1551508_rintera';
 
 
 // Usuario c1551508_rintera

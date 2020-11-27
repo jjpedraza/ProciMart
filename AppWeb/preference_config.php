@@ -46,7 +46,7 @@ $Pdbname = "c1551508_rintera";
 $Pdbhost = "localhost";
 $Pdbuser  = "root";
 $Pdbpass = "";
-$Pdbname = "rintera_procimart";
+$Pdbname = "c1551508_rintera";
 
 
 if (function_exists('mysqli_connect')) {		

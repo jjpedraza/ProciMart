@@ -109,46 +109,46 @@ if (Preference("MostrarApps", "", "")=='TRUE'){
 <div id='Dashboard'>
     <div id="DashboardCol1"  >
         <?php
-        $QueryG = "
-        select DISTINCT a.IdClienteName,
-        (select SUM(Cantidad) from productosmov WHERE IdClienteName = a.IdClienteName) as Count
-        from productosmov a WHERE IdAdjudicacion ='VENTA'
-        ";
-        $rF= $db0 -> query($QueryG);    
-        $Datas = 0; $Labels="";
-        while($Fr = $rF -> fetch_array()) {   
-            $Datas.= intval($Fr['Count']).", ";
-            $Labels.="'".$Fr['IdClienteName']."',";
-        }
-        unset($rf);unset($Fr);
-        $Datas = substr($Datas, 0, -1); //quita la ultima coma.
-        $Labels = substr($Labels, 0, -1); //quita la ultima coma.
+        // $QueryG = "
+        // select DISTINCT a.IdClienteName,
+        // (select SUM(Cantidad) from productosmov WHERE IdClienteName = a.IdClienteName) as Count
+        // from productosmov a WHERE IdAdjudicacion ='VENTA'
+        // ";
+        // $rF= $db0 -> query($QueryG);    
+        // $Datas = 0; $Labels="";
+        // while($Fr = $rF -> fetch_array()) {   
+        //     $Datas.= intval($Fr['Count']).", ";
+        //     $Labels.="'".$Fr['IdClienteName']."',";
+        // }
+        // unset($rf);unset($Fr);
+        // $Datas = substr($Datas, 0, -1); //quita la ultima coma.
+        // $Labels = substr($Labels, 0, -1); //quita la ultima coma.
 
         
-            echo '<div style="" class="Graficas">';
-            GraficaBar($Labels,$Datas,"Clientes Venta");
-            echo '</div>';
+        //     echo '<div style="" class="Graficas">';
+        //     GraficaBar($Labels,$Datas,"Clientes Venta");
+        //     echo '</div>';
 
 
-        $QueryG = "
-        select DISTINCT a.IdClienteName,
-        (select SUM(Cantidad) from productosmov WHERE IdClienteName = a.IdClienteName) as Count
-        from productosmov a WHERE IdAdjudicacion ='OFERTA'
-        ";
-        $rF= $db0 -> query($QueryG);    
-        $Datas = 0; $Labels="";
-        while($Fr = $rF -> fetch_array()) {   
-            $Datas.= intval($Fr['Count']).", ";
-            $Labels.="'".$Fr['IdClienteName']."',";
-        }
-        unset($rf);unset($Fr);
-        $Datas = substr($Datas, 0, -1); //quita la ultima coma.
-        $Labels = substr($Labels, 0, -1); //quita la ultima coma.
+        // $QueryG = "
+        // select DISTINCT a.IdClienteName,
+        // (select SUM(Cantidad) from productosmov WHERE IdClienteName = a.IdClienteName) as Count
+        // from productosmov a WHERE IdAdjudicacion ='OFERTA'
+        // ";
+        // $rF= $db0 -> query($QueryG);    
+        // $Datas = 0; $Labels="";
+        // while($Fr = $rF -> fetch_array()) {   
+        //     $Datas.= intval($Fr['Count']).", ";
+        //     $Labels.="'".$Fr['IdClienteName']."',";
+        // }
+        // unset($rf);unset($Fr);
+        // $Datas = substr($Datas, 0, -1); //quita la ultima coma.
+        // $Labels = substr($Labels, 0, -1); //quita la ultima coma.
 
         
-            echo '<div style="" class="Graficas">';
-            GraficaBar($Labels,$Datas,"Clientes OFERTA");
-            echo '</div>';
+        //     echo '<div style="" class="Graficas">';
+        //     GraficaBar($Labels,$Datas,"Clientes OFERTA");
+        //     echo '</div>';
 
 
 
@@ -156,46 +156,46 @@ if (Preference("MostrarApps", "", "")=='TRUE'){
         ?>
 
         <?php
-        $QueryG = "select DISTINCT a.Tipo,
-        (select count(*) from productosmov WHERE Tipo = a.Tipo) as Count
-        from productosmov a";
-        $rF= $db0 -> query($QueryG);    
-        $Datas = 0; $Labels="";
-        while($Fr = $rF -> fetch_array()) {   
-            $Datas.= $Fr['Count'].", ";
-            $Labels.="'".$Fr['Tipo']."',";
-        }
-        unset($rf);unset($Fr);
-        $Datas = substr($Datas, 0, -1); //quita la ultima coma.
-        $Labels = substr($Labels, 0, -1); //quita la ultima coma.
+        // $QueryG = "select DISTINCT a.Tipo,
+        // (select count(*) from productosmov WHERE Tipo = a.Tipo) as Count
+        // from productosmov a";
+        // $rF= $db0 -> query($QueryG);    
+        // $Datas = 0; $Labels="";
+        // while($Fr = $rF -> fetch_array()) {   
+        //     $Datas.= $Fr['Count'].", ";
+        //     $Labels.="'".$Fr['Tipo']."',";
+        // }
+        // unset($rf);unset($Fr);
+        // $Datas = substr($Datas, 0, -1); //quita la ultima coma.
+        // $Labels = substr($Labels, 0, -1); //quita la ultima coma.
 
         
-            echo '<div style="" class="Graficas">';
-            GraficaBar($Labels,$Datas,"Tipo con mas Mov");
-            echo '</div>';
+        //     echo '<div style="" class="Graficas">';
+        //     GraficaBar($Labels,$Datas,"Tipo con mas Mov");
+        //     echo '</div>';
 
             
         ?>
 
 <?php
-        $QueryG = "
-        select DISTINCT a.IdAdjudicacion, (select sum(Cantidad) from productosmov WHERE IdAdjudicacion = a.IdAdjudicacion) as Count from productosmov a
-        ";
-        $rF= $db0 -> query($QueryG);    
-        $Datas = 0; $Labels="";
-        while($Fr = $rF -> fetch_array()) {   
-            $Datas.= intval($Fr['Count']).", ";
-            $Labels.="'".$Fr['IdAdjudicacion']."',";
-        }
-        unset($rf);unset($Fr);
-        $Datas = substr($Datas, 0, -1); //quita la ultima coma.
-        $Labels = substr($Labels, 0, -1); //quita la ultima coma.
-        // echo $Datas."|".$Labels;
+        // $QueryG = "
+        // select DISTINCT a.IdAdjudicacion, (select sum(Cantidad) from productosmov WHERE IdAdjudicacion = a.IdAdjudicacion) as Count from productosmov a
+        // ";
+        // $rF= $db0 -> query($QueryG);    
+        // $Datas = 0; $Labels="";
+        // while($Fr = $rF -> fetch_array()) {   
+        //     $Datas.= intval($Fr['Count']).", ";
+        //     $Labels.="'".$Fr['IdAdjudicacion']."',";
+        // }
+        // unset($rf);unset($Fr);
+        // $Datas = substr($Datas, 0, -1); //quita la ultima coma.
+        // $Labels = substr($Labels, 0, -1); //quita la ultima coma.
+        // // echo $Datas."|".$Labels;
         
         
-            echo '<div style="" class="Graficas">';
-            GraficaDona($Labels,$Datas,"OFERTA/VENTA");
-            echo '</div>';
+        //     echo '<div style="" class="Graficas">';
+        //     GraficaDona($Labels,$Datas,"OFERTA/VENTA");
+        //     echo '</div>';
 
             
         ?>
