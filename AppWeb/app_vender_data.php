@@ -5,7 +5,8 @@ require ("app_funciones.php");
 include("seguridad.php");
 
 
-
+$CorreoContenido = VarClean($_POST['CorreoContenido']);
+$CorreoCopia = VarClean($_POST['CorreoCopia']);
 $IdProducto = VarClean($_POST['IdProducto']);
 $Tipo = VarClean($_POST['Tipo']);
 $ClaveDelProducto = VarClean($_POST['ClaveDelProducto']);
@@ -91,8 +92,34 @@ $Referencia = "";
         if ($db0->query($sql) == TRUE)
         {
             Toast("Guardado con exito, haga clic en movimientos para verlo",4,"");
+
+            $CorreoDelCliente = ClienteEmail($IdCliente);
+            if ($CorreoDelCliente <> ''){
+                if ($CorreoContenido <> ''){
+
+                    if (DonWebEnviarCorreo($CorreoDelCliente, $IdClienteName, "IdTransaccion: ".$IdTransaccion." - ".$IdLote, $CorreoContenido)==TRUE){                        
+                        Toast("Se envio correo a ".$CorreoDelCliente,4,"");
+                        if ($CorreoCopia <> ''){
+                            $CorreoContenido.= '<br> * copia enviada, del correo que se le envio al cliente '.$IdClienteName.' - '.$CorreoDelCliente;
+                            if (DonWebEnviarCorreo($CorreoCopia, $IdClienteName, "IdTransaccion: ".$IdTransaccion." - ".$IdLote, $CorreoContenido)==TRUE){                        
+                                Toast("Se te envio copia de este correo a ".$CorreoCopia." -> ".$CorreoDelCliente,1,"");
+                            } else {
+                                Toast("No se envio correo, ERROR AL ENVIAR COPIA",2,"");
+                            }
+                        }
+                    } else {
+                        Toast("No se envio correo, ERROR AL ENVIAR",2,"");
+                    }
+                } else {
+                    Toast("No se envio correo, SIN TEXTO PARA ENVIAR",2,"");
+                }
+             } else {
+                Toast("No se envio correo, SIN CORREO REGISTRADO",2,"");
+            }
+
         }
         else {
+            // echo $sql;
             Toast("Error al guardar",2,"");
         }
 

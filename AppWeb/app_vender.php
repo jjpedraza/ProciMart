@@ -213,7 +213,7 @@ if (isset($_GET['id'])) {
             echo "
             <div class='form-group'>
             <label>Cliente: </label><br>
-            <select id='IdCliente' class='form-control'>";
+            <select id='IdCliente' class='form-control' onChange='ChecaCorreo();'>";
             echo $ClienteOptions;
             echo "</select>
             </div>
@@ -391,6 +391,23 @@ if (isset($_GET['id'])) {
 
 
 
+            echo "
+            <div class='form-group' style='width:97%;'>
+            <label>Texto del Correo que enviara al cliente: <span style='color:#cc4960;' id='Correo'></span> </label><br>
+            <textarea id='CorreoContenido' name='CorreoContenido' class='form-control  '></textarea>
+            </div>
+
+
+            ";
+
+            echo "
+            <div class='form-group' style='width:97%;'>
+            <label>Con copia para:<br>
+            <input   style='width:150%;' type='mail' id='CorreoCopia' name='CorreoCopia' class='form-control  '>
+            </div>
+
+
+            ";
 
 
             if ($ClaveDelProducto == "A"){
@@ -1235,7 +1252,8 @@ if (go == ''){
     TiempoDeEnvio = $('#TiempoDeEnvio').val();
     Muestra = $('#Muestra').val();
     IdAdjudicacion = $('#IdAdjudicacion').val();
-
+    CorreoContenido = $('#CorreoContenido').val();
+    CorreoCopia = $('#CorreoCopia').val();
 
     $.ajax({
         url: 'app_vender_data.php',
@@ -1257,7 +1275,10 @@ if (go == ''){
             IdIncotermsName: IdIncotermsName,
             TiempoDeEnvio:TiempoDeEnvio,
             Muestra:Muestra,
-            IdAdjudicacion:IdAdjudicacion
+            IdAdjudicacion:IdAdjudicacion,
+            CorreoContenido: CorreoContenido,
+            CorreoCopia: CorreoCopia
+        
         },
         success: function(data) {
             $('#R').html(data);
@@ -1267,6 +1288,24 @@ if (go == ''){
 }
 
 }
+function ChecaCorreo(){
+    IdCliente = $('#IdCliente').val();
+    $.ajax({
+        url: 'checacorreo.php',
+        type: 'post',
+        data: {
+            IdCliente:IdCliente            
+        },
+        success: function(data) {
+            $('#Correo').html(data);
+            
+        }
+    }); 
+
+
+}
+
+
 
 function CargaMovs(IdProducto, Tipo){
     $.ajax({

@@ -203,6 +203,7 @@ function Toast($Texto,$Tipo,$img){
                 heading: 'Information',
                 text: '".$Texto."',
                 showHideTransition: 'slide',
+                hideAfter: false,
                 icon: 'info'
             })
             ";
@@ -216,7 +217,8 @@ function Toast($Texto,$Tipo,$img){
                 heading: 'Error',
                 text: '".$Texto."',
                 showHideTransition: 'slide',
-                icon: 'error'
+                icon: 'error',
+                hideAfter: false
             })
             ";
             echo "</script>";
@@ -229,6 +231,7 @@ function Toast($Texto,$Tipo,$img){
                     heading: 'Warning',
                     text: '".$Texto."',
                     showHideTransition: 'slide',
+                    hideAfter: false,
                     icon: 'warning'
                 })
                 ";
@@ -244,7 +247,8 @@ function Toast($Texto,$Tipo,$img){
                 heading: 'Success',
                 text: '".$Texto."',
                 showHideTransition: 'slide',
-                icon: 'success'
+                icon: 'success',
+                hideAfter: false
             })
             ";
             echo "</script>";
@@ -2731,8 +2735,8 @@ function EnviarCorreo($mail_dest, $asunto, $contenido){
     //sleep(3);//retraso programado
     if (Preference("MailSend", "", "") == "TRUE") {
         $mail_dest_name= "";
-        $replymail = 'itavu.informatica@tam.gob.mx';
-        $replymail_name='Dpto. de Informatica de ITAVU';
+        $replymail = 'no-reply@procimart.net';
+        $replymail_name='Procimart';
 
         require("rintera-config.php");    
         require_once('lib/mailer/PHPMailerAutoload.php');
@@ -2740,7 +2744,7 @@ function EnviarCorreo($mail_dest, $asunto, $contenido){
         $footer="
         <br><br>    
         <hr><p style=color:gray; font-family:Verdana, Geneva, sans-serif; font-size:10pt;> 
-            Este correo electronico es enviado de manera automatizada mendiante Rintera.<br>	
+           <br>	
             ".Preference("Mail-Footer", "", "")."       
         </p>";
 
@@ -2772,10 +2776,10 @@ function EnviarCorreo($mail_dest, $asunto, $contenido){
             //adjuntar imagenes //$mail->addAttachment('https:/plataformaitavu.tamaulipas.gob.mx/img/logo_copia.png');
             $correo_historia="";
             if (!$mail->send()) {//ERROR
-                // echo "Error al envia a ".$mail_dest;
+                echo "Error al envia a ".$mail_dest;
                 return FALSE;
             } else {
-                // echo "Envio con exito a ".$mail_dest;
+                echo "Envio con exito a ".$mail_dest;
                 return TRUE;
 
             }
@@ -3765,7 +3769,7 @@ $sql = "select
 CONCAT(rgb,',0.9') as BorderColor,
 CONCAT(rgb,',0.5') as BackgroundColor
 from colorines
-order by rgb DESC
+order by rand()
 ";
 $BorderColor = "borderColor: [";
 $BackgroundColor = "backgroundColor: [";
@@ -3947,4 +3951,21 @@ function PixaBay($busqueda){
 
     // var_dump($Imagenes);
     return $Imagenes[array_rand($Imagenes, 1)];
+}
+
+
+function DonWebEnviarCorreo($DestinoCorreo, $DestinoNombre, $Asunto, $Contenido){
+
+    $to = $DestinoCorreo;
+    $subject = "Procimart.net ". $Asunto;
+    $Contenido.='<br> <hr> * correo enviado desde la aplicacion ';
+    $header = "From: no-reply@procimart.net\nReply-To:"."no-reply@procimart.net"."\n";
+    $header .= "Mime-Version: 1.0\n";
+    // $header .= "Content-Type: text/plain";
+    $header .= "Content-Type: text/html";
+    if(mail($to, $subject, $Contenido ,$header)){
+        return TRUE;
+    } else {
+        return FALSE;
+    }
 }

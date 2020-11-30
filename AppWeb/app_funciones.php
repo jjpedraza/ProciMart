@@ -213,4 +213,57 @@ function ProductosMov(){
         echo "<option value='".$finfo['IdCon']."'>".$finfo['ConName']."</opion>";
     }
 }
+
+
+
+
+function ClienteEmail($IdCliente){
+    require("rintera-config.php");
+    $sql = "
+	select ISNULL(eMail,'') as eMail from CatalogoDeClientes where IdCliente='".$IdCliente."'
+    
+    ";
+    // echo "<hr>".$sql;
+    $url = $url_;
+    
+    $token = $token_;
+    //Peticion
+    $myObj = new stdClass;
+    $myObj->token = $token;
+    $myObj->sql = $sql;
+    $myJSON = json_encode($myObj,JSON_UNESCAPED_SLASHES);
+    
+    $datos_post = http_build_query(
+        $myObj
+    );
+
+    $opciones = array('http' =>
+        array(
+            'method'  => 'POST',
+            'header'  => 'Content-type: application/x-www-form-urlencoded',
+            'content' => $datos_post
+        )
+    );
+    ini_set('max_execution_time', 7000);
+    ini_set('max_execution_time', 0);
+    $context = stream_context_create($opciones);            
+    $archivo_web = file_get_contents($url, false, $context);            
+    // var_dump($archivo_web);
+    $data = json_decode($archivo_web,true);
+
+    $jsonIterator = new RecursiveIteratorIterator(
+        new RecursiveArrayIterator(json_decode($archivo_web, TRUE)),
+        RecursiveIteratorIterator::SELF_FIRST
+    );
+
+    $r = "";
+    foreach ($jsonIterator as $key => $val) {
+        if (is_numeric($key)){ //rows                        
+            $rowC = 0;
+        } else {
+            $r = $val;
+        }
+    }
+    return $r;
+}
 ?>
