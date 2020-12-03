@@ -21,10 +21,52 @@
 <?php
 include("header.php");
 ?>
+<style type="text/css">
+    #app_contenedor {
+        display: grid;
+        grid-template-columns: 33.3% 33.3% 33.3%;
+        background-color: #fff;
+    }
+    
+
+    #silo {
+        background-color: #0E3B76;
+        /*background-color: rgb(255, 255, 255);*/
+        border: 1px #0E3B76 solid;
+        vertical-align: top;
+        overflow: hidden;
+       margin: 6px;
+        border-radius: 10px;
+        /*background-image: linear-gradient(#ddd, white, #e9e6e6);*/
+        -webkit-box-shadow: 0px 3px 6px 0px rgba(0,0,0,0.75);
+        -moz-box-shadow: 0px 3px 6px 0px rgba(0,0,0,0.75);
+        box-shadow: 0px 3px 6px 0px rgba(0,0,0,0.75);
+
+    }
+    #container {
+        clip-path: polygon(40% 0, 60% 0, 75% 10%, 75% 80%, 55% 100%, 45% 100%, 25% 80%, 25% 10%);
+        width: 100px;
+        height: 200px;
+        background-image: linear-gradient( 0deg, #F36D10 0%, #F36D10 35%, #292423 35%, #292423 35%);
+    }
+
+#myProgress {
+  width: 100%;
+  background-color: #fff;
+}
+
+#myBar {
+  width: 1%;
+  height: 30px;
+  background-color: green;
+}
+</style>
+
 
 <section id='Busqueda' style='
 background-color: <?php echo Preference("ColorPrincipal", "", ""); ?>;
 '>
+
 
 <table width=100%><tr><td>
     <?php
@@ -207,23 +249,167 @@ if (Preference("MostrarApps", "", "")=='TRUE'){
         ?>
 
        <?php
-        $Datas = SilosData('Data');
+
+
+      /*  $Datas = SilosData('Data');
         $Labels = SilosData('Label');
         unset($rf);unset($Fr);
         $Datas = substr($Datas, 0, -1); //quita la ultima coma.
         $Labels = substr($Labels, 0, -1); //quita la ultima coma.
         // echo "<br>Labels=".$Labels."<br>Datas=".$Datas."<br>";
         
-            echo '<div style="" class="Graficas">';
+           /* echo '<div style="" class="Graficas">';
             GraficaBar2($Labels,$Datas,"Silos");
-            echo '</div>';
+            echo '</div>';*/
+            //ENCABEZADO SILOS
+            $Total = SilosDataTotal('Data');
+            $CapacidadMaxima = 97200*6;
+            $CapacidadRestante = $CapacidadMaxima - $Total;
+            $Ocupado = $CapacidadMaxima - $CapacidadRestante;
+            $por = ($Ocupado * 100)/$CapacidadMaxima;
+            $PorDisponible = 100 - $por;
+
+            echo "<div style='background-color: #0E3B76; border-radius: 1px;'>";
+                echo "<table style='width:100%; font-size: 14pt; color:#fff; padding-right: 10px; padding-left: 10px; padding-top:10px; padding-bottom:20px;'>";
+                        echo "<td style='width:100%; color:#33E0FF; vertical-align: middle;'><b>CONTROL DE NIVELES DE LOS SILOS</b></td>";
+                echo "</table>";
+            echo "</div>";
+
+            echo "<div style='background-color: #0E3B76; border-radius: 1px;'>";
+                echo "<table style='width:100%; font-size: 14pt; color:#fff; padding-right: 10px; padding-left: 10px; padding-top:10px; padding-bottom:20px;'>";
+                    echo "<td style='width:10%; color:#33E0FF; vertical-align: middle;'><b>Capacidad</b></td>";
+                    echo "<td style='width:12%; vertical-align: middle;'><b>".number_format($CapacidadMaxima,2,'.',',').' Gal.'."</b></td>";
+                    echo "<td style='width:7%; color:#33E0FF; vertical-align: middle;'><b>Ocupación</b></td>";
+                    echo "<td style='width:31%; vertical-align: middle;'>";
+                    echo "<table style='width:100%;'><td style='width:40%;'>";
+                    echo '<div id="myProgress" title="100%">
+                        <div id="myBar" title="'.number_format($por,2,'.',',').'%"></div>
+                    </div>';
+                    echo '<script>
+                        var elem = document.getElementById("myBar");
+                        elem.style.width =  '.$por.'+ "%"
+                    </script>';
+                    echo "</td><td style='width:60%; font-size: 16pt; text-align:center;'>";
+                    echo number_format($por,2,'.',',').'% ('.number_format($Total,2,'.',',').' Gal.)';
+                    echo "</td></table>";
+
+                    echo "</td>";
+                    echo "<td style='width:10%; vertical-align: middle; color:#33E0FF;'><b>Disponible</b></td>";
+                    echo "<td style='width:20%; vertical-align: middle;'><b>".number_format($PorDisponible,2,'.',',').' %  ('.number_format($CapacidadRestante,2,'.',',').' Gal.)'."</b></td>";
+                echo "</table>";
+            echo "</div>";
+
+            ///AGREGAR SILOS 
+            echo "<div id='app_contenedor'>";
+            $Datas = SilosData('Data');
+            $Labels = SilosData('Label');
+            //$Fechas = SilosData('Fechas');
+            $Datas = substr($Datas, 0, -1); //quita la ultima coma.
+            $Labels = substr($Labels, 0, -1); //quita la ultima coma.
+            //$Fechas = substr($Fechas, 0, -1); //quita la ultima coma.
+            $cantidad= explode(",", $Datas);
+            $nombre = explode(",", $Labels);
+           // $fechas = explode(",", $Fechas);
+
+            for($i=0; $i< sizeof($cantidad); $i++){
+               
+                $porcentaje = ($cantidad[$i]*100)/97200;
+            
+                echo "<div id='silo' >";
+                
+                echo "<table style='width:100%; text-align:left;'>";
+                echo "<tr>";
+                    echo "<td style='width:70%; font-size:12pt; color:#33E0FF; 
+                    padding-right: 10px;
+                    padding-left: 10px;
+                    padding-top: 10px;'>";
+                        echo "ID REFERENCIA";
+                    echo "</td>";
+                    echo "<td>";
+                    echo "</td>";
+                echo "</tr>";
+                echo "<tr>";
+                    echo "<td style='width:70%; border-bottom: 1px solid #fff; font-size:16pt; color:#fff; 
+                    padding-right: 10px;
+                    padding-left: 10px;'>";
+                        $nuevoNombre = str_replace("'",'',$nombre[$i]);  
+                        echo $nuevoNombre;
+                    echo "</td>";
+                    echo "<td style='width:30%;  
+                    padding-right: 10px;
+                    padding-bottom: 10px;
+                ' rowspan='4'>";
+                //id="container"
+                    echo '<div style="clip-path: polygon(40% 0, 60% 0, 75% 10%, 75% 80%, 55% 100%, 45% 100%, 25% 80%, 25% 10%);
+                    width: 150px;
+                    height: 200px;
+                    background-image: linear-gradient( 0deg, #F36D10 0%, #F36D10 '.$porcentaje.'%, #292423 0%, #292423 100%);">';
+                    echo '</div>';
+                    echo "</td>";
+                echo "</tr>";
+                echo "<tr>";
+                    echo "<td style='width:70%; font-size:12pt; color:#33E0FF; 
+                    padding-right: 10px;
+                    padding-left: 10px;'>";
+                        echo "CAPACIDAD";
+                    echo "</td>";
+                echo "</tr>";
+                echo "<tr>";
+                    echo "<td style=' width:70%; font-size:14pt; color:#fff; 
+                    padding-right: 10px;
+                    padding-left: 10px;'>";
+                        echo number_format(97200,2,'.',',').' Galones';
+                    echo "</td>";
+                echo "</tr>";
+                echo "<tr>";
+                    echo "<td style=' width:70%; font-size:12pt; color:#33E0FF; 
+                    padding-right: 10px;
+                    padding-left: 10px;'>";
+                        echo "CAPACIDAD OCUPADA";
+                    echo "</td>";
+                echo "</tr>";
+                echo "<tr>";
+                    echo "<td style='width:70%; font-size:14pt; color:#fff; 
+                    padding-right: 10px;
+                    padding-left: 10px;'>";
+                        echo number_format($cantidad[$i],2,'.',',').' Galones';
+                    echo "</td>";
+                    echo "<td style='width:30%; font-size:16pt; color:#fff; text-align: center; 
+                    padding-right: 10px;
+                    padding-left: 10px;' >";
+                        echo number_format($porcentaje,2,'.',',').'%';
+                    echo "</td>";
+                echo "</tr>";
+                echo "<tr>";
+                    echo "<td colspan='2' style='text-align:center; width:100%; font-size:14pt; color:#fff; 
+                    padding-top: 10px;
+                    padding-right: 10px;
+                    padding-left: 10px;
+                    padding-bottom: 10px;'>";
+                        //echo date("F j, Y");
+                        //echo $fechas[$i];
+                        echo "<br>";
+                    echo "</td>";
+                echo "</tr>";
+                
+                echo "</table>";
+
+                echo "</div>";
+  
+            }
+
+
+            echo "</div>";
+
+
 
 
         ?>
 
 
         <?php
-        $Total = SilosDataTotal('Data');
+        //codigo de grafica de pastel
+       /* $Total = SilosDataTotal('Data');
         $CapacidadMaxima = 97200*6;
         $CapacidadRestante = $CapacidadMaxima - $Total;
         $Datas = $CapacidadRestante.", ".$Total.",";
@@ -236,7 +422,7 @@ if (Preference("MostrarApps", "", "")=='TRUE'){
             echo '<div style="" class="Graficas">';
             GraficaPie($Labels,$Datas,"Capacidad en Silos");
             echo '</div>';
-
+*/
 
         ?>
     </div>
@@ -264,7 +450,7 @@ if (Preference("MostrarApps", "", "")=='TRUE'){
      unset($rf);unset($Fr);
      if ($repos > 0 ){
          echo "<h6 style='font-size: 8pt;
-         opacity: 0.6;'>Inventarios</h6>";
+         opacity: 0.6;'></h6>";
          echo $repolist;
      }
 
@@ -437,6 +623,7 @@ if ($WSConF['wsurl'] <>'' &&  $WSConF['wsmethod']<>'' && $WSConF['wsjson']<>'' )
     $row = 0;    
     $DataG ="";
     $LabelG = "";
+    $FechasG = "";
     foreach ($jsonIterator as $key => $val) {
         if (is_numeric($key)){ //rows                        
             $rowC = 0;
@@ -454,7 +641,9 @@ if ($WSConF['wsurl'] <>'' &&  $WSConF['wsmethod']<>'' && $WSConF['wsjson']<>'' )
                 if ($key == 'Existencia'){
                     $DataG.= "".$val.",";
                 }
-
+               /* if ($key == 'FechaUltimaMov'){
+                    $FechasG.= "".$val.",";
+                }*/
                     
                     // $TablaDeta.= "<tr><td>".$key."</td><td>".$val."</td></tr>";
                     
@@ -486,6 +675,9 @@ if ($Data == 'Data'){
 if ($Data = 'Label'){
     return $LabelG;
 }
+/*if ($Data = 'Fechas'){
+    return $FechasG;
+}*/
 }
 
 

@@ -39,13 +39,11 @@ require("components.php");
 
     <style>
         body {
-            /* background-image: url('img/fondo3.jpg'); */
-            background-size: 150%;
-            background-color: #416f35;
-            /* background-color: #919191;
-            background-blend-mode: screen; */
+            background-image: url('img/fondo_login1.jpg');
+            background-size: 125%;
+            background-color: #212f3c ;
+            background-blend-mode: screen;
             color:white;
-
         }
 
         #Login,
@@ -95,9 +93,9 @@ require("components.php");
 
                     <h5>Procimart '.UserName($IdUser).'</h5>
                     <label for="txtIdUser" class="sr-only">IdUser </label>
-                    <input type="text" id="txtIdUser" name="txtIdUser" class="form-control" placeholder="IdUser" value="'.$IdUser.'" required >
+                    <input type="text" id="txtIdUser" name="txtIdUser" class="form-control" placeholder="Usuario" value="'.$IdUser.'" required >
                     <label for="txtNIP" class="sr-only">Password</label><br>
-                    <input type="password" id="txtNIP" name="txtNIP" class="form-control" placeholder="Password" required>
+                    <input type="password" id="txtNIP" name="txtNIP" class="form-control" placeholder="Contraseña" required>
                     <br>
                     <input name="FormLogin" type="submit" class="btn btn-lg btn-primary btn-block" Value="Entrar">
                     <br><br>
@@ -118,9 +116,9 @@ require("components.php");
                 <b><b>Identificate</b>
                 
                 <label for="txtIdUser" class="sr-only">IdUser</label>
-                <input type="text" id="txtIdUser" name="txtIdUser" class="form-control" placeholder="IdUser" required autofocus>
+                <input type="text" id="txtIdUser" name="txtIdUser" class="form-control" placeholder="Usuario" required autofocus>
                 <label for="txtNIP" class="sr-only">Password</label><br>
-                <input type="password" id="txtNIP" name="txtNIP" class="form-control" placeholder="Password" required>
+                <input type="password" id="txtNIP" name="txtNIP" class="form-control" placeholder="Contraseña" required>
                 <br>
                 <input name="FormLogin" type="submit" class="btn btn-lg btn-primary btn-block" Value="Entrar">
                 <br><br>
