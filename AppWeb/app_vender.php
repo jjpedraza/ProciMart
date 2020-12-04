@@ -1097,6 +1097,25 @@ echo "<div style='font-size:7pt; color:gray;'>Id=".$IdAceiteLote.", Tipo=".$Tipo
         
 
 
+        echo "
+        <div class='form-group' style='width:97%;'>
+        <label>Texto del Correo que enviara al cliente: <span style='color:#cc4960;' id='Correo'></span> </label><br>
+        <textarea id='CorreoContenido' name='CorreoContenido' class='form-control  '></textarea>
+        </div>
+
+
+        ";
+
+        echo "
+        <div class='form-group' style='width:97%;'>
+        <label>Con copia para:<br>
+        <input   style='width:150%;' type='mail' id='CorreoCopia' name='CorreoCopia' class='form-control  '>
+        </div>
+
+
+        ";
+
+
 
 
             echo "<div class='form-group btn btn-success' id='btnGuadar' onclick='Save();' >";
