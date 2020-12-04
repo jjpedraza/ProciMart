@@ -780,7 +780,15 @@ echo "<div style='font-size:7pt; color:gray;'>Id=".$IdAceiteLote.", Tipo=".$Tipo
         }
     
         echo "<div  id='FormVender' class=''style='
-       
+       background-color: #f7f7f77d;
+            margin: 5px;
+                margin-top: 5px;
+            border-radius: 4px;
+            margin-top: 15px;
+
+            display: inline-block;
+            padding: 10px;
+            text-align: justify;
         '>";       
 
 
@@ -800,7 +808,7 @@ echo "<div style='font-size:7pt; color:gray;'>Id=".$IdAceiteLote.", Tipo=".$Tipo
         echo "
         <div class='form-group'>
         <label>Cliente: </label><br>
-        <select id='IdCliente' class='form-control'>";
+        <select id='IdCliente' class='form-control' onChange='ChecaCorreo();'>";
         echo $ClienteOptions;
         echo "</select>
         </div>
@@ -847,6 +855,25 @@ echo "<div style='font-size:7pt; color:gray;'>Id=".$IdAceiteLote.", Tipo=".$Tipo
         echo "<tr>";
         echo "<td align=left valign=top width=60%>
         <input type='text' id='Costo' name='Costo' class='form-control'  onBlur='toFinalNumberFormat(this);' placeholder='$#,###.00'  >";
+        echo "</td>";
+        echo "<td width=30% align=left valign=top>";
+        echo "<select id='IdMoneda' name='IdMoneda' class='form-control'>";
+        echo $MonedaOptions;
+        echo "</select>";
+
+        echo "</td>";
+        echo "</tr></table>
+        </div>
+        ";
+
+        echo "
+        <div class='form-groupMid' id='DivPrecio'>
+        <table width=100% border=0>";
+        echo "<tr><td colspan=3><label style='margin:0px;'>Precio:</label></td></tr>";
+
+        echo "<tr>";
+        echo "<td align=left valign=top width=60%>
+        <input type='text' id='Precio' name='Precio' class='form-control'  onBlur='toFinalNumberFormat(this);' placeholder='$#,###.00'  >";
         echo "</td>";
         echo "<td width=30% align=left valign=top>";
         echo "<select id='IdMoneda' name='IdMoneda' class='form-control'>";
