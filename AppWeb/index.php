@@ -276,7 +276,7 @@ if (Preference("MostrarApps", "", "")=='TRUE'){
             echo "</div>";
 
             echo "<div style='background-color: #0E3B76; border-radius: 1px;'>";
-                echo "<table style='width:100%; font-size: 14pt; color:#fff; padding-right: 10px; padding-left: 10px; padding-top:10px; padding-bottom:20px;'>";
+                echo "<table style='width:100%; font-size: 12pt; color:#fff; padding-right: 10px; padding-left: 10px; padding-top:10px; padding-bottom:20px;'>";
                     echo "<td style='width:10%; color:#33E0FF; vertical-align: middle;'><b>Capacidad</b></td>";
                     echo "<td style='width:12%; vertical-align: middle;'><b>".number_format($CapacidadMaxima,2,'.',',').' Gal.'."</b></td>";
                     echo "<td style='width:7%; color:#33E0FF; vertical-align: middle;'><b>Ocupación</b></td>";
@@ -289,7 +289,7 @@ if (Preference("MostrarApps", "", "")=='TRUE'){
                         var elem = document.getElementById("myBar");
                         elem.style.width =  '.$por.'+ "%"
                     </script>';
-                    echo "</td><td style='width:60%; font-size: 16pt; text-align:center;'>";
+                    echo "</td><td style='width:60%; font-size: 12pt; text-align:center;'>";
                     echo number_format($por,2,'.',',').'% ('.number_format($Total,2,'.',',').' Gal.)';
                     echo "</td></table>";
 
@@ -316,30 +316,31 @@ if (Preference("MostrarApps", "", "")=='TRUE'){
                 $porcentaje = ($cantidad[$i]*100)/97200;
             
                 echo "<div id='silo' >";
+                    echo "<table style='width:100%; text-align:left;'>";
+                        echo "<tr>";
+                        echo "<td style='width:70%; border-bottom: 1px solid #fff; font-size:16pt; color:#fff; 
+                                padding-right: 10px;
+                                padding-left: 10px;
+                                padding-top: 10px;'>";
+                                $nuevoNombre = str_replace("'",'',$nombre[$i]);  
+                                echo $nuevoNombre;
+                            echo "</td>";
+                            echo "<td>";
+                            echo "</td>";
+                        echo "</tr>";
+
+                    echo "<tr>";
                 
-                echo "<table style='width:100%; text-align:left;'>";
-                echo "<tr>";
                     echo "<td style='width:70%; font-size:12pt; color:#33E0FF; 
                     padding-right: 10px;
-                    padding-left: 10px;
-                    padding-top: 10px;'>";
-                        echo "ID REFERENCIA";
-                    echo "</td>";
-                    echo "<td>";
-                    echo "</td>";
-                echo "</tr>";
-                echo "<tr>";
-                    echo "<td style='width:70%; border-bottom: 1px solid #fff; font-size:16pt; color:#fff; 
-                    padding-right: 10px;
                     padding-left: 10px;'>";
-                        $nuevoNombre = str_replace("'",'',$nombre[$i]);  
-                        echo $nuevoNombre;
+                        echo "Capacidad disponible";
                     echo "</td>";
+
                     echo "<td style='width:30%;  
-                    padding-right: 10px;
-                    padding-bottom: 10px;
-                ' rowspan='4'>";
-                //id="container"
+                            padding-right: 10px;
+                            padding-bottom: 10px;
+                            ' rowspan='4'>";
                     echo '<div style="clip-path: polygon(40% 0, 60% 0, 75% 10%, 75% 80%, 55% 100%, 45% 100%, 25% 80%, 25% 10%);
                     width: 150px;
                     height: 200px;
@@ -347,51 +348,49 @@ if (Preference("MostrarApps", "", "")=='TRUE'){
                     echo '</div>';
                     echo "</td>";
                 echo "</tr>";
+                
                 echo "<tr>";
-                    echo "<td style='width:70%; font-size:12pt; color:#33E0FF; 
-                    padding-right: 10px;
-                    padding-left: 10px;'>";
-                        echo "CAPACIDAD";
-                    echo "</td>";
+                echo "<td style=' width:70%; font-size:14pt; color:#fff; 
+                padding-right: 10px;
+                padding-left: 10px;'>";
+                    echo number_format(97200 - $cantidad[$i],2,'.',',').' Galones';
+                echo "</td>";
                 echo "</tr>";
+
+                echo "<td style=' width:70%; font-size:12pt; color:#33E0FF; 
+                padding-right: 10px;
+                padding-left: 10px;'>";
+                    echo "Capacidad ocupada";
+                echo "</td>";
+
                 echo "<tr>";
-                    echo "<td style=' width:70%; font-size:14pt; color:#fff; 
-                    padding-right: 10px;
-                    padding-left: 10px;'>";
-                        echo number_format(97200,2,'.',',').' Galones';
-                    echo "</td>";
+                echo "<td style='width:70%; font-size:14pt; color:#fff; 
+                padding-right: 10px;
+                padding-left: 10px;'>";
+                    echo number_format($cantidad[$i],2,'.',',').' Galones';
+                echo "</td>";
                 echo "</tr>";
+
                 echo "<tr>";
                     echo "<td style=' width:70%; font-size:12pt; color:#33E0FF; 
                     padding-right: 10px;
                     padding-left: 10px;'>";
-                        echo "CAPACIDAD OCUPADA";
+                        echo "Capacidad total";
                     echo "</td>";
-                echo "</tr>";
-                echo "<tr>";
-                    echo "<td style='width:70%; font-size:14pt; color:#fff; 
-                    padding-right: 10px;
-                    padding-left: 10px;'>";
-                        echo number_format($cantidad[$i],2,'.',',').' Galones';
-                    echo "</td>";
+
                     echo "<td style='width:30%; font-size:16pt; color:#fff; text-align: center; 
                     padding-right: 10px;
                     padding-left: 10px;' >";
                         echo number_format($porcentaje,2,'.',',').'%';
                     echo "</td>";
                 echo "</tr>";
-                echo "<tr>";
-                    echo "<td colspan='2' style='text-align:center; width:100%; font-size:14pt; color:#fff; 
-                    padding-top: 10px;
-                    padding-right: 10px;
-                    padding-left: 10px;
-                    padding-bottom: 10px;'>";
-                        //echo date("F j, Y");
-                        //echo $fechas[$i];
-                        echo "<br>";
-                    echo "</td>";
-                echo "</tr>";
-                
+
+                echo "<td style='width:70%; font-size:14pt; color:#fff; 
+                padding-right: 10px;
+                padding-left: 10px;'>";
+                    echo number_format(97200,2,'.',',').' Galones';
+                echo "</td>";
+
                 echo "</table>";
 
                 echo "</div>";
