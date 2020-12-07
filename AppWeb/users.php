@@ -208,7 +208,7 @@ if (UserAdmin($RinteraUser)==TRUE){
         echo "<hr style='
         border: dashed 1px #bfbfbf;
         '><div class='container' style='
-        background-color:#ececec;
+        background-color:white;
             border-radius: 5px;
             padding: 5px;'>
         
@@ -216,14 +216,14 @@ if (UserAdmin($RinteraUser)==TRUE){
         <h2 style='
         text-align: center;
         font-size: 17pt;
-        background-color: #bdbdbd;
+        background-color: #0E3B76;
         color: white;
         border-top-left-radius: 4px;
         border-top-right-radius: 4px;
         '>
         <table border=0 width=100%>
         <tr><td align=center>
-        <b>USUARIOS REGISTRADOS:</b>
+        <b>Administración de accesos</b>
         </td><td width=30px align=right>
         <a href='?new=' title='Haga clic aqui para agregar un nuevo usuario'>
         <img src='icon/user_add.png' style='width:32px;'>
@@ -237,21 +237,20 @@ if (UserAdmin($RinteraUser)==TRUE){
 
 
 
-        $sql ="
+        /*$sql ="
         SELECT
-	IdUser,
-	`rintera`.`users`.`UserName` AS `UserName`,
+	    IdUser,
+	    `rintera`.`users`.`UserName` AS `UserName`,
+	    concat( '<a href=\'?x=', `rintera`.`users`.`IdUser`, '\' title=\'Haga clic para Eliminar al Usuario\' class=\'btn btn-warning\'><img src=\'icon/x.png\' style=\'width:17px;\'></a>' ) AS `Eliminar` 
+        FROM
+	    `users`
+        ";*/
 
-	concat( '<a href=\'?x=', `rintera`.`users`.`IdUser`, '\' title=\'Haga clic para Eliminar al Usuario\' class=\'btn btn-warning\'><img src=\'icon/x.png\' style=\'width:17px;\'></a>' ) AS `Eliminar` 
-FROM
-	`users`
-        
-        ";
         $IdTabla = "MiTabla";
         $Clase = "container ";
         $db= 0 ;        
-        
-        DynamicTable_MySQL($sql, "DivUsuarios", $IdTabla, $Clase, 0, $db);
+        echo  $sql;
+        DynamicTable_MySQL('select IdUser As Usuario, NIP Contraseña, UserName As NombreCompleto, RinteraLevel As Nivel from users', "DivUsuarios", $IdTabla, $Clase, 0, $db);
         }
         echo "</div>";
     } else {

@@ -337,11 +337,13 @@ if (Preference("MostrarApps", "", "")=='TRUE'){
                         echo "Capacidad disponible";
                     echo "</td>";
 
+                    /*echo '<div style="clip-path: polygon(40% 0, 60% 0, 75% 10%, 75% 80%, 55% 100%, 45% 100%, 25% 80%, 25% 10%);*/
+
                     echo "<td style='width:30%;  
                             padding-right: 10px;
                             padding-bottom: 10px;
                             ' rowspan='4'>";
-                    echo '<div style="clip-path: polygon(40% 0, 60% 0, 75% 10%, 75% 80%, 55% 100%, 45% 100%, 25% 80%, 25% 10%);
+                    echo '<div style="clip-path: polygon(40% 0, 60% 0, 75% 0%, 75% 80%, 55% 100%, 45% 100%, 25% 80%, 25% 0%);
                     width: 150px;
                     height: 200px;
                     background-image: linear-gradient( 0deg, #F36D10 0%, #F36D10 '.$porcentaje.'%, #292423 0%, #292423 100%);">';
@@ -465,6 +467,22 @@ if (Preference("MostrarApps", "", "")=='TRUE'){
          >";
      echo "<img src='icon/permisos.png' style='width:32px;'> Movimientos";
      echo "</a>";
+
+     echo "<a href='users.php' title='Haga Clic aqui para ver administrar esta página' class='btn btn-primary'
+         style='
+            // background-color: #e6e6e6;
+            // color: #625f5f;
+            width: 100%;
+            font-size: 10pt;
+            text-align:left;
+            margin-top:10px;
+         '
+         >";
+     echo "<img src='icon/empleados.png' style='width:32px;'> Usuarios";
+     echo "</a>";
+
+
+
     ?>
     </div>
 
