@@ -468,8 +468,7 @@ if (Preference("MostrarApps", "", "")=='TRUE'){
      echo "<img src='icon/permisos.png' style='width:32px;'> Movimientos";
      echo "</a>";
 
-    if ($RinteraUser == 1)
-        {
+    if (UserAdmin($RinteraUser)==TRUE){
             echo "<a href='users.php' title='Haga Clic aqui para ver administrar esta página' class='btn btn-primary'
                 style='
                     // background-color: #e6e6e6;
