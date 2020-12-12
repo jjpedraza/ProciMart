@@ -468,20 +468,21 @@ if (Preference("MostrarApps", "", "")=='TRUE'){
      echo "<img src='icon/permisos.png' style='width:32px;'> Movimientos";
      echo "</a>";
 
-     echo "<a href='users.php' title='Haga Clic aqui para ver administrar esta página' class='btn btn-primary'
-         style='
-            // background-color: #e6e6e6;
-            // color: #625f5f;
-            width: 100%;
-            font-size: 10pt;
-            text-align:left;
-            margin-top:10px;
-         '
-         >";
-     echo "<img src='icon/empleados.png' style='width:32px;'> Usuarios";
-     echo "</a>";
-
-
+    if ($RinteraUser == 1)
+        {
+            echo "<a href='users.php' title='Haga Clic aqui para ver administrar esta página' class='btn btn-primary'
+                style='
+                    // background-color: #e6e6e6;
+                    // color: #625f5f;
+                    width: 100%;
+                    font-size: 10pt;
+                    text-align:left;
+                    margin-top:10px;
+                '
+                >";
+            echo "<img src='icon/empleados.png' style='width:32px;'> Usuarios";
+            echo "</a>";
+        }
 
     ?>
     </div>
