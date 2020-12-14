@@ -68,31 +68,31 @@ background-color: <?php echo Preference("ColorPrincipal", "", ""); ?>;
 '>
 
 
-<table width=100%><tr><td>
-    <?php
-    if (isset($_GET['q'])) {
-        echo '<input id="InputBusqueda" list="busquedas"     data-min-length="1" style="background-color: '.Preference("ColorPrincipal", "", "").';"
-        class="InputBusqueda flexdatalist" type="text" placeholder="¿Que reporte necesitas?"  value="' . VarClean($_GET['q']) . '">';
-
-    } else {
-        echo '<input id="InputBusqueda" list="busquedas"  data-min-length="1" style="background-color: '.Preference("ColorPrincipal", "", "").';"
-        class="InputBusqueda flexdatalist" type="text" placeholder="¿Que reporte necesitas?" >';
-    }
-
-    if (isset($_GET['i1'])) {
-        Toast("Guardado correctamente " . VarClean($_GET['q']), 1, "");
-    }
-
-    if (isset($_GET['e1'])) {
-        Toast("ERROR:Al localizar el Reporte " . VarClean($_GET['e1']), 2, "");
-    }
-    ?>
+<!-- <table width=100%><tr><td>
+    //<?php
+    //if (isset($_GET['q'])) {
+    //    echo '<input id="InputBusqueda" list="busquedas"     data-min-length="1" style="background-color: '.Preference("ColorPrincipal", "", "").';"
+    //    class="InputBusqueda flexdatalist" type="text" placeholder="¿Que reporte necesitas?"  value="' . VarClean($_GET['q']) . '">';
+    //
+    //} else {
+    //    echo '<input id="InputBusqueda" list="busquedas"  data-min-length="1" style="background-color: '.Preference("ColorPrincipal", "", "").';"
+    //    class="InputBusqueda flexdatalist" type="text" placeholder="¿Que reporte necesitas?" >';
+    //}
+    //
+    //if (isset($_GET['i1'])) {
+    //    Toast("Guardado correctamente " . VarClean($_GET['q']), 1, "");
+    //}
+    //
+    //if (isset($_GET['e1'])) {
+    //    Toast("ERROR:Al localizar el Reporte " . VarClean($_GET['e1']), 2, "");
+    //}
+    //?>
 
 </td>
 <td width=50px align=right valign=middle 
-    style='background-color: <?php echo Preference("ColorPrincipal", "", ""); ?>;'>
+    style='background-color: <?php //echo Preference("ColorPrincipal", "", ""); ?>;'>
     <button  class="Mbtn btn-Success"  onclick="Search();" style="
-    background-color:  <?php echo Preference("ColorResaltado", "", ""); ?>;
+    background-color:  <?php //echo Preference("ColorResaltado", "", ""); ?>;
     box-shadow: 0 3px  #4d4c49; margin:10px;
 
     "> 
@@ -100,7 +100,7 @@ background-color: <?php echo Preference("ColorPrincipal", "", ""); ?>;
 </td>
 </tr>
 </table>
-
+ -->
 <div style='
 background-color: <?php echo Preference("ColorPrincipal", "", ""); ?>;
 text-align: center;
@@ -492,7 +492,7 @@ if (Preference("MostrarApps", "", "")=='TRUE'){
 </div>
 
 <?php
-UltimasBusquedas_buble($RinteraUser);
+//UltimasBusquedas_buble($RinteraUser);
 
 if (UserAdmin($RinteraUser) == TRUE) {
     if (Preference("NuevosReportes", "", "")=='TRUE'){
