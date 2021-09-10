@@ -72,8 +72,8 @@ $Tipo = ReporteTipo($id_rep); // $Tipo = 1; // 0 = html, 1= DataTable, 2 = PDF, 
 // var_dump($Tipo);
 if (PermisoReporte_Ver($RinteraUser,$id_rep)==TRUE){
 
-echo '<div class="row" style="margin:0px;">';
-$ClaseDiv  = "ContenedorDeReporte"; $ClaseTabla = "";
+    echo '<div class="row" style="margin:0px;">';
+    $ClaseDiv  = "ContenedorDeReporte"; $ClaseTabla = "";
     echo "<div id='C' style='
     width:100%;
     text-align:center;
@@ -87,6 +87,7 @@ $ClaseDiv  = "ContenedorDeReporte"; $ClaseTabla = "";
     margin: 0px;
     text-align: center;
     width:100%;
+    color: black
     ' 
 
     ></div>";
@@ -97,27 +98,10 @@ $ClaseDiv  = "ContenedorDeReporte"; $ClaseTabla = "";
         if($Rep = $Reportes -> fetch_array())
         {
             if ($Rep['var1'] == 1 || $Rep['var2'] == 1  || $Rep['var2'] == 1     ) {
-               
-               
-                echo "<form id='FormVar' action='r.php?id=".$id_rep."' method='POST' style='
-                width: 100%;
-                padding: 10px;
-                background-color: #ffffff5c;
-                margin: 7px;
-                border-radius: 8px;
-
-                '>";
+                echo "<form id='FormVar' action='r.php?id=".$id_rep."' method='POST' style='width: 100%; padding: 10px; background-color: #ffffff5c; margin: 7px; border-radius: 8px;'>";
                 echo "<h3>".$Rep['rep_name']."</h3>";
                 echo "<cite>".$Rep['rep_description']."</cite>";
-                echo "<p style='
-                font-size: 10pt;
-                font-weight: bold;
-                text-align: left;
-                '>Este Reporte Requiere los siguientes datos:</p>";
-
-
-                
-
+                echo "<p style='font-size: 10pt; font-weight: bold; text-align: left;'>Este Reporte Requiere los siguientes datos:</p>";
 
                 if ($Rep['var1']==1){
                     echo "<div class='Elemento'>";                   
@@ -158,9 +142,7 @@ $ClaseDiv  = "ContenedorDeReporte"; $ClaseTabla = "";
                     echo "</div>";
                 }
 
-
                 echo "<br><br><buttom 'Preparar Reporte' class=' btn btn-success' name='btnReporte' onclick='CargaReporte(1,".$id_rep.");'>Preparar Reporte<buttom>";
-                
 
                 echo "</form>";
 
@@ -214,7 +196,7 @@ $ClaseDiv  = "ContenedorDeReporte"; $ClaseTabla = "";
 //     UltimasBusquedas($RinteraUser);
 // echo "</div>";
 
-UltimasBusquedas_buble($RinteraUser);
+//UltimasBusquedas_buble($RinteraUser);
 
 echo "</div>";
 

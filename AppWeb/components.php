@@ -228,7 +228,7 @@ function Toast($Texto,$Tipo,$img){
                 echo "<script>";
                 echo "
                 $.toast({
-                    heading: 'Warning',
+                    heading: 'Advertencia.',
                     text: '".$Texto."',
                     showHideTransition: 'slide',
                     hideAfter: false,
@@ -244,7 +244,7 @@ function Toast($Texto,$Tipo,$img){
             echo "<script>";
             echo "
             $.toast({
-                heading: 'Success',
+                heading: 'Evento.',
                 text: '".$Texto."',
                 showHideTransition: 'slide',
                 icon: 'success',
@@ -575,12 +575,15 @@ function ReporteFooter($id_rep){
     $r= $db0 -> query($sql);
     if($f = $r -> fetch_array())
     {
-        $Footer = "<p clasS='ReporteFooter'>
+        $Footer = 
+        "<p clasS='ReporteFooter'>
         Reporte realizado el ".$f['fecha']." a las ".$f['hora']." por ".UserName($f['IdUser']).", el usuario <b>Administrador de este reporte es ".UserName($f['admin']).".<br>
-        * Información extraida desde ".IdConInfo($f['IdCon'])."</p>
+        * Información extraida desde ".IdConInfo($f['IdCon'])."
+        </p>
         ";
 
-        return $Footer;
+        //return $Footer;
+        return "";
     } else {
         return "";
     }
@@ -752,7 +755,7 @@ function DynamicTable_MySQL($QueryD, $IdDiv, $IdTabla, $Clase, $Tipo, $db){
 
     require("rintera-config.php");	
         $sql = $QueryD;
-        // echo $sql;
+        //echo $sql;
         $r= $db0 -> query($sql);
         $tbCont = '<div id="'.$IdDiv.'" class="'.$Clase.'">
         <table id="'.$IdTabla.'" class="display" style="width:100%" class="tabla" style="font-size:8pt;">';
@@ -924,7 +927,7 @@ if($f = $rc -> fetch_array())
 
 
     } else {
-        Toast("Sin datos para la coneccion",2,"");
+        Toast("Sin datos para la conexión",2,"");
     }
 
 
@@ -1044,10 +1047,10 @@ function TestConectionWS($IdCon){
             }
               
             if ($Exito == TRUE){
-                Toast("Conexión exitosa a la Planta, Cd. Victoria",4,"");
+                // Toast("Conexión exitosa a la base de datos, en la planta",4,"");
                 return TRUE;
             } else {
-                Toast("Fallo al conectar a la Planta, Cd. Victori",2,"");
+                Toast("Fallo al conectar a la base de datos, en la planta",2,"");
                 return FALSE;
             }
 
@@ -1538,7 +1541,7 @@ if($WSConF = $WSCon -> fetch_array())
                 $tabla.=$tabla_th.$tabla_content."</table>";     
                 $Titulo = TituloReporte($id_rep);
                 $Descripcion = DescripcionReporte($id_rep);           
-                // var_dump($Descripcion);
+                //var_dump($Descripcion);
                 return "<h1>".$Titulo."</h1><cite>".$Descripcion."</cite>".$tabla." ".ReporteFooter($id_rep);
                 break;
         
@@ -1667,85 +1670,19 @@ if($WSConF = $WSCon -> fetch_array())
                     
                     echo "<div id='".$IdDiv."' class='".$ClaseDiv."'>".ReporteEncabezado($id_rep).                    
                     $tabla.ReporteFooter($id_rep)."</div>";
-                    
-                    
-
-
 
                     echo '<script>
-                            $(document).ready(function() {
-                                $("#'.$IdTabla.'").DataTable( {
-                                    "scrollX":        true,
-                                    "scrollY":        true,                                                                  
-                                    "scrollCollapse": true,
-                                    "paging":         true,
-                                    "language": {
-                                        "decimal": ",",
-                                        "thousands": "."
-                                    }
-                                    ';
-
-                                    if ($FixedColLeft >0 || $FixedColRight > 0){
-                                        echo ',fixedColumns:   {';
-                                            if ($FixedColLeft >0 ){
-                                                echo 'leftColumns: '.$FixedColLeft.'';
-                                            } 
-                                            
-                                            if ($FixedColLeft >0  and $FixedColRight > 0){
-                                                echo ',';
+                            $(document).ready(function() 
+                                {
+                                    $("#'.$IdTabla.'").DataTable
+                                        (
+                                            {
+                                                "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "Todos"]]
                                             }
-                                            
-
-                                            if ($FixedColRight >0 ){
-                                                echo 'rightColumns: '.$FixedColRight.'';
-                                            }
-
-                                    }
-
-                                    if ($FixedColLeft >0 || $FixedColRight > 0){
-                                        echo '}';
-
-                                    }
-
-                                    
-                                $Botones = "
-                                dom: 'Bfrtip',
-                                buttons: [
-                                    {
-                                        extend:    'copyHtml5',
-                                        text:      '<i class=\"fa fa-files-o\"></i>',
-                                        titleAttr: 'Copy'
-                                    },
-                                    {
-                                        extend:    'excelHtml5',
-                                        text:      '<i class=\"fa fa-file-excel-o\"></i>',
-                                        titleAttr: 'Excel'
-                                    },
-                                    // {
-                                    //     extend:    'csvHtml5',
-                                    //     text:      '<i class=\"fa fa-file-text-o\"></i>',
-                                    //     titleAttr: 'CSV'
-                                    // },
-                                    // {
-                                    //     extend:    'pdfHtml5',
-                                    //     text:      '<i class=\"fa fa-file-pdf-o\"></i>',
-                                    //     titleAttr: 'PDF'
-                                    // }
-                                ]
-                                ";
-                 
-                                echo '
-                                    
-                                    ,responsive: true
-                                   
-                                    
-                                    ,'.$Botones.'
-                                    
-                                 
-
+                                        )
                                 } );
-                            } );
-                            </script>';
+                        </script>';
+                                    
                 break;
         
 
@@ -2447,79 +2384,14 @@ if ($Con_Val == TRUE){
                 case 1: // Interactivo
                     echo  ReporteEncabezado($id_rep).$TablaHTML.ReporteFooter($id_rep);   
                     echo '<script>
-                            $(document).ready(function() {
-                                $("#'.$IdTabla.'").DataTable( {
-                                    "scrollX":        false,
-                                    "scrollY":        false,                                                                  
-                                    "scrollCollapse": true,
-                                    "paging":         true,
-                                    "language": {
-                                        "decimal": ",",
-                                        "thousands": "."
-                                    }
-                                    ';
-
-                                    if ($FixedColLeft >0 || $FixedColRight > 0){
-                                        echo ',fixedColumns:   {';
-                                            if ($FixedColLeft >0 ){
-                                                echo 'leftColumns: '.$FixedColLeft.'';
-                                            } 
-                                            
-                                            if ($FixedColLeft >0  and $FixedColRight > 0){
-                                                echo ',';
-                                            }
-                                            
-
-                                            if ($FixedColRight >0 ){
-                                                echo 'rightColumns: '.$FixedColRight.'';
-                                            }
-
-                                    }
-
-                                    if ($FixedColLeft >0 || $FixedColRight > 0){
-                                        echo '}';
-
-                                    }
-
-                                    
-                                $Botones = "
-                                dom: 'Bfrtip',
-                                buttons: [
-                                    {
-                                        extend:    'copyHtml5',
-                                        text:      '<i class=\"fa fa-files-o\"></i>',
-                                        titleAttr: 'Copy'
-                                    },
-                                    {
-                                        extend:    'excelHtml5',
-                                        text:      '<i class=\"fa fa-file-excel-o\"></i>',
-                                        titleAttr: 'Excel'
-                                    },
-                                    // {
-                                    //     extend:    'csvHtml5',
-                                    //     text:      '<i class=\"fa fa-file-text-o\"></i>',
-                                    //     titleAttr: 'CSV'
-                                    // },
-                                    // {
-                                    //     extend:    'pdfHtml5',
-                                    //     text:      '<i class=\"fa fa-file-pdf-o\"></i>',
-                                    //     titleAttr: 'PDF'
-                                    // }
-                                ]
-                                ";
-                 
-                                echo '
-                                    
-                                    ,responsive: true
-                                   
-                                    
-                                    ,'.$Botones.'
-                                    
-                                 
-
+                            $(document).ready(function() 
+                                {
+                                    $("#'.$IdTabla.'").DataTable({
+                                        "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "Todos"]]
+                                    });
                                 } );
-                            } );
-                            </script>';
+                        </script>';
+    
                 break;
 
                 case 2: // PDF

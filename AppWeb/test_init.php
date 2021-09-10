@@ -54,21 +54,21 @@ if ($UsuariosForaneaos == "TRUE") {
                             }
 
                         } else {
-                            $Error = $Error."Parametros insuficientes para conección." .$dbUser_host;    
+                            $Error = $Error."Parametros insuficientes para conexión." .$dbUser_host;    
                         }
 
                     } else {
-                        $Error = $Error."No se localizo el registro de la conección ".$UsuariosForaneosIdCon.".";    
+                        $Error = $Error."No se localizo el registro de la conexión ".$UsuariosForaneosIdCon.".";    
                     }           
 
                 } else {
                     $Error = $Error."Sin Query para Foraneos";
                 }
             } else {
-                $Error = $Error."Sin conección la base de datos ".$UsuariosForaneosIdCon;
+                $Error = $Error."Sin conexión la base de datos ".$UsuariosForaneosIdCon;
             }       
         } else {
-            $Error = $Error."No es un tipo de Conección Permitida ConType=0,1. ";
+            $Error = $Error."No es un tipo de conexión Permitida ConType=0,1. ";
         }
     } else {
         $Error = $Error."IdCon para Foraneos Vacia ";

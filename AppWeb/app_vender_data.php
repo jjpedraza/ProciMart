@@ -1,69 +1,67 @@
 <?php
-require ("rintera-config.php");
-require ("components.php");
-require ("app_funciones.php");
-include("seguridad.php");
+    require ("rintera-config.php");
+    require ("components.php");
+    require ("app_funciones.php");
+    include("seguridad.php");
 
+    $CorreoContenido = VarClean($_POST['CorreoContenido']);
+    $CorreoCopia = VarClean($_POST['CorreoCopia']);
+    $IdProducto = VarClean($_POST['IdProducto']);
+    $Tipo = VarClean($_POST['Tipo']);
+    $ClaveDelProducto = VarClean($_POST['ClaveDelProducto']);
+    $IdLote = VarClean($_POST['IdLote']);
+    $IdUser  = VarClean($_POST['IdUser']);
+    $IdTransaccion = VarClean($_POST['IdTransaccion']);
+    $IdCliente = VarClean($_POST['IdCliente']);
+    $IdClienteName = VarClean($_POST['IdClienteName']);
+    $FechaOperacion = VarClean($_POST['FechaOperacion']);
+    $Cantidad = VarClean($_POST['Cantidad']);
+    $Costo = VarClean($_POST['Costo']);
+    $Precio = VarClean($_POST['Precio']);
+    $IdIncoterms = VarClean($_POST['IdIncoterms']);
+    $IdIncotermsName = VarClean($_POST['IdIncotermsName']);
+    $TiempoDeEnvio = VarClean($_POST['TiempoDeEnvio']);
+    $Muestra = VarClean($_POST['Muestra']);
+    $IdAdjudicacion = VarClean($_POST['IdAdjudicacion']);
+    $Referencia = "";
+    $IdMuestra=2;
 
-$CorreoContenido = VarClean($_POST['CorreoContenido']);
-$CorreoCopia = VarClean($_POST['CorreoCopia']);
-$IdProducto = VarClean($_POST['IdProducto']);
-$Tipo = VarClean($_POST['Tipo']);
-$ClaveDelProducto = VarClean($_POST['ClaveDelProducto']);
-$IdLote = VarClean($_POST['IdLote']);
+    if ($Muestra=='SI') {
+        $IdMuestra = 1;
+    } 
 
-$IdUser  = VarClean($_POST['IdUser']);
-$IdTransaccion = VarClean($_POST['IdTransaccion']);
-$IdCliente = VarClean($_POST['IdCliente']);
-$IdClienteName = VarClean($_POST['IdClienteName']);
-$FechaOperacion = VarClean($_POST['FechaOperacion']);
-// echo "Fecha Operacion = ".$FechaOperacion;
-$Cantidad = VarClean($_POST['Cantidad']);
-$Costo = VarClean($_POST['Costo']);
-$Precio = VarClean($_POST['Precio']);
-$IdIncoterms = VarClean($_POST['IdIncoterms']);
-$IdIncotermsName = VarClean($_POST['IdIncotermsName']);
-$TiempoDeEnvio = VarClean($_POST['TiempoDeEnvio']);
-$Muestra = VarClean($_POST['Muestra']);
-$IdAdjudicacion = VarClean($_POST['IdAdjudicacion']);
-$Referencia = "";
-$IdMuestra=2;
-if ($Muestra=='SI') {
-    $IdMuestra = 1;
-} 
-
-if ($IdAdjudicacion == "VENTA"){ //VENTA
-    
-    if (is_numeric($ClaveDelProducto)){
-        $Referencia.= "BE";
-        $Referencia.= str_pad($IdProducto, 7, "0", STR_PAD_LEFT)."001";
-        EnviarGuardar($Referencia, $IdTransaccion, $IdCliente, $IdLote, $Cantidad, $Costo, $IdIncoterms, "1", $TiempoDeEnvio, $IdMuestra, "E","B", $IdProducto, $Precio);
+    if ($IdAdjudicacion == "VENTA"){
+            EnviarGuardar($Referencia, $IdTransaccion, $IdCliente, $IdLote, $Cantidad, $Costo, $IdIncoterms, "1", $TiempoDeEnvio, $IdMuestra, $ClaveDelProducto, "A", $IdProducto, $Precio, 3);
+        }
     } else {
-        $Referencia.="A".$ClaveDelProducto;
-        $Referencia.= str_pad($IdProducto, 7, "0", STR_PAD_LEFT)."001";
-        EnviarGuardar($Referencia, $IdTransaccion, $IdCliente, $IdLote, $Cantidad, $Costo, $IdIncoterms, "1", $TiempoDeEnvio, $IdMuestra, $ClaveDelProducto, "A", $IdProducto, $Precio);
+            EnviarGuardar($Referencia, $IdTransaccion, $IdCliente, $IdLote, $Cantidad, $Costo, $IdIncoterms, "2", $TiempoDeEnvio, $IdMuestra, $ClaveDelProducto, "A", $IdProducto, $Precio, 4);
+        }
     }
-    
-    
-  
-} else {//OFERTA
-    // Toast("OFERTA",1,"");
-    
-    if (is_numeric($ClaveDelProducto)){
-        $Referencia.= "BE";
-        $Referencia.= str_pad($IdProducto, 7, "0", STR_PAD_LEFT)."001";
-        EnviarGuardar($Referencia, $IdTransaccion, $IdCliente, $IdLote, $Cantidad, $Costo, $IdIncoterms, "2", $TiempoDeEnvio, $IdMuestra, "E","B", $IdProducto,$Precio);
-    } else {
-        $Referencia.="A".$ClaveDelProducto;
-        $Referencia.= str_pad($IdProducto, 7, "0", STR_PAD_LEFT)."001";
-        EnviarGuardar($Referencia, $IdTransaccion, $IdCliente, $IdLote, $Cantidad, $Costo, $IdIncoterms, "2", $TiempoDeEnvio, $IdMuestra, $ClaveDelProducto, "A", $IdProducto, $Precio);
-    }
-    
 
-}
-$Referencia = "";
+    // if ($IdAdjudicacion == "VENTA"){ //VENTA
+    //     if (is_numeric($ClaveDelProducto)){
+    //         $Referencia.= "BE";
+    //         $Referencia.= str_pad($IdProducto, 7, "0", STR_PAD_LEFT)."001";
+    //         EnviarGuardar($Referencia, $IdTransaccion, $IdCliente, $IdLote, $Cantidad, $Costo, $IdIncoterms, "1", $TiempoDeEnvio, $IdMuestra, "E","B", $IdProducto, $Precio);
+    //     } else {
+    //         $Referencia.="A".$ClaveDelProducto;
+    //         $Referencia.= str_pad($IdProducto, 7, "0", STR_PAD_LEFT)."001";
+    //         EnviarGuardar($Referencia, $IdTransaccion, $IdCliente, $IdLote, $Cantidad, $Costo, $IdIncoterms, "1", $TiempoDeEnvio, $IdMuestra, $ClaveDelProducto, "A", $IdProducto, $Precio);
+    //     }
+    // } else {//OFERTA
+    //     // Toast("OFERTA",1,"");
+    //     if (is_numeric($ClaveDelProducto)){
+    //         $Referencia.= "BE";
+    //         $Referencia.= str_pad($IdProducto, 7, "0", STR_PAD_LEFT)."001";
+    //         EnviarGuardar($Referencia, $IdTransaccion, $IdCliente, $IdLote, $Cantidad, $Costo, $IdIncoterms, "2", $TiempoDeEnvio, $IdMuestra, "E","B", $IdProducto,$Precio);
+    //     } else {
+    //         $Referencia.="A".$ClaveDelProducto;
+    //         $Referencia.= str_pad($IdProducto, 7, "0", STR_PAD_LEFT)."001";
+    //         EnviarGuardar($Referencia, $IdTransaccion, $IdCliente, $IdLote, $Cantidad, $Costo, $IdIncoterms, "2", $TiempoDeEnvio, $IdMuestra, $ClaveDelProducto, "A", $IdProducto, $Precio);
+    //     }
+    // }
 
-
+    $Referencia = "";
 
      $sql = "INSERT INTO productosmov 
      (IdProducto, Tipo, ClaveDelProducto,IdUser,IdTransaccion, IdCliente,IdClienteName, FechaOperacion,Cantidad,
@@ -89,6 +87,7 @@ $Referencia = "";
         "'".$IdLote."',".
         "'".$Precio."'".
         ")";
+
         if ($db0->query($sql) == TRUE)
         {
             Toast("Guardado con exito, haga clic en movimientos para verlo",4,"");
@@ -123,7 +122,7 @@ $Referencia = "";
             Toast("Error al guardar",2,"");
         }
 
-Historia($RinteraUser, "Guardo Producto", "".$sql."");
+Historia($RinteraUser, "Guardo producto en Sql Server", "".$sql."");
 
 // echo '
 // <script>
@@ -133,10 +132,10 @@ Historia($RinteraUser, "Guardo Producto", "".$sql."");
 //   setTimeout("redireccionarPagina()", 1000);
 // </script>';
 
-function EnviarGuardar($Referencia, $IdTransaccion, $IdCliente, $IdLote, $Cantidad,$Costo, $IdIncoterms, $IdAdjudicacion, $TiempoDeEnvio, $Muestra, $ClaveDelProducto, $Clave2, $IdProducto, $Precio)
+function EnviarGuardar($Referencia, $IdTransaccion, $IdCliente, $IdLote, $Cantidad,$Costo, $IdIncoterms, $IdAdjudicacion, $TiempoDeEnvio, $Muestra, $ClaveDelProducto, $Clave2, $IdProducto, $Precio, $IdEstatusMtto)
 {
     $sql = "
-    EXEC Ventas_Almacenamiento @Referencia = '".$Referencia."'
+    EXEC VentasAfectandoInventarios @Referencia = '".$Referencia."'
     , @IdTransaccion = '".$IdTransaccion."'
     , @IdCliente = ".$IdCliente."
     , @Fecha = '".date("Ymd g:i")."'
@@ -161,6 +160,7 @@ function EnviarGuardar($Referencia, $IdTransaccion, $IdCliente, $IdLote, $Cantid
     , @IdEstatusDelRegistro = 0
     , @FechaDeCreacion = '".date("Ymd g:i")."'
     , @IdUsuarioCreo = 1
+    , @IdEstatusMtto = ".$IdEstatusMtto."
     ";
     echo $sql;
 

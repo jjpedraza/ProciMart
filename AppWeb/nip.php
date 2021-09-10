@@ -1,28 +1,23 @@
 <?php 
 include("head.php");
-// include("header.php");
+include("header.php");
 
 // $("body").css("background-color", "#919191");
 //     $("body").css("background-blend-mode", "screen");
 
-echo '
-<script>
-    $("body").css("background-image", "var(--RinteraBackground)");
-    $("body").css("background-size", "200%");
-    
-</script>
-';
-
-
+// echo '
+// <script>
+//     $("body").css("background-image", "var(--RinteraBackground)");
+//     $("body").css("background-size", "200%");
+// </script>
+// ';
 
 echo '  <div id="Login">
-    
-    
             <div id="FormNIP" class="form-signin" style="text-align:center;" >    
-                <b>RINTERA: Es necesario actualizar tu NIP:<br></b>                
+                <b>SEGURIDAD: Cambio de contraseña<br></b>                
                 
-                <label for="txtNIPnew" class="sr-only">Nuevo NIP</label><br>
-                <input type="password" id="txtNIPnew" name="txtNIPnew" class="form-control" placeholder="Nuevo NIP" required>
+                <label for="txtNIPnew" class="sr-only">Nuevo 123 NIP</label><br>
+                <input type="password" id="txtNIPnew" name="txtNIPnew" class="form-control" placeholder="Ingrese nueva contraseña" required>
                 <br>
                 <buttom name="FormLogin"  class="btn btn-lg btn-primary btn-block" onclick="Guardar();" >Guardar</buttom>
                 <br><br>

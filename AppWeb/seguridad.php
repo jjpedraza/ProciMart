@@ -43,11 +43,11 @@ else
 		$url.="&id_rep=".$id_rep;
 	}
 	if ($url <> '' ){
-		header("location:login.php?".$url);		
-		echo '<script>window.location.href="login.php?'.$url.'";</script>';
+		header("location:presentacion.php?".$url);		
+		echo '<script>window.location.href="presentacion.php?'.$url.'";</script>';
 	} else {
-		// header("location:login.php");		
-		echo '<script>window.location.href="login.php";</script>';
+		// header("location:presentacion.php");		
+		echo '<script>window.location.href="presentacion.php";</script>';
 	}
 	
 	

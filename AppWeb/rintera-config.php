@@ -3,32 +3,29 @@
 
 $fecha = date('Y-m-d');
 $hora =  date ("H:i:s");
-$SesionName="R1nT3r4";
 
+$SesionName="R1nT3r4";
 $session_auto_start = 1;
-$url_ =  "https://plataformaitavu.tamaulipas.gob.mx/ws/ws_procimart.php"; 
+$url_ =  "http://localhost/ws_procimart.asp";
 $token_ = "Pr0C1M4rt";
 
 require_once("preference.php");
-// require_once("components.php");
+
 //CONEXION DE LA BASE DE DATOS DE RINTERA	
 $db0_host = 'localhost';	
 $db0_user = 'root';
 $db0_pass = ''; 
-// $db0_pass = ''; 
 $db0_name = 'c1551508_rintera';
-
 
 // Usuario c1551508_rintera
 // Clave: renine01PO
 // Base de datos: c1551508_rintera
 // Servidor: localhost
 
-
 // $db0_host = 'localhost';	
 // $db0_user = 'c1551508_rintera';
 // $db0_pass = 'renine01PO'; 
-// // $db0_pass = ''; 
+// $db0_pass = ''; 
 // $db0_name = 'c1551508_rintera';
 
 if (function_exists('mysqli_connect')) {		

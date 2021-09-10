@@ -9,12 +9,16 @@ require("components.php");
 
 <head>
     <meta charset="UTF-8">
-    <title>Login by Rintera</title>
-
-
     <script src="lib/jquery-3.3.1.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
-
+    <meta http-equiv=x-ua-compatible content="ie=edge">
+    <meta name=viewport content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name=apple-mobile-web-app-capable content=yes />
+    <meta name=apple-mobile-web-app-status-bar-style content=black />
+    <meta name=format-detection content="telephone=no" />
+    <title>Procimart</title>
+    <meta name=author content="Procimart">
+    <link rel="shortcut icon" href="img/logo.ico" type="image/x-icon" />
 
     <?php
     $dir = "";
@@ -39,11 +43,11 @@ require("components.php");
 
     <style>
         body {
-            background-image: url('img/fondo_login1.jpg');
-            background-size: 125%;
+            background-image: url('img/FondoDeBienvenida.jpg');
+            background-size: 50%;
             background-color: #212f3c ;
-            background-blend-mode: screen;
-            color:white;
+            /*background-blend-mode: screen;*/
+            color:white; 
         }
 
         #Login,
@@ -113,7 +117,7 @@ require("components.php");
     
                 <img src="img/Logo_large.png" style="width:50%;"><br>
                 
-                <b><b>Identificate</b>
+                <b><b>Proporcione las siguientes credenciales</b>
                 
                 <label for="txtIdUser" class="sr-only">IdUser</label>
                 <input type="text" id="txtIdUser" name="txtIdUser" class="form-control" placeholder="Usuario" required autofocus>

@@ -2,8 +2,10 @@
 include("head.php");
 include("header.php");
 require("app_funciones.php");
+
 $IdRegreso = VarClean($_GET['back']);
 $Tipo = VarClean($_GET['tipo']);
+
 if (isset($_GET['id'])) {
     $IdAceiteLote = VarClean($_GET['id']);
     $IdProducto = $IdAceiteLote;
@@ -135,7 +137,7 @@ if (isset($_GET['id'])) {
                         }
                         
                     }
-                    $TablaDetaT="<table class='tabla' border=1>".$TablaDeta."</table>";
+                    $TablaDetaT="<table class='tabla' border=0>".$TablaDeta."</table>";
                     
                 
                     
@@ -169,16 +171,17 @@ if (isset($_GET['id'])) {
             $Titulo = ""."".ReporteEncabezado($id_rep)."";
             $DetallesInfo = $TablaDetaT;
             $BotonRegresar = "<div style='margin-top:5px; text-align:right; margin-right:5px;'>
-            <a href='r.php?id=".$IdRegreso."' class='btn btn-secondary' style='font-size:8pt;'><img src='icon/btn_izquierda.png' style='width:18px;'> Regresar</a><br></div>";
+            <a href='r.php?id=".$IdRegreso."' class='btn btn-secondary' style='font-size:8pt;background-color:".Preference("ColorPrincipal", "", "")."'><img src='icon/btn_izquierda.png' style='width:18px;'> Regresar</a><br></div>";
 
             echo "<div id='DetallesTitulo' style='
             background-color: #82828224;
             width: 98%;
             border-radius: 5px;
             '>"; 
+
             echo "<table width=100%><tr>";
             echo "<td>";
-            echo "<img src='icon/ofertar.png' style='width:32px;' class='pc'>";
+            echo "<img src='img/carrito.png' style='width:70px;' class='pc'>";
             echo "</td>";
             echo "<td>";
                 echo $Titulo."";
@@ -187,9 +190,8 @@ if (isset($_GET['id'])) {
             echo "</td></tr></table>";
             echo "</div>";
 
-
             echo "<div  id='DetallesTabla' class=''style='
-            background-color: #f7f7f77d;
+            background-color: #fff;
             margin: 5px;
                 margin-top: 5px;
             border-radius: 4px;
@@ -204,16 +206,14 @@ if (isset($_GET['id'])) {
             echo "
             <div class='form-group'>
             <label>IdTransaccion: </label><br>
-            <input type='text' id='IdTransaccion' name='IdTransaccion' value='".$IdTransaccion."' class='form-control disable ' readonly>
+            <input type='text' id='IdTransaccion' name='IdTransaccion' value='".$IdTransaccion."' class='form-control disable ' readonly style='border:solid 1px ".Preference("ColorPrincipal", "", "").";'>
             </div>
-
-
             ";
 
             echo "
             <div class='form-group'>
             <label>Cliente: </label><br>
-            <select id='IdCliente' class='form-control' onChange='ChecaCorreo();'>";
+            <select id='IdCliente' class='form-control' onChange='ChecaCorreo();' style='border:solid 1px ".Preference("ColorPrincipal", "", "").";'>";
             echo $ClienteOptions;
             echo "</select>
             </div>
@@ -225,7 +225,7 @@ if (isset($_GET['id'])) {
             echo "<tr><td colspan=3><label style='margin:0px;'>Fecha:</label></td></tr>";
             echo "<tr><td class='pc' align=right  valign=top><label style='margin:0px;'><img src='icon/calendar.png' style='width:22px'>";
             echo "</label></td><td align=left valign=top>
-            <input type='date' id='Fecha' name='Fecha' class='form-control' value='";
+            <input type='date' id='Fecha' name='Fecha' class='form-control' style='border:solid 1px ".Preference("ColorPrincipal", "", "").";' value='";
             echo $fecha;
             echo "'> ";
 
@@ -241,17 +241,13 @@ if (isset($_GET['id'])) {
             echo "<tr><td colspan=3><label style='margin:0px;'>Cantidad: <span class='pc'>(<span id='LProduccion' title='Inventario' style='cursor:pointer'> ".$Produccion." </span> ".$Envasado.   " )</span></label></td></tr>";
 
             echo "<tr><td align=left valign=top >
-            <input type='number' id='Cantidad' name='Cantidad' class='form-control' value='0'  min='1' max='".$Produccion."'>";
+            <input type='number' id='Cantidad' name='Cantidad' class='form-control' value='0'  style='border:solid 1px ".Preference("ColorPrincipal", "", "").";' min='1' max='".$Produccion."'>";
             echo "</td>";
 
             echo "</tr></table>
             </div>
             ";
 
-
-
-
-            // echo "<input type='hidden' id='Produccion' value='".$Produccion."'>";
             echo "
             <div class='form-groupMid' id='DivCosto'>
             <table width=100% border=0>";
@@ -259,10 +255,10 @@ if (isset($_GET['id'])) {
 
             echo "<tr>";
             echo "<td align=left valign=top width=60%>
-            <input type='text' id='Costo' name='Costo' class='form-control'  onBlur='toFinalNumberFormat(this);' placeholder='$#,###.00'  >";
+            <input type='text' id='Costo' name='Costo' class='form-control'  onBlur='toFinalNumberFormat(this);' placeholder='$#,###.00' style='border:solid 1px ".Preference("ColorPrincipal", "", "").";' >";
             echo "</td>";
             echo "<td width=30% align=left valign=top>";
-            echo "<select id='IdMoneda' name='IdMoneda' class='form-control'>";
+            echo "<select id='IdMoneda' name='IdMoneda' class='form-control' style= 'border:solid 1px ".Preference("ColorPrincipal", "", "")."'>";
             echo $MonedaOptions;
             echo "</select>";
 
@@ -278,10 +274,10 @@ if (isset($_GET['id'])) {
 
             echo "<tr>";
             echo "<td align=left valign=top width=60%>
-            <input type='text' id='Precio' name='Precio' class='form-control'  onBlur='toFinalNumberFormat(this);' placeholder='$#,###.00'  >";
+            <input type='text' id='Precio' name='Precio' class='form-control'  onBlur='toFinalNumberFormat(this);' placeholder='$#,###.00' style='border:solid 1px ".Preference("ColorPrincipal", "", "").";' >";
             echo "</td>";
             echo "<td width=30% align=left valign=top>";
-            echo "<select id='IdMoneda' name='IdMoneda' class='form-control'>";
+            echo "<select id='IdMoneda' name='IdMoneda' class='form-control' style='border:solid 1px ".Preference("ColorPrincipal", "", "")."'>";
             echo $MonedaOptions;
             echo "</select>";
 
@@ -314,7 +310,7 @@ if (isset($_GET['id'])) {
             echo "<tr><td colspan=3><label style='margin:0px;'>Tipo de incoterms: <a href='#IncotermsHelp' rel='MyModal:open'><img src='icon/ayuda.png' style='width:16px;'></a></label></td></tr>";
             echo "<tr>";
             echo "<td  align=left valign=top>";
-            echo "<select id='IdIncoterms' name='IdIncoterms' class='form-control'>";
+            echo "<select id='IdIncoterms' name='IdIncoterms' class='form-control' style='border:solid 1px ".Preference("ColorPrincipal", "", "").";'>";
             echo $OptionsIncoterms;
             echo "</select>";
 
@@ -323,24 +319,17 @@ if (isset($_GET['id'])) {
             </div>
             ";
 
-
-
-
-
             $OptionAdjudicacion = "";
-            $OptionAdjudicacion.="<option value='VENTA'>Venta Definitiva</option>";
-            $OptionAdjudicacion.="<option value='OFERTA'>Ofertar</option>";
-
-
-
+            $OptionAdjudicacion.="<option value='VENTA'>Venta definitiva</option>";
+            $OptionAdjudicacion.="<option value='OFERTA'>Ofertar producto</option>";
 
             echo "
-            <div class='form-groupMid' id='AdjudicacionDiv'>
+            <div class='form-groupMid' id='AdjudicacionDiv' >
             <table width=100% border=0>";
             echo "<tr><td colspan=3><label style='margin:0px;'>Tipo de Adjudicacion: </label></td></tr>";
             echo "<tr>";
             echo "<td  align=left valign=top>";
-            echo "<select id='IdAdjudicacion' name='IdAdjudicaion' class='form-control'>";
+            echo "<select id='IdAdjudicacion' name='IdAdjudicaion' class='form-control' style='border:solid 1px ".Preference("ColorPrincipal", "", "").";'>";
             echo $OptionAdjudicacion;
             echo "</select>";
 
@@ -349,39 +338,29 @@ if (isset($_GET['id'])) {
             </div>
             ";
 
-
-
-
-
-
-
             echo "
             <div class='form-groupMid' id='Envio'>
             <table width=100% border=0>";
             echo "<tr><td colspan=3><label style='margin:0px;'>Tiempo de Envio (dias): </label></td></tr>";
             echo "<tr>";
             echo "<td  align=left valign=top>";
-            echo "<input type='number' id='TiempoDeEnvio' name='TiempoDeEnvio' class='form-control' value='0'>";
+            echo "<input type='number' id='TiempoDeEnvio' name='TiempoDeEnvio' class='form-control' value='0' style='border:solid 1px ".Preference("ColorPrincipal", "", "").";'>";
 
             echo "</td>";
             echo "</tr></table>
             </div>
             ";
-
-
-
 
             echo "
             <div class='form-groupMid' id='MuestraDiv'>
             <table width=100% border=0>";
             echo "<tr><td colspan=3><label style='margin:0px;'>Solicitud de Muestra: </label></td></tr>";
             echo "<tr>";
-            echo "<td  align=left valign=top>";
-            echo "<select id='Muestra' name='Muestra' class='form-control'>
+            echo "<td  align=left valign=top >";
+            echo "<select id='Muestra' name='Muestra' class='form-control' style='border:solid 1px ".Preference("ColorPrincipal", "", "").";'>
             <option value='SI'>SI</option>
             <option value='NO'>NO</option>
             </select>
-
             ";
 
             echo "</td>";
@@ -389,26 +368,34 @@ if (isset($_GET['id'])) {
             </div>
             ";
 
-
-
             echo "
-            <div class='form-group' style='width:97%;'>
-            <label>Texto del Correo que enviara al cliente: <span style='color:#cc4960;' id='Correo'></span> </label><br>
-            <textarea id='CorreoContenido' name='CorreoContenido' class='form-control  '></textarea>
+            <div class='form-group' style='width:99%;'>
+                <div style='width: 70%; float:left'>
+                    <label>Texto del Correo que enviara al cliente: <span style='color:#cc4960;' id='Correo'></span> </label><br>
+                    <textarea id='CorreoContenido' name='CorreoContenido' class='form-control' style='border:solid 1px ".Preference("ColorPrincipal", "", "").";'></textarea>
+                </div>
+                <div style='width: 1%; float:center'>
+                </div>            
+                <div style='width: 29%; float:right'>
+                    <label>Con copia para:<span style='color:#cc4960;' id='ConCopiaPara'></span> </label><br>
+                    <input   style='width:100%; border: solid 1px ".Preference("ColorPrincipal", "", "").";' type='mail' id='CorreoCopia' name='CorreoCopia' class='form-control'   >
+                </div>            
             </div>
-
-
             ";
 
-            echo "
-            <div class='form-group' style='width:97%;'>
-            <label>Con copia para:<br>
-            <input   style='width:150%;' type='mail' id='CorreoCopia' name='CorreoCopia' class='form-control  '>
-            </div>
-
-
-            ";
-
+            // echo "
+            // <div class='form-group' style='width:99%; border: solid 1px red'>
+            //     <label>Texto del Correo que enviara al cliente: <span style='color:#cc4960;' id='Correo'></span> </label><br>
+            //     <textarea id='CorreoContenido' name='CorreoContenido' class='form-control' style='border:solid 1px ".Preference("ColorPrincipal", "", "").";'></textarea>
+            // </div>
+            // ";
+            //
+            // echo "
+            // <div class='form-group' style='width:97%; '>
+            // <label>Con copia para:<br>
+            // <input   style='width:150%; border: solid 1px ".Preference("ColorPrincipal", "", "").";' type='mail' id='CorreoCopia' name='CorreoCopia' class='form-control'   >
+            // </div>
+            // ";
 
             if ($ClaveDelProducto == "A"){
                 $Certificado_General ="";
@@ -476,7 +463,7 @@ if (isset($_GET['id'])) {
                                 // echo $key." = ".$val."<br>";
                         
                                 if ($val=="Certificado_General"){
-                                    $Certificado_General = "pdfProcimart1.php";
+                                    $Certificado_General = "GeneraCertificado_Aceite_FormatoGeneral.php";
                                 }
 
                                 if ($val=="Certificado_CocaCola"){
@@ -504,16 +491,16 @@ if (isset($_GET['id'])) {
                     echo "<tr>";
                     echo "<td  align=left valign=middle>";
                     echo "
-                    <a href='pdfProcimart1.php?IdLote=".$IdLote."' title='Haga clic aqui para ver el certificado' download>
+                    <a href='GeneraCertificado_Aceite_FormatoGeneral.php?Batch=".$IdLote."' title='Haga clic aqui para ver el certificado' download>
                     <img src='icon/pdf.png' style='width:32px;'>
                     </a>
 
                     ";
                     echo "</td>";
 
-                    echo "<td style='font-size:10pt;'>
-                    <a  style='display:block; color:white; text-decoration:none;'  href='pdfProcimart1.php?IdLote=".$IdLote."' title='Haga clic aqui para ver el certificado' download>
-                    Certificado General</a></td>";
+                    echo "<td style='font-size:12pt;'>
+                    <a  style='display:block; color:white; text-decoration:none;'  href='GeneraCertificado_Aceite_FormatoGeneral.php?Batch=".$IdLote."' title='Haga clic aqui para ver el certificado' download>
+                    Inv. Aceites - Certificado de análisis</a></td>";
                     echo "</tr></table>
                     </div>
                     ";
@@ -529,37 +516,27 @@ if (isset($_GET['id'])) {
                     echo "<tr>";
                     echo "<td  align=left valign=middle>";
                     echo "
-                    <a href='pdfProcimart.php?IdLote=".$IdLote."' title='Haga clic aqui para ver el certificado' download>
+                    <a href='GeneraCertificado_Aceite_FormatoCocaCola.php?Batch=".$IdLote."' title='Haga clic aqui para ver el certificado' download>
                     <img src='icon/pdf.png' style='width:32px;'>
                     </a>
 
                     ";
                     echo "</td>";
 
-                    echo "<td style='font-size:10pt;'> <a style='display:block; color:white; text-decoration:none;' href='pdfProcimart.php?IdLote=".$IdLote."' title='Haga clic aqui para ver el certificado' download>
-                    Certificado General</a></td>";
+                    echo "<td style='font-size:12pt;'> <a style='display:block; color:white; text-decoration:none;' href='GeneraCertificado_Aceite_FormatoCocaCola.php?Batch=".$IdLote."' title='Haga clic aqui para ver el certificado' download>
+                    Certificado de análisis</a></td>";
                     echo "</tr></table>
                     </div>
                     ";
                 }
-            
-
-
-
 
                 echo "<div class='form-group btn btn-success' id='btnGuadar' onclick='Save();' >";
                 echo "<img src='icon/guardar.png' style='width:32px;'>Guardar";
                 echo "</div>";
 
-
-                
-                echo "<a href='app_movs.php' class='form-group btn btn-primary' id='btnGuadar' >";
-                echo "<img src='icon/permisos.png' style='width:32px;'> Movimientos";
-                echo "</a>";
-
-
-
-                
+                // echo "<a href='app_movs.php' class='form-group btn btn-primary' id='btnGuadar' >";
+                // echo "<img src='icon/permisos.png' style='width:32px;'> Movimientos";
+                // echo "</a>";
 
                 echo "<div class='form-group ' id='btnGuadar' id='InfoMov' >";
                 
@@ -568,111 +545,80 @@ if (isset($_GET['id'])) {
 
             echo "</div>";
 
-
-
             echo "<div id='DetallesInfo' style='
             padding: 10px;
             background-color: #a8a8a845;
             border-radius: 5px;
             '>";
-                echo $DetallesInfo;
-                echo "<hr>";
+                //echo $DetallesInfo;
+                echo "<h4>Especificaciones del producto</h4>";
                 echo $DetallesDeProducto;       
             echo "</div>";
 
 echo "<div style='font-size:7pt; color:gray;'>Id=".$IdAceiteLote.", Tipo=".$Tipo.", ClaveDelProducto=".$ClaveDelProducto.", idReporte=".$id_rep."</div>";
 
 
-} else { // --------------------------------------------------------
+} 
 
-    
+else 
+
+{ 
+    // nueva programacion juntando todos los inventarios ----------------------------
         $IdCertificado =  VarClean($_GET['idCer']);
         $IdProducto = $IdCertificado;
         $ClaveDelProducto = $Tipo;
+        $TipoDeInventario = (int)$ClaveDelProducto;
     
         $Footer  =  ReporteFooter($IdRegreso);
         $Titulo = ""."".ReporteEncabezado($IdRegreso)."";
+
         $BotonRegresar = "<div style='margin-top:5px; text-align:right; margin-right:5px;'>
-    <a href='r.php?id=".$IdRegreso."' class='btn btn-secondary' style='font-size:8pt;'><img src='icon/btn_izquierda.png' style='width:18px;'> Regresar</a><br></div>";
-    
-    
+        <a href='r.php?id=".$IdRegreso."' class='btn btn-secondary' style='font-size:8pt;'><img src='icon/btn_izquierda.png' style='width:18px;'> Regresar</a><br></div>";
+
         echo "<div id='DetallesTitulo' style='
         background-color: #82828224;
         width: 98%;
         border-radius: 5px;
         '>"; 
-        echo "<table width=100%><tr><td>"   ;
+
+        echo "<table width=100%><tr>";
+        echo "<td>";
+        echo "<img src='img/carrito.png' style='width:70px;' class='pc'>";
+        echo "</td>";
+        echo "<td>";
             echo $Titulo."";
-        echo "</td><td width=20%>";
+        echo "</td><td width=20% class='pc'>";
         echo $BotonRegresar;
         echo "</td></tr></table>";
         echo "</div>";
-    
 
-            //Trae con option
-            $TipoReporte = 6; $ClaseTabla =""; $ClaseDiv="";        
-            $ClienteOptions =  DataFromSQLSERVERTOJSON(11, $TipoReporte, $ClaseTabla, $ClaseDiv, $RinteraUser)."<option value='' selected></opcion>";
-            // var_dump($ClienteOptions);
+        //Trae con option
+        $TipoReporte = 6; $ClaseTabla =""; $ClaseDiv="";        
+        $ClienteOptions =  DataFromSQLSERVERTOJSON(11, $TipoReporte, $ClaseTabla, $ClaseDiv, $RinteraUser)."<option value='' selected></opcion>";
+        // var_dump($ClienteOptions);
 
 
-            //Trae con option
-            $TipoReporte = 6; $ClaseTabla =""; $ClaseDiv="";        
-            $MonedaOptions =  DataFromSQLSERVERTOJSON(12, $TipoReporte, $ClaseTabla, $ClaseDiv, $RinteraUser)."";
-            // var_dump($ClienteOptions);
+        //Trae con option
+        $TipoReporte = 6; $ClaseTabla =""; $ClaseDiv="";        
+        $MonedaOptions =  DataFromSQLSERVERTOJSON(12, $TipoReporte, $ClaseTabla, $ClaseDiv, $RinteraUser)."";
+        // var_dump($ClienteOptions);
 
-        
-                
-    
-    
-    
+
+        if ($TipoDeInventario == 9) {
             $QueryDetalle = "
-            Select 
-                ISNULL(IdCertificado, '') as IdCertificado,
-                ISNULL(Fecha, '') as Fecha,
-                ISNULL(Turno, '') as Turno,
-                ISNULL(Producto, '') as Producto,
-                ISNULL(LoteNum, '') as LoteNum,
-                ISNULL(TanquePF, '') as TanquePF,
-                ISNULL(Temperatura, '') as Temperatura,
-                ISNULL(TipoDeEnvasado, '') as TipoDeEnvasado,
-                ISNULL(TotalTambores, 0) as TotalTambores,
-                ISNULL(del, 0) as del,
-                ISNULL(al, 0) as al,
-                ISNULL(Silos, '') as Silos,
-                ISNULL(NivelInicial, '') as NivelInicial,
-                ISNULL(NivelFinal, '') as NivelFinal,
-                ISNULL(PulgadasTotales, '') as PulgadasTotales,
-                ISNULL(GalonesTotales, '') as GalonesTotales,
-                ISNULL(BxDirectos, '') as BxDirectos,
-                ISNULL(BxCorreg, '') as BxCorreg,
-                ISNULL(RelacionGPL, '') as RelacionGPL,
-                ISNULL(PorcPulpa, '') as PorcPulpa,
-                ISNULL(PorcDeAceite, '') as PorcDeAceite,
-                ISNULL(Color, '') as Color,
-                ISNULL(Sabor, '') as Sabor,
-                ISNULL(Defectos, '') as Defectos,
-                ISNULL(Calificacion, '') as Calificacion,
-                ISNULL(pH, '') as pH,
-                ISNULL(PorcAcidez, '') as PorcAcidez,
-                ISNULL(CorrAcidez, '') as CorrAcidez,
-                ISNULL(PorcAire, '') as PorcAire,
-                ISNULL(PorcPww, '') as PorcPww,
-                ISNULL(PorcEstab, '') as PorcEstab,
-                ISNULL(Visc, '') as Visc,
-                ISNULL(VitaminaC, '') as VitaminaC,
-                ISNULL(Limonina, '') as Limonina,
-                ISNULL(Peu, '') as Peu,
-                ISNULL(Diacetil, '') as Diacetil,
-                ISNULL(QuickFiber, '') as QuickFiber,
-                ISNULL(Concentracion, '') as Concentracion,
-                ISNULL(Decision, '') as Decision,
-                ISNULL(CausaDeRechazo, '') as CausaDeRechazo,
-                ISNULL(Analizo, '') as Analizo,
-                ISNULL(Supervisor, '') as Supervisor,
-                ISNULL(EncLlenado, '') as EncLlenado
-                from Laboratorio_DetalleDelLote Where IdCertificado = '".$IdCertificado."'
-                ";
-    
+            SELECT     IdCertificado, Fecha, Turno, Producto, LoteNum, TanquePF, Temperatura, TipoDeEnvasado, Disponibilidad, PesoBruto, PesoTara, PesoNeto, PorcAlcohol, Aldehidos, Re, Opp, Trifluralin, 
+            Dimetoato, MetilParation, Malation, Clorpirifos, Etion, Pybutrin, Fenpropatrin, Fthalato, Permetrina, Cyflutrin, Dicofol, Bifentrina, Dybutil, Decision, CausaDeRechazo
+            FROM         Laboratorio_DetalleDelLote
+            Where IdCertificado = '".$IdCertificado."'";
+        } else {
+            $QueryDetalle = "
+            Select IdCertificado, Fecha, Turno, Producto, LoteNum, TanquePF, Temperatura, TipoDeEnvasado, Disponibilidad, 
+            Silos, NivelInicial, NivelFinal, PulgadasTotales, GalonesTotales, BxDirectos, BxCorreg, RelacionGPL, PorcPulpa, 
+            PorcDeAceite, Color, Sabor, Defectos, Calificacion, pH, PorcAcidez, CorrAcidez, PorcAire, PorcPww, PorcEstab, 
+            Visc, VitaminaC, Limonina, Peu, Diacetil, QuickFiber, Concentracion, Decision, CausaDeRechazo, Analizo, Supervisor, 
+            EncLlenado from Laboratorio_DetalleDelLote Where IdCertificado = '".$IdCertificado."'";
+        }
+
         $IdCon = 2;
         $WSSQL = "select * from dbs where IdCon='".$IdCon."' AND Active=1 AND ConType =2"; //SQLSERVERTOJSON
         $WSCon = $db0 -> query($WSSQL);
@@ -765,22 +711,13 @@ echo "<div style='font-size:7pt; color:gray;'>Id=".$IdAceiteLote.", Tipo=".$Tipo
                     }
                     
                 }
-                $TablaDetaT="<table class='tabla' border=1>".$TablaDeta."</table>";
-                
-            
-                
-                    
-            
-                
-                
-                
-                
+                $TablaDetaT="<table class='tabla' border=0>".$TablaDeta."</table>";
             }
     
         }
-    
+
         echo "<div  id='FormVender' class=''style='
-       background-color: #f7f7f77d;
+        background-color: #ffffff80;
             margin: 5px;
                 margin-top: 5px;
             border-radius: 4px;
@@ -791,28 +728,20 @@ echo "<div style='font-size:7pt; color:gray;'>Id=".$IdAceiteLote.", Tipo=".$Tipo
             text-align: justify;
         '>";       
 
-
-
-
-
         $IdTransaccion = IdTransaccion();
         echo "
         <div class='form-group'>
-        <label>IdTransaccion: </label><br>
-        <input type='text' id='IdTransaccion' name='IdTransaccion' value='".$IdTransaccion."' class='form-control disable ' readonly>
-        </div>
-
-
-        ";
+        <label>Clave de rastreo</label><br>
+        <input type='text' id='IdTransaccion' name='IdTransaccion' value='".$IdTransaccion."' style='border:solid 1px ".Preference("ColorPrincipal", "", "").";' class='form-control disable' readonly>
+        </div>";
 
         echo "
         <div class='form-group'>
-        <label>Cliente: </label><br>
-        <select id='IdCliente' class='form-control' onChange='ChecaCorreo();'>";
+        <label>Especifique cliente</label><br>
+        <select id='IdCliente' class='form-control' onChange='ChecaCorreo();' style='border:solid 1px ".Preference("ColorPrincipal", "", "").";'>";
         echo $ClienteOptions;
         echo "</select>
-        </div>
-        ";
+        </div>";
 
         echo "
         <div class='form-groupMid'>
@@ -820,72 +749,56 @@ echo "<div style='font-size:7pt; color:gray;'>Id=".$IdAceiteLote.", Tipo=".$Tipo
         echo "<tr><td colspan=3><label style='margin:0px;'>Fecha:</label></td></tr>";
         echo "<tr><td class='pc' align=right  valign=top><label style='margin:0px;'><img src='icon/calendar.png' style='width:22px'>";
         echo "</label></td><td align=left valign=top>
-        <input type='date' id='Fecha' name='Fecha' class='form-control' value='";
+        <input type='date' id='Fecha' style='border:solid 1px ".Preference("ColorPrincipal", "", "").";' name='Fecha' class='form-control' value='"; 
         echo $fecha;
         echo "'> ";
 
         echo "</td></tr></table>
-        </div>
-        ";
+        </div>";
 
-
-        // echo "<input type='hidden' id='Produccion' value='0'>";
         echo "
         <div class='form-groupMid'>
         <table width=100% border=0>";
-        echo "<tr><td colspan=3><label style='margin:0px;'>Cantidad: </label></td></tr>";
-
+        echo "<tr><td colspan=3><label style='margin:0px;'>Cantidad de producto ofertado/vendido</label></td></tr>";
         echo "<tr><td align=left valign=top >
-        <input type='number' id='Cantidad' name='Cantidad' class='form-control' value='0' >";
+        <input type='number' id='Cantidad' name='Cantidad' class='form-control' value='0' style='border:solid 1px ".Preference("ColorPrincipal", "", "").";'>";
         echo "</td>";
-
         echo "</tr></table>
-        </div>
-        ";
+        </div>";
 
-
-
-
-        // echo "<input type='hidden' id='Produccion' value='".$Produccion."'>";
         echo "
         <div class='form-groupMid' id='DivCosto'>
         <table width=100% border=0>";
-        echo "<tr><td colspan=3><label style='margin:0px;'>Costo Del Producto:</label></td></tr>";
+        echo "<tr><td colspan=3><label style='margin:0px;'>Costo de producción</label></td></tr>";
 
         echo "<tr>";
         echo "<td align=left valign=top width=60%>
-        <input type='text' id='Costo' name='Costo' class='form-control'  onBlur='toFinalNumberFormat(this);' placeholder='$#,###.00'  >";
+        <input type='text' id='Costo' style='border:solid 1px ".Preference("ColorPrincipal", "", "").";' name='Costo' class='form-control'  onBlur='toFinalNumberFormat(this);' placeholder='$#,###.00'  >";
         echo "</td>";
         echo "<td width=30% align=left valign=top>";
-        echo "<select id='IdMoneda' name='IdMoneda' class='form-control'>";
+        echo "<select id='IdMoneda' name='IdMoneda' class='form-control' style='border:solid 1px ".Preference("ColorPrincipal", "", "").";'>";
         echo $MonedaOptions;
         echo "</select>";
-
         echo "</td>";
         echo "</tr></table>
-        </div>
-        ";
+        </div>";
 
         echo "
         <div class='form-groupMid' id='DivPrecio'>
         <table width=100% border=0>";
-        echo "<tr><td colspan=3><label style='margin:0px;'>Precio:</label></td></tr>";
+        echo "<tr><td colspan=3><label style='margin:0px;'>Precio de venta</label></td></tr>";
 
         echo "<tr>";
         echo "<td align=left valign=top width=60%>
-        <input type='text' id='Precio' name='Precio' class='form-control'  onBlur='toFinalNumberFormat(this);' placeholder='$#,###.00'  >";
+        <input type='text' id='Precio' name='Precio' style='border:solid 1px ".Preference("ColorPrincipal", "", "").";' class='form-control'  onBlur='toFinalNumberFormat(this);' placeholder='$#,###.00'  >";
         echo "</td>";
-        echo "<td width=30% align=left valign=top>";
-        echo "<select id='IdMoneda' name='IdMoneda' class='form-control'>";
+        echo "<td width=30% align=left valign=top >";
+        echo "<select id='IdMoneda' name='IdMoneda' class='form-control' style='border:solid 1px ".Preference("ColorPrincipal", "", "").";'>";
         echo $MonedaOptions;
         echo "</select>";
-
         echo "</td>";
         echo "</tr></table>
-        </div>
-        ";
-
-
+        </div>";
 
         $OptionsIncoterms = "";
         $OptionsIncoterms.="<option value='EXW'>EXW. (Ex-Works / En Fábrica)</option>";
@@ -900,7 +813,6 @@ echo "<div style='font-size:7pt; color:gray;'>Id=".$IdAceiteLote.", Tipo=".$Tipo
         $OptionsIncoterms.="<option value='CIP'>DAP (Delivered At Place / Entregado en un Punto)</option>";
         $OptionsIncoterms.="<option value='DDP'>DDP (Delivered Duty Paid / Entregado con Derechos Pagados):</option>";
 
-
         echo "<div id='IncotermsHelp' class='MyModal'>";
         echo "<img src='img/iconterms.jpg' style='width:90%;'>";
         echo "</div>";
@@ -910,80 +822,48 @@ echo "<div style='font-size:7pt; color:gray;'>Id=".$IdAceiteLote.", Tipo=".$Tipo
         echo "<tr><td colspan=3><label style='margin:0px;'>Tipo de incoterms: <a href='#IncotermsHelp' rel='MyModal:open'><img src='icon/ayuda.png' style='width:16px;'></a></label></td></tr>";
         echo "<tr>";
         echo "<td  align=left valign=top>";
-        echo "<select id='IdIncoterms' name='IdIncoterms' class='form-control'>";
+        echo "<select id='IdIncoterms' name='IdIncoterms' class='form-control' style='border:solid 1px ".Preference("ColorPrincipal", "", "").";'>";
         echo $OptionsIncoterms;
         echo "</select>";
-
         echo "</td>";
         echo "</tr></table>
-        </div>
-        ";
-
-
-
-
+        </div>";
 
         $OptionAdjudicacion = "";
-        $OptionAdjudicacion.="<option value='VENTA'>Venta Definitiva</option>";
-        $OptionAdjudicacion.="<option value='OFERTA'>Ofertar</option>";
+        $OptionAdjudicacion.="<option value='VENTA'>Venta definitiva</option>";
+        $OptionAdjudicacion.="<option value='OFERTA'>Ofertar producto</option>";
 
-
-
-
-        echo "
-        <div class='form-groupMid' id='AdjudicacionDiv'>
-        <table width=100% border=0>";
+        echo "<div class='form-groupMid' id='AdjudicacionDiv'> <table width=100% border=0>";
         echo "<tr><td colspan=3><label style='margin:0px;'>Tipo de Adjudicacion: </label></td></tr>";
         echo "<tr>";
         echo "<td  align=left valign=top>";
-        echo "<select id='IdAdjudicacion' name='IdAdjudicaion' class='form-control'>";
+        echo "<select id='IdAdjudicacion' name='IdAdjudicaion' class='form-control' style='border:solid 1px ".Preference("ColorPrincipal", "", "").";'>";
         echo $OptionAdjudicacion;
         echo "</select>";
-
         echo "</td>";
         echo "</tr></table>
-        </div>
-        ";
+        </div>";
 
-
-
-
-
-
-
-        echo "
-        <div class='form-groupMid' id='Envio'>
-        <table width=100% border=0>";
-        echo "<tr><td colspan=3><label style='margin:0px;'>Tiempo de Envio (dias): </label></td></tr>";
+        echo "<div class='form-groupMid' id='Envio'> <table width=100% border=0>";
+        echo "<tr><td colspan=3><label style='margin:0px;'>Tiempo de Envio (Representado en dias): </label></td></tr>";
         echo "<tr>";
         echo "<td  align=left valign=top>";
-        echo "<input type='number' id='TiempoDeEnvio' name='TiempoDeEnvio' class='form-control'>";
-
+        echo "<input type='number' id='TiempoDeEnvio' name='TiempoDeEnvio' class='form-control' style='border:solid 1px ".Preference("ColorPrincipal", "", "").";'>";
         echo "</td>";
         echo "</tr></table>
-        </div>
-        ";
+        </div>";
 
-
-
-
-        echo "
-        <div class='form-groupMid' id='MuestraDiv'>
-        <table width=100% border=0>";
-        echo "<tr><td colspan=3><label style='margin:0px;'>Solicitud de Muestra: </label></td></tr>";
+        echo "<div class='form-groupMid' id='MuestraDiv'> <table width=100% border=0>";
+        echo "<tr><td colspan=3><label style='margin:0px;'>Cliente solicito MUESTRA</label></td></tr>";
         echo "<tr>";
         echo "<td  align=left valign=top>";
-        echo "<select id='Muestra' name='Muestra' class='form-control'>
-        <option value='SI'>SI</option>
-        <option value='NO'>NO</option>
-        </select>
-
-        ";
-
+        echo "<select id='Muestra' name='Muestra' class='form-control' style='border:solid 1px ".Preference("ColorPrincipal", "", "").";'>
+                <option value='SI'>SI</option>
+                <option value='NO'>NO</option>
+              </select>";
         echo "</td>";
         echo "</tr></table>
-        </div>
-        ";
+        </div>";
 
 
 
@@ -1055,7 +935,7 @@ echo "<div style='font-size:7pt; color:gray;'>Id=".$IdAceiteLote.", Tipo=".$Tipo
         //                     // echo $key." = ".$val."<br>";
                     
         //                     if ($val=="Certificado_General"){
-        //                         $Certificado_General = "pdfProcimart1.php";
+        //                         $Certificado_General = "GeneraCertificado_Aceite_FormatoCocaCola.php";
         //                     }
 
         //                     if ($val=="Certificado_CocaCola"){
@@ -1083,7 +963,7 @@ echo "<div style='font-size:7pt; color:gray;'>Id=".$IdAceiteLote.", Tipo=".$Tipo
         //         echo "<tr>";
         //         echo "<td  align=left valign=middle>";
         //         echo "
-        //         <a href='pdfProcimart1.php?IdLote=".$IdLote."' title='Haga clic aqui para ver el certificado' download>
+        //         <a href='GeneraCertificado_Aceite_FormatoGeneral.php?IdLote=".$IdLote."' title='Haga clic aqui para ver el certificado' download>
         //         <img src='icon/pdf.png' style='width:32px;'>
         //         </a>
 
@@ -1091,7 +971,7 @@ echo "<div style='font-size:7pt; color:gray;'>Id=".$IdAceiteLote.", Tipo=".$Tipo
         //         echo "</td>";
 
         //         echo "<td style='font-size:10pt;'>
-        //         <a  style='display:block; color:white; text-decoration:none;'  href='pdfProcimart1.php?IdLote=".$IdLote."' title='Haga clic aqui para ver el certificado' download>
+        //         <a  style='display:block; color:white; text-decoration:none;'  href='GeneraCertificado_Aceite_FormatoGeneral.php?IdLote=".$IdLote."' title='Haga clic aqui para ver el certificado' download>
         //         Certificado General</a></td>";
         //         echo "</tr></table>
         //         </div>
@@ -1108,14 +988,14 @@ echo "<div style='font-size:7pt; color:gray;'>Id=".$IdAceiteLote.", Tipo=".$Tipo
         //         echo "<tr>";
         //         echo "<td  align=left valign=middle>";
         //         echo "
-        //         <a href='pdfProcimart.php?IdLote=".$IdLote."' title='Haga clic aqui para ver el certificado' download>
+        //         <a href='GeneraCertificado_Aceite_FormatoCocaCola.php?IdLote=".$IdLote."' title='Haga clic aqui para ver el certificado' download>
         //         <img src='icon/pdf.png' style='width:32px;'>
         //         </a>
 
         //         ";
         //         echo "</td>";
 
-        //         echo "<td style='font-size:10pt;'> <a style='display:block; color:white; text-decoration:none;' href='pdfProcimart.php?IdLote=".$IdLote."' title='Haga clic aqui para ver el certificado' download>
+        //         echo "<td style='font-size:10pt;'> <a style='display:block; color:white; text-decoration:none;' href='GeneraCertificado_Aceite_FormatoCocaCola.php?IdLote=".$IdLote."' title='Haga clic aqui para ver el certificado' download>
         //         Certificado General</a></td>";
         //         echo "</tr></table>
         //         </div>
@@ -1124,70 +1004,176 @@ echo "<div style='font-size:7pt; color:gray;'>Id=".$IdAceiteLote.", Tipo=".$Tipo
         
 
 
+        // echo "
+        // <div class='form-group' style='width:97%;'>
+        // <label>Texto del Correo que enviara al cliente: <span style='color:#cc4960;' id='Correo'></span> </label><br>
+        // <textarea id='CorreoContenido' name='CorreoContenido' class='form-control  '></textarea>
+        // </div>
+        // ";
+
+        // echo "
+        // <div class='form-group' style='width:97%;'>
+        // <label>Con copia para:<br>
+        // <input   style='width:150%;' type='mail' id='CorreoCopia' name='CorreoCopia' class='form-control  '>
+        // </div>
+        // ";
+
+        
         echo "
-        <div class='form-group' style='width:97%;'>
-        <label>Texto del Correo que enviara al cliente: <span style='color:#cc4960;' id='Correo'></span> </label><br>
-        <textarea id='CorreoContenido' name='CorreoContenido' class='form-control  '></textarea>
+        <div class='form-group' style='width:99%;'>
+            <div style='width: 70%; float:left'>
+                <label>Texto del Correo que enviara al cliente: <span style='color:#cc4960;' id='Correo'></span> </label><br>
+                <textarea id='CorreoContenido' name='CorreoContenido' class='form-control' style='border:solid 1px ".Preference("ColorPrincipal", "", "").";'></textarea>
+            </div>
+            <div style='width: 1%; float:center'>
+            </div>            
+            <div style='width: 29%; float:right'>
+                <label>Con copia para:<span style='color:#cc4960;' id='ConCopiaPara'></span> </label><br>
+                <input   style='width:100%; border: solid 1px ".Preference("ColorPrincipal", "", "").";' type='mail' id='CorreoCopia' name='CorreoCopia' class='form-control'   >
+            </div>            
         </div>
-
-
         ";
-
-        echo "
-        <div class='form-group' style='width:97%;'>
-        <label>Con copia para:<br>
-        <input   style='width:150%;' type='mail' id='CorreoCopia' name='CorreoCopia' class='form-control  '>
-        </div>
-
-
-        ";
-
-
 
 
             echo "<div class='form-group btn btn-success' id='btnGuadar' onclick='Save();' >";
-            echo "<img src='icon/guardar.png' style='width:32px;'>Guardar";
+            echo "<img src='icon/guardar.png' style='width:32px;'>Guardar Transacción Actual";
             echo "</div>";
 
+            if ($TipoDeInventario == 9) {
+                // Inventario de aceite
+                $Certificado_General ="";
+                $Certificado_CocaCola = "";
+                $sqlCertificado = "select * from Aceites_COA_Certificados where IdCertificadoAceite = ".$IdCertificado;
+                    
+                $IdCon = 2;
+                $WSSQL = "select * from dbs where IdCon='".$IdCon."' AND Active=1 AND ConType =2"; //SQLSERVERTOJSON
+                $WSCon = $db0 -> query($WSSQL);
+                $Produccion = 0;
+                if($WSConF = $WSCon -> fetch_array())
+                    {
+                        if ($WSConF['wsurl'] <>'' &&  $WSConF['wsmethod']<>'' && $WSConF['wsjson']<>'' )    
+                            {
+                                $WSurl = $WSConF['wsurl'];
+                                $WSmethod = $WSConF['wsmethod'];
+                                $WSjson = $WSConF['wsjson'];
+                                $WSparametros = $WSConF['parametros'];
 
+                                $wsP1_id = $WSConF['wsP1_id'];  $wsP1_value = $WSConF['wsP1_value'];
+                                $wsP2_id = $WSConF['wsP2_id'];  $wsP2_value = $WSConF['wsP2_value'];
+                                $wsP3_id = $WSConF['wsP3_id'];  $wsP3_value = $WSConF['wsP3_value'];
+                                $wsP4_id = $WSConF['wsP4_id'];  $wsP4_value = $WSConF['wsP4_value'];
+
+                                $WS_Val = TRUE;        
+                                $url = $WSurl;            
+                                $sql = $sqlCertificado;
+                                $token = $wsP1_value;
+
+                                $myObj = new stdClass;
+                                $myObj->token = $token;
+                                $myObj->sql = $sqlCertificado;
+                                $myJSON = json_encode($myObj,JSON_UNESCAPED_SLASHES);
+                        
+                                $datos_post = http_build_query($myObj);
+                                $opciones = array('http' => array('method'  => 'POST', 'header'  => 'Content-type: application/x-www-form-urlencoded', 'content' => $datos_post));
+
+                                ini_set('max_execution_time', 7000);
+                                ini_set('max_execution_time', 0);
+                                $context = stream_context_create($opciones);            
+                                $archivo_web = file_get_contents($url, false, $context);                    
+                                $data = json_decode($archivo_web);
+
+                                $jsonIterator = new RecursiveIteratorIterator(new RecursiveArrayIterator(json_decode($archivo_web, TRUE)), RecursiveIteratorIterator::SELF_FIRST);
+                
+                                $TablaDeta = "";
+                                $row = 0;    
+                                foreach ($jsonIterator as $key => $val) 
+                                    {
+                                        if (is_numeric($key))
+                                            {$rowC = 0;}
+                                        else
+                                            {
+                                                if ($val=="Certificado_General")
+                                                    {$Certificado_General = "GeneraCertificado_Aceite_FormatoGeneral.php";}
+
+                                                if ($val=="Certificado_CocaCola")
+                                                    {$Certificado_CocaCola = "pdfProcimart2.php";}
+                                                $row = $row + 1;    
+                                            }
+                        
+                                    }
+ 
+                                if ($Certificado_General <> '')
+                                    {
+                                        echo "
+                                        <div class='form-group btn btn-secondary' id='Cert1' >
+                                        <table width=100% border=0>";        
+                                        echo "<tr>";
+                                        echo "<td  align=left valign=middle>";
+                                        echo "
+                                        <a href='GeneraCertificado_Aceite_FormatoGeneral.php?Batch=".$IdLote."' title='Haga clic aqui para ver el certificado' download>
+                                        <img src='icon/pdf.png' style='width:32px;'>
+                                        </a>
+                                        ";
+                                        echo "</td>";
+
+                                        echo "<td style='font-size:10pt;'> <a  style='display:block; color:white; text-decoration:none;'  href='GeneraCertificado_Aceite_FormatoGeneral.php?Batch=".$IdLote."' title='Haga clic aqui para ver el certificado' download>Descargar Certificado del producto</a></td>";
+                                        echo "</tr></table>
+                                        </div>
+                                        ";
+                                    }
+
+                                    if ($Certificado_CocaCola <> '')
+                                        {
+                                            echo "
+                                            <div class='form-group btn btn-secondary' id='Cert1' >
+                                            <table width=100% border=0>";        
+                                            echo "<tr>";
+                                            echo "<td  align=left valign=middle>";
+                                            echo "
+                                            <a href='GeneraCertificado_Aceite_FormatoCocaCola.php?Batch=".$IdLote."' title='Haga clic aqui para ver el certificado' download>
+                                            <img src='icon/pdf.png' style='width:32px;'>
+                                            </a>
+                                            ";
+                                            echo "</td>";
+
+                                            echo "<td style='font-size:10pt;'> <a style='display:block; color:white; text-decoration:none;' href='GeneraCertificado_Aceite_FormatoCocaCola.php?Batch=".$IdLote."' title='Haga clic aqui para ver el certificado' download>Descargar Certificado del producto</a></td>";
+                                            echo "</tr></table>
+                                            </div>
+                                            ";
+                                        }
             
-            echo "<a href='app_movs.php' class='form-group btn btn-primary' id='btnGuadar' >";
-            echo "<img src='icon/permisos.png' style='width:32px;'> Movimientos";
-            echo "</a>";
+                            }
+                    }
+            }
+        else
+            if ($TipoDeInventario == 10) 
+                {
+                    //Producto sobrante
 
+                }
+            else 
+                if ($TipoDeInventario == 8) 
+                    {
+                        //Producto Cascara
+                        
+                    }
+                else 
+                    if ($TipoDeInventario == 8) 
+                        {
+                            //Producto PULPA - Orgánica, PULPA - Convencional, NFC - Convencional, NFC - Orgánico, CONCENTRADO - Convencional, CONCENTRADO - Orgánico
 
+                        }
 
-            
+            //echo "<a href='app_movs.php' class='form-group btn btn-primary' id='btnGuadar' >";
+            //echo "<img src='icon/permisos.png' style='width:32px;'> Movimientos";
+            //echo "</a>";
 
             echo "<div class='form-group ' id='btnGuadar' id='InfoMov' >";
-            
             echo "</div>";
 
-
-        echo "</div>";
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        echo "</div>";
-        echo "<div id='DetallesVender'><h4>Detalles:</h4>".$TablaDetaT."</div>";
+            echo "</div>";
+            echo "</div>";
+            echo "<div id='DetallesVender'><h4>Especificaciones del producto</h4>".$TablaDetaT."</div>";
         
 }
 
@@ -1243,46 +1229,24 @@ function DesTipo($Tipo){
 
 function Save(){
     go = "";
+    
     if ($('#IdCliente').val()==''){
         $('#IdCliente').css('outline', 'solid 1px red'); 
         go = "FALSE";
-        $.toast({
-                heading: 'Error',
-                text: 'Selecciona el Cliente',
-                showHideTransition: 'slide',
-                icon: 'error'
-            })
-    } else {
-        $('#IdCliente').css('outline', 'solid 0px red'); 
-    }
+        $.toast({heading: 'Error', text: 'Selecciona el Cliente', showHideTransition: 'slide', icon: 'error'})
+    } else {$('#IdCliente').css('outline', 'solid 0px red'); }
 
     if ($('#Cantidad').val()<=0){
         $('#Cantidad').css('outline', 'solid 1px red'); 
         $go = "FALSE";
-        $.toast({
-                heading: 'Error',
-                text: 'Ingresa el una Cantidad',
-                showHideTransition: 'slide',
-                icon: 'error'
-            })
-    } else {
-        $('#Cantidad').css('outline', 'solid 0px red'); 
-    }
+        $.toast({heading: 'Error', text: 'Ingresa el una Cantidad', showHideTransition: 'slide', icon: 'error'})
+    } else {$('#Cantidad').css('outline', 'solid 0px red'); }
 
     if ($('#Costo').val().replace('$','') == '0.00'  || $('#Costo').val().replace('$','') == '00.00' || $('#Costo').val().replace('$','') == '0' || $('#Costo').val().replace('$','') == '') {
         $('#Costo').css('outline', 'solid 1px red'); 
         $go = "FALSE";
-        $.toast({
-                heading: 'Error',
-                text: 'Debe ingresar un Costo',
-                showHideTransition: 'slide',
-                icon: 'error'
-            })
-
-    }else {
-        $('#Costo').css('outline', 'solid 0px red'); 
-           
-    }
+        $.toast({heading: 'Error', text: 'Debe ingresar un Costo', showHideTransition: 'slide', icon: 'error'})
+    }else {$('#Costo').css('outline', 'solid 0px red'); }
 
 if (go == ''){
     $('#PreLoader').show();
@@ -1324,7 +1288,6 @@ if (go == ''){
             IdAdjudicacion:IdAdjudicacion,
             CorreoContenido: CorreoContenido,
             CorreoCopia: CorreoCopia
-        
         },
         success: function(data) {
             $('#R').html(data);

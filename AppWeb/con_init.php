@@ -34,11 +34,11 @@ if($RConF = $RCon -> fetch_array())
                     $Con_Val = TRUE;
                     // echo "OK";
                 } else {
-                    $Con_Msg = $Con_Msg.""."Error de conección. ";       
+                    $Con_Msg = $Con_Msg.""."Error de conexión. ";       
                 }
 
     } else {
-        $Con_Msg = $Con_Msg."Datos insuficientes para la conección. ";
+        $Con_Msg = $Con_Msg."Datos insuficientes para la conexión. ";
     }    
    
 } else {

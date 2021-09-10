@@ -1,10 +1,9 @@
 <div id='R' style='display:none;'></div>
 
-<p style='font-size:10pt; color:gray;'>
+<!-- <p style='font-size:10pt; color:gray;'> 
 Esta Aplicación trabaja con la base de datos ubicada en la Planta: <cite>
-Carretera Victoria Monterrey Km 12.9 Ej, Tierra Nueva Cd. Victoria, Tam. México C.P. 87261 (52) 834 31 8030    (52)834 31 80309</cite></p>
-
-
+Carretera Victoria Monterrey Km 12.9 Ej, Tierra Nueva Cd. Victoria, Tam. México C.P. 87261 (52) 834 31 8030    (52)834 31 80309</cite>
+</p>-->
 
 <script>
     
