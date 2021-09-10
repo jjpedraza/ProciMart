@@ -166,7 +166,18 @@ if (Preference("MostrarApps", "", "")=='TRUE'){
 
             for($i=0; $i< sizeof($cantidad); $i++){
                 $porcentaje = ($cantidad[$i]*100)/97200;
-            
+                if ($i == 0) {$EnlaceSilo = 'r.php?id=21';}
+                else
+                    if ($i == 1) {$EnlaceSilo = 'r.php?id=22';}
+                    else
+                        if ($i == 2) {$EnlaceSilo = 'r.php?id=23';}
+                        else
+                            if ($i == 3) {$EnlaceSilo = 'r.php?id=24';}
+                            else
+                                if ($i == 4) {$EnlaceSilo = 'r.php?id=25';}
+                                else
+                                    if ($i == 5) {$EnlaceSilo = 'r.php?id=26';}
+
                 echo "<div id='silo' >";
                     echo "<table style='width:100%; text-align:left;'>";
                         echo "<tr>";
@@ -189,15 +200,14 @@ if (Preference("MostrarApps", "", "")=='TRUE'){
                         echo "Capacidad disponible";
                     echo "</td>";
 
-                    echo "<td style='width:30%;  
-                            padding-right: 10px;
-                            padding-bottom: 10px;
-                            ' rowspan='4'>";
-                    echo '<div style="clip-path: polygon(40% 0, 60% 0, 75% 8%, 75% 80%, 55% 100%, 45% 100%, 25% 80%, 25% 8%);
-                    width: 150px;
-                    height: 150px;
-                    background-image: linear-gradient( 0deg, #F36D10 0%, #F36D10 '.$porcentaje.'%, #fff 0%, #fff 100%);">';
-                    echo '</div>';
+                    echo "<td style='width:30%;  padding-right: 10px; padding-bottom: 10px;' rowspan='4'>";
+                    echo "<a href='$EnlaceSilo' title='Haga Clic aqui para ver detalle'</a>";
+                    echo '<div style="clip-path: polygon(40% 0, 60% 0, 75% 8%, 75% 80%, 55% 100%, 45% 100%, 25% 80%, 25% 8%); 
+                            width: 150px; 
+                            height: 150px; 
+                            background-image: linear-gradient( 0deg, #F36D10 0%, #F36D10 '.$porcentaje.'%, #fff 0%, #fff 100%);">';
+                            
+                        echo '</div>';
                     echo "</td>";
                 echo "</tr>";
                 

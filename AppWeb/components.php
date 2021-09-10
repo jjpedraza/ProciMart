@@ -1677,6 +1677,7 @@ if($WSConF = $WSCon -> fetch_array())
                                     $("#'.$IdTabla.'").DataTable
                                         (
                                             {
+                                                "pageLength": 25,
                                                 "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "Todos"]]
                                             }
                                         )
