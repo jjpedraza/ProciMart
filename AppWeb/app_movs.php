@@ -4,8 +4,8 @@
     require("app_funciones.php");
 ?>
 
-<div id='InfoMov2' class=' movil' style='width: 97%; padding: 5px; background-color: #ffffff91; border-radius: 4px; margin-top: 14px;'> </div>
-<div id='InfoMov' class=' pc' style='width: 97%; padding: 5px; background-color: #ffffff91; border-radius: 4px; margin-top: 14px;'> </div>
+<div id='InfoMov2' class=' movil' style='width: 97%; padding: 5px; background-color: white; border-radius: 4px; margin-top: 14px;'> </div>
+<div id='InfoMov' class=' pc' style='width: 97%; padding: 5px; background-color: white; border-radius: 4px; margin-top: 14px;'> </div>
 
 <script>
     function CargaMovs(){

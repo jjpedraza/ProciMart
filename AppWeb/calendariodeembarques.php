@@ -63,15 +63,9 @@
             <?php
               require("rintera-config.php");
 
-              $TipoReporte = 6; $ClaseTabla =""; $ClaseDiv="";        
-              $ResumenDeEnvios  =  DataFromSQLSERVERTOJSON(29, $TipoReporte, $ClaseTabla, $ClaseDiv, $RinteraUser)."";
-              echo $ResumenDeEnvios;
-
               $datos = mysqli_query($db0, "SELECT codigo,titulo,inicio,fin,colortexto,colorfondo FROM calendariodeembarques");
-              
-              // select IdEmbarque, Referencia, Fecha as Inicio, Fecha As fin,'#000000' as ColorTexto, '#3788d8' As ColorFondo from OrdenDeEmbarque
-
               $ep = mysqli_fetch_all($datos, MYSQLI_ASSOC);
+
               foreach ($ep as $fila)
                 echo "<div class='fc-event' data-titulo='$fila[titulo]' data-horafin='$fila[fin]' data-horainicio='$fila[inicio]' 
                         data-colorfondo='$fila[colorfondo]' data-colortexto='$fila[colortexto]' data-codigo='$fila[codigo]'
@@ -79,6 +73,7 @@
                         $fila[titulo]  
                       </div>";
             ?>
+
           </div>
         </div>
         <hr>
@@ -388,3 +383,4 @@
 </body>
 
 </html>
+

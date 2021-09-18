@@ -792,15 +792,6 @@ function DynamicTable_MySQL($QueryD, $IdDiv, $IdTabla, $Clase, $Tipo, $db){
 
         $tbCont = $tbCont."</tbody>";
         $tbCont = $tbCont."</table></div>";
-	
-
-    
-
-
-
-
-
-
     
 	echo  $tbCont;
 		switch ($Tipo) {
@@ -840,10 +831,8 @@ function DynamicTable_MySQL($QueryD, $IdDiv, $IdTabla, $Clase, $Tipo, $db){
 				echo '<script>
 				$(document).ready(function() {
 					$("#'.$IdTabla.'").DataTable( {
-						"language": {
-							"decimal": ",",
-							"thousands": "."
-						}
+                        "pageLength": 25,
+                        "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "Todos"]]
 					} );
 				} );
 				</script>';

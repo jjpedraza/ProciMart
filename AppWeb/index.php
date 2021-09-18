@@ -138,6 +138,9 @@ if (Preference("MostrarApps", "", "")=='TRUE'){
                     echo "<td style='width:7%; color:#33E0FF; vertical-align: middle;'><b>Ocupación</b></td>";
                     echo "<td style='width:31%; vertical-align: middle;'>";
                     echo "<table style='width:100%;'><td style='width:40%;'>";
+
+                    echo "<a href='r.php?id=20' title='Haga Clic aqui para ver el detalle'</a>";
+
                     echo '<div id="myProgress" title="100%">
                         <div id="myBar" title="'.number_format($por,2,'.',',').'%"></div>
                     </div>';
@@ -201,7 +204,7 @@ if (Preference("MostrarApps", "", "")=='TRUE'){
                     echo "</td>";
 
                     echo "<td style='width:30%;  padding-right: 10px; padding-bottom: 10px;' rowspan='4'>";
-                    echo "<a href='$EnlaceSilo' title='Haga Clic aqui para ver detalle'</a>";
+                    echo "<a href='$EnlaceSilo' title='Haga Clic aqui para ver el historial del silo'</a>";
                     echo '<div style="clip-path: polygon(40% 0, 60% 0, 75% 8%, 75% 80%, 55% 100%, 45% 100%, 25% 80%, 25% 8%); 
                             width: 150px; 
                             height: 150px; 
@@ -285,42 +288,28 @@ if (Preference("MostrarApps", "", "")=='TRUE'){
             text-align:left;
             margin-bottom:5px;
          '
-         >".$Fr['rep_name']."</a>";
+         ><img src='icon/embarques_enviar.png' style='width:10px;'>"." ".$Fr['rep_name']."</a>";
          $repos = $repos + 1;
      }
-    
-     unset($rf);unset($Fr);
-     if ($repos > 0 ){
-         echo "<h6 style='font-size: 8pt;
-         opacity: 0.6;'></h6>";
-         echo $repolist;
-     }
 
-     echo "<a href='app_movs.php' title='Haga Clic aqui para ver la activivad' class='btn btn-primary'
-         style='
-            // background-color: #e6e6e6;
-            // color: #625f5f;
-            width: 100%;
-            font-size: 10pt;
-            text-align:left;
-            margin-top:10px;
-         '
-         >";
-     echo "<img src='icon/permisos.png' style='width:32px;'> Movimientos";
-     echo "</a>";
+    unset($rf);unset($Fr);
+    if ($repos > 0 ){
+        echo "<h6 style='font-size: 8pt; opacity: 0.6;'></h6>";
+        echo $repolist;
+    }
 
-     echo "<a href='calendariodeembarques.php' title='Haga Clic aqui para ver la activivad' class='btn btn-primary'
-     style='
-        // background-color: #e6e6e6;
-        // color: #625f5f;
-        width: 100%;
-        font-size: 10pt;
-        text-align:left;
-        margin-top:10px;
-     '
-     >";
-    echo "<img src='icon/permisos.png' style='width:32px;'> Calendario de embarques";
+    echo "<a href='app_movs.php' title='Haga Clic aqui para ver la activivad' class='btn btn-primary' style='width: 100%; font-size: 10pt; text-align:left;  margin-top:10px;'>";
+    echo "<img src='icon/permisos.png' style='width:32px;'> Movimientos";
     echo "</a>";
+
+    echo "<a href='calendariodeembarques.php' title='Haga Clic aqui para ver la activivad' class='btn btn-primary' style='width: 100%; font-size: 10pt; text-align:left; margin-top:10px;'>";
+    echo "<img src='icon/calendar.png' style='width:32px;'> Calendario de embarques";
+    echo "</a>";
+
+    echo "<a href='estadisticas.php' title='Haga Clic aqui para ver la activivad' class='btn btn-primary' style='width: 100%; font-size: 10pt; text-align:left; margin-top:10px;'>";    
+    echo "<img src='icon/analisis.png' style='width:32px;'> Estadisticas"; 
+    echo "</a>";
+
 
     if (UserAdmin($RinteraUser)==TRUE){
             echo "<a href='users.php' title='Haga Clic aqui para ver administrar esta página' class='btn btn-primary'
