@@ -9,7 +9,7 @@
     ' DbPassword = "dw=[web!9F5kp];"
 
     DbUser = "itv_dba"
-    DbPassword = "818t3m41t4vu"
+    DbPassword = "tuclave"
     Token = "Pr0C1M4rt" 'Esta es la contraseña para que accedan al webservice
 '-----------------------------------------------------------------------
 '----------------------------------------------------------------------
