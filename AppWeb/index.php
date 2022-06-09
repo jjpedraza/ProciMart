@@ -116,6 +116,39 @@ if (Preference("MostrarApps", "", "")=='TRUE'){
 ?>
 
 <div id='Dashboard'>
+    <div class="alert alert-danger" role="alert">
+        <cite>La importación de la información fue procesada el día </cite>
+        <b>
+            <?php
+                $sql="select max(fecha) as fecha from actualizaciones";
+                $rc= $db0 -> query($sql);
+                while($f = $rc -> fetch_array())
+                    {
+                        echo $f['fecha'];
+                    }
+            ?>
+        </b>
+    </div>
+
+    <!-- <div class="row">
+      <div class="col-lg-12 col-xs-12">
+        <div class="alert alert-info alert-dismissable">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+          <p style="font-size:20px">
+            <i class="icon fa fa-user"></i>
+                <?php
+                    $sql="select max(fecha) as fecha from actualizaciones";
+                    $rc= $db0 -> query($sql);
+                    while($f = $rc -> fetch_array())
+                        {
+                            echo "La información proporcionada esta fechada del día ".$f['fecha'];
+                        }
+                ?>
+          </p>        
+        </div>
+      </div>  
+    </div> -->
+
     <div id="DashboardCol1"  >
        <?php
             $Total = SilosDataTotal('Data');
@@ -158,180 +191,223 @@ if (Preference("MostrarApps", "", "")=='TRUE'){
                 echo "</table>";
             echo "</div>";
 
-            ///AGREGAR SILOS 
+            //------------------ Nuevo procedimiento para la visualizacion de --------------------------------
             echo "<div id='app_contenedor'>";
-            $Datas = SilosData('Data');
-            $Labels = SilosData('Label');
-            $Datas = substr($Datas, 0, -1); //quita la ultima coma.
-            $Labels = substr($Labels, 0, -1); //quita la ultima coma.
-            $cantidad= explode(",", $Datas);
-            $nombre = explode(",", $Labels);
-
-            for($i=0; $i< sizeof($cantidad); $i++){
-                $porcentaje = ($cantidad[$i]*100)/97200;
-                if ($i == 0) {$EnlaceSilo = 'r.php?id=21';}
-                else
-                    if ($i == 1) {$EnlaceSilo = 'r.php?id=22';}
-                    else
-                        if ($i == 2) {$EnlaceSilo = 'r.php?id=23';}
+                $sql="select * from nivelesdelossilos order by idsilo";
+                $rc= $db0 -> query($sql);
+                while($f = $rc -> fetch_array())
+                    {
+                        $porcentaje = ($f['existencia']*100)/97200;
+                        if ($f['idsilo'] == 1) {$EnlaceSilo = 'r.php?id=29';}
                         else
-                            if ($i == 3) {$EnlaceSilo = 'r.php?id=24';}
+                            if ($f['idsilo'] == 2) {$EnlaceSilo = 'r.php?id=30';}
                             else
-                                if ($i == 4) {$EnlaceSilo = 'r.php?id=25';}
+                                if ($f['idsilo'] == 3) {$EnlaceSilo = 'r.php?id=31';}
                                 else
-                                    if ($i == 5) {$EnlaceSilo = 'r.php?id=26';}
+                                    if ($f['idsilo'] == 4) {$EnlaceSilo = 'r.php?id=32';}
+                                    else
+                                        if ($f['idsilo'] == 5) {$EnlaceSilo = 'r.php?id=33';}
+                                        else
+                                            if ($f['idsilo'] == 6) {$EnlaceSilo = 'r.php?id=34';}
 
-                echo "<div id='silo' >";
-                    echo "<table style='width:100%; text-align:left;'>";
-                        echo "<tr>";
-                        echo "<td style='width:70%; border-bottom: 1px solid #fff; font-size:16pt; color:#fff; 
-                                padding-right: 10px;
-                                padding-left: 10px;
-                                padding-top: 10px;'>";
-                                $nuevoNombre = str_replace("'",'',$nombre[$i]);  
-                                echo $nuevoNombre;
-                            echo "</td>";
-                            echo "<td>";
-                            echo "</td>";
-                        echo "</tr>";
-
-                    echo "<tr>";
-                
-                    echo "<td style='width:70%; font-size:12pt; color:#33E0FF; 
-                    padding-right: 10px;
-                    padding-left: 10px;'>";
-                        echo "Capacidad disponible";
-                    echo "</td>";
-
-                    echo "<td style='width:30%;  padding-right: 10px; padding-bottom: 10px;' rowspan='4'>";
-                    echo "<a href='$EnlaceSilo' title='Haga Clic aqui para ver el historial del silo'</a>";
-                    echo '<div style="clip-path: polygon(40% 0, 60% 0, 75% 8%, 75% 80%, 55% 100%, 45% 100%, 25% 80%, 25% 8%); 
-                            width: 150px; 
-                            height: 150px; 
-                            background-image: linear-gradient( 0deg, #F36D10 0%, #F36D10 '.$porcentaje.'%, #fff 0%, #fff 100%);">';
-                            
-                        echo '</div>';
-                    echo "</td>";
-                echo "</tr>";
-                
-                echo "<tr>";
-                echo "<td style=' width:70%; font-size:14pt; color:#fff; 
-                padding-right: 10px;
-                padding-left: 10px;'>";
-                    echo number_format(97200 - $cantidad[$i],2,'.',',').' Galones';
-                echo "</td>";
-                echo "</tr>";
-
-                echo "<td style=' width:70%; font-size:12pt; color:#33E0FF; 
-                padding-right: 10px;
-                padding-left: 10px;'>";
-                    echo "Capacidad ocupada";
-                echo "</td>";
-
-                echo "<tr>";
-                echo "<td style='width:70%; font-size:14pt; color:#fff; 
-                padding-right: 10px;
-                padding-left: 10px;'>";
-                    echo number_format($cantidad[$i],2,'.',',').' Galones';
-                echo "</td>";
-                echo "</tr>";
-
-                echo "<tr>";
-                    echo "<td style=' width:70%; font-size:12pt; color:#33E0FF; 
-                    padding-right: 10px;
-                    padding-left: 10px;'>";
-                        echo "Capacidad total";
-                    echo "</td>";
-
-                    echo "<td style='width:30%; font-size:16pt; color:#fff; text-align: center; 
-                    padding-right: 10px;
-                    padding-left: 10px;' >";
-                        echo number_format($porcentaje,2,'.',',').'%';
-                    echo "</td>";
-                echo "</tr>";
-
-                echo "<td style='width:70%; font-size:14pt; color:#fff; 
-                padding-right: 10px;
-                padding-left: 10px;'>";
-                    echo number_format(97200,2,'.',',').' Galones';
-                echo "</td>";
-
-                echo "</table>";
-
-                echo "</div>";
-  
-            }
-
-
+                        echo "<div id='silo' >";
+                            echo "<table style='width:100%; text-align:left;'>";
+                                echo "<tr>";
+                                    echo "<td style='width:70%; border-bottom: 1px solid #fff; font-weight:bold; font-size:16pt; color:#fff; padding-right: 10px; padding-left: 10px; padding-top: 10px;'>";
+                                        echo $f['silo'];
+                                    echo "</td>";
+                                    echo "<td>";
+                                    echo "</td>";
+                                echo "</tr>";
+                                echo "<tr>";
+                                    echo "<td style='width:70%; font-size:12pt; color:#33E0FF; padding-right: 10px; padding-left: 10px;'>";
+                                        echo "Capacidad disponible";
+                                    echo "</td>";
+        
+                                    echo "<td style='width:30%;  padding-right: 10px; padding-bottom: 10px;' rowspan='4'>";
+                                        echo "<a href='$EnlaceSilo' title='Haga Clic aqui para ver el historial del silo'</a>";
+                                            echo '<div style="clip-path: polygon(40% 0, 60% 0, 75% 8%, 75% 80%, 55% 100%, 45% 100%, 25% 80%, 25% 8%); width: 150px; height: 150px; background-image: 
+                                                linear-gradient( 0deg, #F36D10 0%, #F36D10 '.$porcentaje.'%, #fff 0%, #fff 100%);">';
+                                            echo '</div>';
+                                    echo "</td>";
+                                echo "</tr>";
+                                echo "<tr>";
+                                    echo "<td style=' width:70%; font-size:14pt; color:#fff; padding-right: 10px; padding-left: 10px;'>";
+                                        echo number_format(97200 - $f['existencia'],2,'.',',').' Galones';
+                                    echo "</td>";
+                                echo "</tr>";
+                                echo "<td style=' width:70%; font-size:12pt; color:#33E0FF; padding-right: 10px; padding-left: 10px;'>";
+                                    echo "Capacidad ocupada";
+                                echo "</td>";
+                                echo "<tr>";
+                                    echo "<td style='width:70%; font-size:14pt; color:#fff; padding-right: 10px; padding-left: 10px;'>";
+                                        echo number_format($f['existencia'],2,'.',',').' Galones';
+                                    echo "</td>";
+                                echo "</tr>";
+                                echo "<tr>";
+                                    echo "<td style=' width:70%; font-size:12pt; color:#33E0FF; padding-right: 10px; padding-left: 10px;'>";
+                                        echo "Capacidad total";
+                                    echo "</td>";
+                                    echo "<td style='width:30%; font-size:16pt; color:#fff; text-align: center; padding-right: 10px; padding-left: 10px;' >";
+                                        echo number_format($porcentaje,2,'.',',').'%';
+                                    echo "</td>";
+                                echo "</tr>";
+                                echo "<tr>";
+                                    echo "<td style='width:70%; font-size:14pt; color:#fff; padding-right: 10px; padding-left: 10px;'>";
+                                        echo number_format(97200,2,'.',',').' Galones';
+                                    echo "</td>";
+                                    echo "<td style='width:30%; font-size:10pt; color:#fff; text-align: center; padding-right: 8px; padding-left: 5px;' >";
+                                        echo "Ult. Mov.: ".date('d/m/Y',strtotime($f['fecultmovimiento']));
+                                    echo "</td>";
+                                echo "</tr>";
+                            echo "</table>";
+                        echo "</div>";
+                    }
             echo "</div>";
 
-
-
-
+            ///Agregar silos desde la webservice
+            // echo "<div id='app_contenedor'>";
+            // $Labels = SilosData('Label');
+            // $Datas =  SilosData('Data');
+            // $FechaUltMov = SilosData('Fecha');
+            // $Datas = substr($Datas, 0, -1);                     //quita la ultima coma.
+            // $Labels = substr($Labels, 0, -1);                   //quita la ultima coma.
+            // $FechaUltMov = substr($FechaUltMov, 0, -1);         //quita la ultima coma.
+            // $cantidad= explode(",", $Datas);
+            // $nombre = explode(",", $Labels);
+            // $ultimomov= explode(",", $FechaUltMov);
+            // for($i=0; $i< sizeof($cantidad); $i++){
+            //     $porcentaje = ($cantidad[$i]*100)/97200;
+            //     if ($i == 0) {$EnlaceSilo = 'r.php?id=21';}
+            //     else
+            //         if ($i == 1) {$EnlaceSilo = 'r.php?id=22';}
+            //         else
+            //             if ($i == 2) {$EnlaceSilo = 'r.php?id=23';}
+            //             else
+            //                 if ($i == 3) {$EnlaceSilo = 'r.php?id=24';}
+            //                 else
+            //                     if ($i == 4) {$EnlaceSilo = 'r.php?id=25';}
+            //                     else
+            //                         if ($i == 5) {$EnlaceSilo = 'r.php?id=26';}
+            //     echo "<div id='silo' >";
+            //         echo "<table style='width:100%; text-align:left;'>";
+            //             echo "<tr>";
+            //                 echo "<td style='width:70%; border-bottom: 1px solid #fff; font-weight:bold; font-size:16pt; color:#fff; padding-right: 10px; padding-left: 10px; padding-top: 10px;'>";
+            //                     echo strtoupper(str_replace("'",'',$nombre[$i]));
+            //                 echo "</td>";
+            //                 echo "<td>";
+            //                 echo "</td>";
+            //             echo "</tr>";
+            //             echo "<tr>";
+            //                 echo "<td style='width:70%; font-size:12pt; color:#33E0FF; padding-right: 10px; padding-left: 10px;'>";
+            //                     echo "Capacidad disponible";
+            //                 echo "</td>";
+            //                 echo "<td style='width:30%;  padding-right: 10px; padding-bottom: 10px;' rowspan='4'>";
+            //                     echo "<a href='$EnlaceSilo' title='Haga Clic aqui para ver el historial del silo'</a>";
+            //                         echo '<div style="clip-path: polygon(40% 0, 60% 0, 75% 8%, 75% 80%, 55% 100%, 45% 100%, 25% 80%, 25% 8%); width: 150px; height: 150px; background-image: 
+            //                             linear-gradient( 0deg, #F36D10 0%, #F36D10 '.$porcentaje.'%, #fff 0%, #fff 100%);">';
+            //                         echo '</div>';
+            //                 echo "</td>";
+            //             echo "</tr>";
+            //             echo "<tr>";
+            //                 echo "<td style=' width:70%; font-size:14pt; color:#fff; padding-right: 10px; padding-left: 10px;'>";
+            //                     echo number_format(97200 - $cantidad[$i],2,'.',',').' Galones';
+            //                 echo "</td>";
+            //             echo "</tr>";
+            //             echo "<td style=' width:70%; font-size:12pt; color:#33E0FF; padding-right: 10px; padding-left: 10px;'>";
+            //                 echo "Capacidad ocupada";
+            //             echo "</td>";
+            //             echo "<tr>";
+            //                 echo "<td style='width:70%; font-size:14pt; color:#fff; padding-right: 10px; padding-left: 10px;'>";
+            //                     echo number_format($cantidad[$i],2,'.',',').' Galones';
+            //                 echo "</td>";
+            //             echo "</tr>";
+            //             echo "<tr>";
+            //                 echo "<td style=' width:70%; font-size:12pt; color:#33E0FF; padding-right: 10px; padding-left: 10px;'>";
+            //                     echo "Capacidad total";
+            //                 echo "</td>";
+            //                 echo "<td style='width:30%; font-size:16pt; color:#fff; text-align: center; padding-right: 10px; padding-left: 10px;' >";
+            //                     echo number_format($porcentaje,2,'.',',').'%';
+            //                 echo "</td>";
+            //             echo "</tr>";
+            //             echo "<tr>";
+            //                 echo "<td style='width:70%; font-size:14pt; color:#fff; padding-right: 10px; padding-left: 10px;'>";
+            //                     echo number_format(97200,2,'.',',').' Galones';
+            //                 echo "</td>";
+            //                 echo "<td style='width:30%; font-size:10pt; color:#fff; text-align: center; padding-right: 8px; padding-left: 5px;' >";
+            //                     echo "Ult. Mov.: ".date('d/m/Y',strtotime($ultimomov[$i]));
+            //                 echo "</td>";
+            //             echo "</tr>";
+            //         echo "</table>";
+            //     echo "</div>";
+            // }
+            //echo "</div>";
         ?>
     </div>
 
     <div id="DashboardCol2" style="vertical-align:top;">
-    <h6 style='font-size: 14pt; '>Opciones disponibles</h6>
-
-    <?php
-        $rF= $db0 -> query("select * from reportes where Portada=1 order by id_rep");    
-        $repos = 0; $repolist="";
-
-     while($Fr = $rF -> fetch_array()) {   
-         $repolist.= "<a href='r.php?id=".$Fr['id_rep']."' title='Haga Clic aqui para ver el reporte' class='btn btn-success'
-         style='
-            // background-color: #e6e6e6;
-            // color: #625f5f;
-            width: 100%;
-            font-size: 10pt;
-            text-align:left;
-            margin-bottom:5px;
-         '
-         ><img src='icon/embarques_enviar.png' style='width:10px;'>"." ".$Fr['rep_name']."</a>";
-         $repos = $repos + 1;
-     }
-
-    unset($rf);unset($Fr);
-    if ($repos > 0 ){
-        echo "<h6 style='font-size: 8pt; opacity: 0.6;'></h6>";
-        echo $repolist;
-    }
-
-    echo "<a href='app_movs.php' title='Haga Clic aqui para ver la activivad' class='btn btn-primary' style='width: 100%; font-size: 10pt; text-align:left;  margin-top:10px;'>";
-    echo "<img src='icon/permisos.png' style='width:32px;'> Movimientos";
-    echo "</a>";
-
-    echo "<a href='calendariodeembarques.php' title='Haga Clic aqui para ver la activivad' class='btn btn-primary' style='width: 100%; font-size: 10pt; text-align:left; margin-top:10px;'>";
-    echo "<img src='icon/calendar.png' style='width:32px;'> Calendario de embarques";
-    echo "</a>";
-
-    echo "<a href='estadisticas.php' title='Haga Clic aqui para ver la activivad' class='btn btn-primary' style='width: 100%; font-size: 10pt; text-align:left; margin-top:10px;'>";    
-    echo "<img src='icon/analisis.png' style='width:32px;'> Estadisticas"; 
-    echo "</a>";
+        <h6 style='font-size: 14pt; '>Opciones disponibles</h6> 
+        <?php
+            $rF= $db0 -> query("select * from reportes where Portada=1 and estado <> 2 order by id_rep");    
+            $repos = 0; $repolist="";
 
 
-    if (UserAdmin($RinteraUser)==TRUE){
-            echo "<a href='users.php' title='Haga Clic aqui para ver administrar esta página' class='btn btn-primary'
-                style='
-                    // background-color: #e6e6e6;
-                    // color: #625f5f;
-                    width: 100%;
-                    font-size: 10pt;
-                    text-align:left;
-                    margin-top:10px;
-                '
-                >";
-            echo "<img src='icon/empleados.png' style='width:32px;'> Usuarios";
-            echo "</a>";
-        }
+            while($Fr = $rF -> fetch_array()) {   
+                $repolist.= "
+                <a 
+                    href='r.php?id=".$Fr['id_rep']."' 
+                    title='Haga Clic aqui para ver el reporte' 
+                    class='btn btn-success' 
+                    style='width: 100%; 
+                    font-size: 10pt; 
+                    text-align:left; 
+                    margin-bottom:5px;'>
+                    <style='width:10px;'>"." "
+                .$Fr['rep_name']
+                ."</a>";
+                $repos = $repos + 1;
+            }
 
-    ?>
+            unset($rf);
+            unset($Fr);
+
+            if ($repos > 0 )
+                {
+                    echo "<h6 style='font-size: 8pt; opacity: 0.6;'></h6>";
+                    echo $repolist;
+                }
+
+                echo "<a href='genera_sentenciadesalida.php' title='Haga Clic aqui para ver el reporte' class='btn btn-success' style='width: 100%; font-size: 10pt; 
+                text-align:left; margin-bottom:5px;'> <style='width:10px;'> Inventario de producto terminado </a>";
+    
+                if (UserAdmin($RinteraUser)==TRUE){
+                    echo "<a href='app_movs.php' title='Haga Clic aqui para ver la activivad' class='btn btn-primary' style='width: 100%; font-size: 10pt; text-align:left;  margin-top:10px;'>";
+                    echo "<img src='icon/permisos.png' style='width:32px;'>  Movimientos";
+                    echo "</a>";
+
+                    echo "<a href='users.php' title='Haga Clic aqui para ver administrar esta página' class='btn btn-primary' style='width: 100%; font-size: 10pt; text-align:left; margin-top:10px;'>";
+                    echo "<img src='icon/empleados.png' style='width:32px;'>  Usuarios del sistema";
+                    echo "</a>";
+
+                    echo "<a href='calendariodeembarques.php' title='Haga Clic aqui para ver la activivad' class='btn btn-primary' style='width: 100%; font-size: 10pt; text-align:left; margin-top:10px;'>";
+                    echo "<img src='icon/calendar.png' style='width:32px;'>  Calendario de embarques";
+                    echo "</a>";
+        
+                    // echo "<a href='seguridadehigiene.php' title='Haga Clic aqui para ver la activivad' class='btn btn-primary' style='width: 100%; font-size: 10pt; text-align:left; margin-top:10px;'>";    
+                    // echo "<img src='icon/analisis.png' style='width:32px;'>  Comportamiento de la planta"; 
+                    // echo "</a>";
+                    
+                    echo "<a href='subiendoinformacion.php' title='Haga Clic aqui para subir los inventarios a la nube' class='btn btn-primary' style='width: 100%; font-size: 10pt; text-align:left; margin-top:10px;'>";    
+                    echo "<img src='icon/act.png' style='width:32px;'>  Subir información a la nube"; 
+                    echo "</a>";
+
+                }
+
+        ?>
     </div>
-
 </div>
 
-<?php
+<!-- <?php
     if (TestConectionWS(2) ==  FALSE) {
         echo '
         <div class="alert alert-danger" role="alert">
@@ -385,7 +461,7 @@ if (isset($_GET['q'])){
         ';
     }
 }
-?>
+?> -->
 
 <?php
     Historia($RinteraUser, "HOME", "Acceso a la pagina principal");
@@ -447,7 +523,7 @@ if (isset($_GET['q'])){
                     );
 
                     $Der = "";
-                    // var_dump( $jsonIterator);    
+                    //var_dump( $jsonIterator);    
                     $TablaDeta = "";
                     $row = 0;    
                     $DataG ="";
@@ -463,17 +539,13 @@ if (isset($_GET['q'])){
                                     case 0:
                                         break;
                                         default:
-                                        if ($key == 'silo')
+                                        if ($key == 'silo') {$LabelG.= "'".$val."',";}
+                                        if ($key == 'Existencia') {$DataG.= "".intval($val).",";}
+                                        if ($key == 'FecUltMovimiento') 
                                             {
-                                                $LabelG.= "'".$val."',";
+                                                $FechasG.= "".($val).",";
                                             }
-
-                                        if ($key == 'Existencia')
-                                            {
-                                                $DataG.= "".intval($val).",";
-                                            }
-                                        
-                                            break;
+                                        break;
                                 }
                     $row = $row + 1;    
                 }
@@ -483,98 +555,101 @@ if (isset($_GET['q'])){
 
     }
 
-    if ($Data == 'Data'){
-    return $DataG;
-    }
-
-    if ($Data = 'Label'){
-    return $LabelG;
-    }
-
+    if ($Data == 'Data') {return $DataG;}
+    if ($Data == 'Label') {return $LabelG;}
+    if ($Data == 'Fecha') {return $FechasG;}
+    
 }
 
-function SilosDataTotal($Data){
+function SilosDataTotal($Data)
+{
     require("rintera-config.php");
-    
-    $QueryEncabezado = "Select * from NivelesDeLosSilos order by IdSilo";
-    
-    $IdCon = 2;
-    $WSSQL = "select * from dbs where IdCon='".$IdCon."' AND Active=1 AND ConType =2"; //SQLSERVERTOJSON
-    $WSCon = $db0 -> query($WSSQL);
-    
-    if($WSConF = $WSCon -> fetch_array()) {
-        if ($WSConF['wsurl'] <>'' &&  $WSConF['wsmethod']<>'' && $WSConF['wsjson']<>'' )    
-            {
-                $WSurl = $WSConF['wsurl'];
-                $WSmethod = $WSConF['wsmethod'];
-                $WSjson = $WSConF['wsjson'];
-                $WSparametros = $WSConF['parametros'];
-    
-                $wsP1_id = $WSConF['wsP1_id'];  $wsP1_value = $WSConF['wsP1_value'];
-                $wsP2_id = $WSConF['wsP2_id'];  $wsP2_value = $WSConF['wsP2_value'];
-                $wsP3_id = $WSConF['wsP3_id'];  $wsP3_value = $WSConF['wsP3_value'];
-                $wsP4_id = $WSConF['wsP4_id'];  $wsP4_value = $WSConF['wsP4_value'];
+    $Total = 0;
+    $sql = "Select * from nivelesdelossilos order by IdSilo";
+    $rc= $db0 -> query($sql);
+    while($f = $rc -> fetch_array()) 
+    {
+        $Total = $Total + $f['existencia'];
+    }
 
-                $WS_Val = TRUE;        
-                $url = $WSurl;            
-                $sql = $QueryEncabezado;
-                $token = $wsP1_value;
+    //$QueryEncabezado = "Select * from NivelesDeLosSilos order by IdSilo";
+    // $IdCon = 2;
+    // $WSSQL = "select * from dbs where IdCon='".$IdCon."' AND Active=1 AND ConType =2"; //SQLSERVERTOJSON
+    // $WSCon = $db0 -> query($WSSQL);
+    
+    // if($WSConF = $WSCon -> fetch_array()) {
+    //     if ($WSConF['wsurl'] <>'' &&  $WSConF['wsmethod']<>'' && $WSConF['wsjson']<>'' )    
+    //         {
+    //             $WSurl = $WSConF['wsurl'];
+    //             $WSmethod = $WSConF['wsmethod'];
+    //             $WSjson = $WSConF['wsjson'];
+    //             $WSparametros = $WSConF['parametros'];
+    
+    //             $wsP1_id = $WSConF['wsP1_id'];  $wsP1_value = $WSConF['wsP1_value'];
+    //             $wsP2_id = $WSConF['wsP2_id'];  $wsP2_value = $WSConF['wsP2_value'];
+    //             $wsP3_id = $WSConF['wsP3_id'];  $wsP3_value = $WSConF['wsP3_value'];
+    //             $wsP4_id = $WSConF['wsP4_id'];  $wsP4_value = $WSConF['wsP4_value'];
 
-                $myObj = new stdClass;
-                $myObj->token = $token;
-                $myObj->sql = $QueryEncabezado;
-                $myJSON = json_encode($myObj,JSON_UNESCAPED_SLASHES);
+    //             $WS_Val = TRUE;        
+    //             $url = $WSurl;            
+    //             $sql = $QueryEncabezado;
+    //             $token = $wsP1_value;
+
+    //             $myObj = new stdClass;
+    //             $myObj->token = $token;
+    //             $myObj->sql = $QueryEncabezado;
+    //             $myJSON = json_encode($myObj,JSON_UNESCAPED_SLASHES);
                 
-                $datos_post = http_build_query($myObj);
+    //             $datos_post = http_build_query($myObj);
             
-                $opciones = array('http' => array('method'  => 'POST', 'header'  => 'Content-type: application/x-www-form-urlencoded', 'content' => $datos_post));
-                ini_set('max_execution_time', 7000);
-                ini_set('max_execution_time', 0);
-                $context = stream_context_create($opciones);
+    //             $opciones = array('http' => array('method'  => 'POST', 'header'  => 'Content-type: application/x-www-form-urlencoded', 'content' => $datos_post));
+    //             ini_set('max_execution_time', 7000);
+    //             ini_set('max_execution_time', 0);
+    //             $context = stream_context_create($opciones);
         
-                $archivo_web = file_get_contents($url, false, $context);
-                $data = json_decode($archivo_web);
-                $jsonIterator = new RecursiveIteratorIterator(new RecursiveArrayIterator(json_decode($archivo_web, TRUE)), RecursiveIteratorIterator::SELF_FIRST);
+    //             $archivo_web = file_get_contents($url, false, $context);
+    //             $data = json_decode($archivo_web);
+    //             $jsonIterator = new RecursiveIteratorIterator(new RecursiveArrayIterator(json_decode($archivo_web, TRUE)), RecursiveIteratorIterator::SELF_FIRST);
 
-                //var_dump ($data);
-                // var_dump( $jsonIterator);    
+    //             //var_dump ($data);
+    //             // var_dump( $jsonIterator);    
 
-                $Der = "";
-                $TablaDeta = "";
-                $row = 0;    
-                $DataG ="";
-                $LabelG = "";
-                $Total = 0;
+    //             $Der = "";
+    //             $TablaDeta = "";
+    //             $row = 0;    
+    //             $DataG ="";
+    //             $LabelG = "";
+    //             $Total = 0;
 
-                foreach ($jsonIterator as $key => $val) {
-                    if (is_numeric($key)){ //rows                        
-                        $rowC = 0;
-                    } else 
-                        {
-                            switch ($row) 
-                                {
-                                    case 0:
-                                        break;
-                                        default:
-                                        if ($key == 'silo')
-                                            {
-                                                $LabelG.= "'".$val."',";
-                                            }
-                                        if ($key == 'Existencia')
-                                            {
-                                                $DataG.= "".intval($val).",";
-                                                $Total = $Total + intval($val);
-                                            }
-                                        break;
-                                }
+    //             foreach ($jsonIterator as $key => $val) {
+    //                 if (is_numeric($key)){ //rows                        
+    //                     $rowC = 0;
+    //                 } else 
+    //                     {
+    //                         switch ($row) 
+    //                             {
+    //                                 case 0:
+    //                                     break;
+    //                                     default:
+    //                                     if ($key == 'silo')
+    //                                         {
+    //                                             $LabelG.= "'".$val."',";
+    //                                         }
+    //                                     if ($key == 'Existencia')
+    //                                         {
+    //                                             $DataG.= "".intval($val).",";
+    //                                             $Total = $Total + intval($val);
+    //                                         }
+    //                                     break;
+    //                             }
 
-                            $row = $row + 1;    
-                        }
+    //                         $row = $row + 1;    
+    //                     }
              
-                }
-            }
+    //             }
+    //         }
     
-        }
+    // }
     return $Total;
 }
 

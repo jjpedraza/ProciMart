@@ -122,30 +122,22 @@ box-shadow: inset 0px -36px 13px -31px rgba(0,0,0,0.39);
 
 
     echo "
-
     <td width=10px valign=midle style='background-color:".Preference("ColorPrincipal", "", "").";     ".$sombra."'>
-
-   
     <a href='logout.php'  title='Cerrar sesión actual' style=''>    
     <img src='icon/salir2.png' style='width:17px; margin-right:4px;'></a>
     
     </td>";
    //  <a href='logout.php'  title='Cerrar sesión: ".$RinteraUserName."' style=''>     
 
+   //  echo "
+   //  <td width=10px valign=midle style='background-color:".Preference("ColorPrincipal", "", "").";     ".$sombra."'>
+   //  <a href='index.php'  title='Ir a pagina principal' style=''>    
+   //  <img src='icon/home.png' style='width:30px; margin-right:0px;'></a>
+   //  </td>";
 
-    echo "
-
-    <td width=10px valign=midle style='background-color:".Preference("ColorPrincipal", "", "").";     ".$sombra."'>
-
-    <a href='index.php'  title='Ir a pagina principal' style=''>    
-    <img src='icon/home.png' style='width:30px; margin-right:0px;'></a>
-    
-    </td>";
    //  <a href='index.php'  title='Home: ".$RinteraUserName."' style=''>    
     
-    echo "</tr>
-    </table></div>
-    ";
+    echo "</tr> </table> </div> ";
 
 
     //Validamos si se reseteo el nIp

@@ -67,10 +67,7 @@ require ("components.php");
     <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon"> -->
 </head>
 
-<body style="
-background-color: #cac0c0;
-text-align:center;
-">
+<body style="background-color: #cac0c0; text-align:center;">
 
 <?php
 //   echo   "1".$_SESSION['RinteraUser'];

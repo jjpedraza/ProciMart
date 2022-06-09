@@ -56,28 +56,19 @@
 
       <div class="col-2">
         <div id='external-events' style="background-color: white; margin-bottom:1em; height: 350px; border: 1px solid #a69a8d; overflow: auto;padding:1em">
-          <h5 class="text-center">Resumen de envios</h5>
-          <!-- <h6 class="text-center">Linea2</h6> -->
+          <h5 class="text-center">Calendario</h5>
+          <h6 class="text-center">Resumen de referencias</h6>
           <div id='listaeventospredefinidos'>
-
-            <?php
+            <?php 
               require("rintera-config.php");
-
-              $datos = mysqli_query($db0, "SELECT codigo,titulo,inicio,fin,colortexto,colorfondo FROM calendariodeembarques");
+              $datos = mysqli_query($db0, "SELECT codigo, titulo, inicio, fin, colortexto, colorfondo FROM calendariodeembarques");
               $ep = mysqli_fetch_all($datos, MYSQLI_ASSOC);
-
               foreach ($ep as $fila)
-                echo "<div class='fc-event' data-titulo='$fila[titulo]' data-horafin='$fila[fin]' data-horainicio='$fila[inicio]' 
-                        data-colorfondo='$fila[colorfondo]' data-colortexto='$fila[colortexto]' data-codigo='$fila[codigo]'
-                        style='border-color:#cac9c8;color:$fila[colortexto];background-color:#cac9c8;margin:10px'>
-                        $fila[titulo]  
-                      </div>";
+                echo "<div class='fc-event' data-titulo='$fila[titulo]' data-horafin='$fila[fin]' data-horainicio='$fila[inicio]' data-colorfondo='$fila[colorfondo]' data-colortexto='$fila[colortexto]' data-codigo='$fila[codigo]' style='border-color:#cac9c8; color:$fila[colortexto]; background-color:#cac9c8; margin:10px'>$fila[titulo] </div>";
             ?>
-
           </div>
         </div>
         <hr>
-        <!-- <div style="text-align:center"><button type="button" id="BotonExtraerMasInfo" class="btn btn-success">Extraer +información de AdminPaq</button> -->
       </div>
     </div>
   </div>
@@ -118,7 +109,7 @@
             </div>
           </div>
 
-          <!-- <div class="form-row">
+          <div class="form-row">
             <div class="form-group col-md-6">
               <label>Fecha de fin:</label>
 
@@ -133,9 +124,9 @@
                 <input type="text" id="HoraFin" value="" class="form-control" autocomplete="off" />
               </div>
             </div>
-          </div> -->
+          </div>
 
-          <!-- <div class="form-group">
+          <div class="form-group">
             <label>Descripción:</label>
             <textarea id="Descripcion" rows="3" class="form-control"></textarea>
           </div>
@@ -146,7 +137,7 @@
           <div class="form-group">
             <label>Color de texto:</label>
             <input type="color" value="#ffffff" id="ColorTexto" class="form-control" style="height:36px;">
-          </div> -->
+          </div>
 
         </div>
         <div class="modal-footer">

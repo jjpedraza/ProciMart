@@ -44,7 +44,7 @@ require("components.php");
     <style>
         body {
             background-image: url('img/FondoDeBienvenida.jpg');
-            background-size: 50%;
+            background-size: 100%;
             background-color: #212f3c ;
             /*background-blend-mode: screen;*/
             color:white; 

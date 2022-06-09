@@ -5,7 +5,7 @@ require_once("rintera-config.php");
 
 $Con_Val = FALSE;
 $Con_Msg = "";
-// $Con_IdCon = 1;
+
 $Con_Tsql = "select * from dbs where IdCon='".$Con_IdCon."' AND Active=1 AND ConType <=1";
 // echo $Con_Tsql;
 
@@ -21,7 +21,7 @@ if($RConF = $RCon -> fetch_array())
         $Con_user = $RConF['dbuser'];
         $Con_pass = $RConF['dbpassword'];
         $Con_name = $RConF['dbname'];
-        
+
         $LaConeccion = new mysqli($Con_host,$Con_user,$Con_pass,$Con_name);
                 if ($LaConeccion->connect_error) {         
                     $Con_Msg = $Con_Msg.""."Error al conectarse, revise los datos. ".$LaConeccion->connect_error.". ";                               

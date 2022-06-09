@@ -1,9 +1,9 @@
 <?php
-require("var_clean.php");
-require("tokens.php");
-require_once("preference.php");
+    require("var_clean.php");
+    require("tokens.php");
+    require_once("preference.php");
 
-define("Version","1.0"); 
+    define("Version","1.0"); 
 
 function Init(){
     if (VersionCheck() == TRUE){
@@ -396,14 +396,18 @@ function Toast($Texto,$Tipo,$img){
 function UserAdmin($IdUser){
     require("rintera-config.php");   
     // var_dump($dbUser);  
-    $sql = "select * from useradmin WHERE IdUser ='".$IdUser."'";        
+    //$sql = "select * from useradmin WHERE IdUser ='".$IdUser."'";
+    $sql = "select * from users WHERE RinteraLevel = 1 And IdUser ='".$IdUser."'";        
   
     $rc= $dbUser -> query($sql);
     if($f = $rc -> fetch_array())
-    {            return TRUE; // es admin
-    } else {
+        {
+            return TRUE; // es admin
+        } 
+    else 
+        {
             return FALSE; // no es admin
-    }
+        }
     
         
 }
@@ -442,8 +446,7 @@ function ConName($IdCon){
 function IdConReporte($id_rep){
     require("rintera-config.php");   
     // var_dump($dbUser);
-    $sql = "select * from reportes WHERE id_rep ='".$id_rep."'";        
-    
+    $sql = "select * from reportes WHERE id_rep ='".$id_rep."'";
     $r= $db0 -> query($sql);
     if($f = $r -> fetch_array())
     {
@@ -704,12 +707,10 @@ function LocationFull($page){
 
 function PermisoReporte_Ver($IdUser,$IdRep){
     require("rintera-config.php");   
-    $sql = "select count(*) as n
-    
-    from reportes_permisos WHERE IdUser ='".$IdUser."' and id_rep='".$IdRep."'";
+    // $sql = "select count(*) as n from reportes_permisos WHERE IdUser ='".$IdUser."' and id_rep='".$IdRep."'";
+    $sql = "select count(*) as n from users where IdUser ='".$IdUser."' and RinteraLevel in (1)";
     $rc= $db0 -> query($sql);
-    
-    
+
     if($f = $rc -> fetch_array())
     {
         if ($f['n']==1)  {
@@ -755,7 +756,6 @@ function DynamicTable_MySQL($QueryD, $IdDiv, $IdTabla, $Clase, $Tipo, $db){
 
     require("rintera-config.php");	
         $sql = $QueryD;
-        //echo $sql;
         $r= $db0 -> query($sql);
         $tbCont = '<div id="'.$IdDiv.'" class="'.$Clase.'">
         <table id="'.$IdTabla.'" class="display" style="width:100%" class="tabla" style="font-size:8pt;">';
@@ -792,8 +792,8 @@ function DynamicTable_MySQL($QueryD, $IdDiv, $IdTabla, $Clase, $Tipo, $db){
 
         $tbCont = $tbCont."</tbody>";
         $tbCont = $tbCont."</table></div>";
-    
-	echo  $tbCont;
+
+        echo  $tbCont;
 		switch ($Tipo) {
 			case 1: //Scroll Vertical
 					echo '<script>
@@ -2244,7 +2244,7 @@ function DataFromMySQL($ClaseDiv, $ClaseTabla, $Tipo, $IdUser,$id_rep){
     $Query = QueryReporte($id_rep); 
     $FixedColLeft = ReporteFixedColLeft($id_rep);
     $FixedColRight = ReporteFixedColRight($id_rep);
-    
+
     if (isset($_GET['var1'])){
         if (isset($_GET['var1'])){
             $var1_str = VarClean($_GET['var1']);
@@ -2263,8 +2263,6 @@ function DataFromMySQL($ClaseDiv, $ClaseTabla, $Tipo, $IdUser,$id_rep){
     }
 
     if (isset($_POST['var1_str'])){
-    
-        
         if (isset($_POST['var1_str'])){
             $var1_str = VarClean($_POST['var1_str']);
             $Query = str_replace("{var1}", $var1_str, $Query); //actualizamos la consulta
@@ -2280,11 +2278,9 @@ function DataFromMySQL($ClaseDiv, $ClaseTabla, $Tipo, $IdUser,$id_rep){
             $Query = str_replace("{var3}", $var3_str, $Query); //actualizamos la consulta
         }
     }
-    // echo $Query;
+
     echo "<script>$('#FormVar').hide();</script>";
-    // echo "Query = ".$Query."<br>";
     $IdCon = IdConReporte($id_rep); 
-        // echo "IdCon=".$IdCon."<br>";
 
     if ($Query == "FALSE") {
         return "ERROR: Datos insuficientes en el reporte (Query).";
@@ -2305,240 +2301,222 @@ function DataFromMySQL($ClaseDiv, $ClaseTabla, $Tipo, $IdUser,$id_rep){
     $STR = '';  for ($i=0; $i < $len; $i++){ $STR .= $cadena_base[rand(0, $limite)]; }  $IdTabla = $STR;
     
     // echo "IdDiv=".$IdDiv."<br>"."IdTabla=".$IdTabla."<br>";
-
     
-$Con_IdCon = IdConReporte($id_rep);
+    $Con_IdCon = IdConReporte($id_rep);
 
- include("con_init.php");
+    //include("con_init.php");
+    $Con_Val = TRUE;
+    if ($Con_Val == TRUE){    
+        if ($r = $db0 -> query($Query)){
+        //if ($r = $LaConeccion -> query($Query)){
+            if($f = $r -> fetch_array()){
+                $tbCont = '<div id="'.$IdDiv.'" class="'.$ClaseDiv.'">
+                <table  id="'.$IdTabla.'"  style="width:100%; " class="'.$ClaseTabla.'" style="font-size:8pt;">';
+                $tabla_titulos = ""; $cuantas_columnas = 0;
+                //$r2 = $LaConeccion -> query($Query); while($finfo = $r2->fetch_field())
+                $r2 = $db0 -> query($Query); while($finfo = $r2->fetch_field())
+                {//OBTENER LAS COLUMNAS
 
-if ($Con_Val == TRUE){    
-    // echo $Query;
-    // var_dump($Con_Msg);
-    if ($r = $LaConeccion -> query($Query)){
-        
-        // var_dump($Query);
-        if($f = $r -> fetch_array()){
-        
-            // var_dump($f);
+                        /* obtener posición del puntero de campo */
+                        $currentfield = $r2->current_field;       
+                        $tabla_titulos=$tabla_titulos.'<th bgcolor="#A5A5A5" color="white">'.strtoupper($finfo->name)."</th>";
+                        $cuantas_columnas = $cuantas_columnas + 1;        
+                }
+                unset($r2);
 
-            $tbCont = '<div id="'.$IdDiv.'" class="'.$ClaseDiv.'">
-            <table  id="'.$IdTabla.'"  style="width:100%; " class="'.$ClaseTabla.'" style="font-size:8pt;">';
-            $tabla_titulos = ""; $cuantas_columnas = 0;
-            $r2 = $LaConeccion -> query($Query); while($finfo = $r2->fetch_field())
-            {//OBTENER LAS COLUMNAS
+                $tbCont = $tbCont."  
+                <thead>
+                <tr>
+                    ".$tabla_titulos."  
+                </tr>
+                </thead>"; //Encabezados
+                $tbCont = $tbCont."<tbody class='".$ClaseTabla."'>";
+                $cuantas_filas=0;
+                //$r = $LaConeccion -> query($Query); while($f = $r-> fetch_row())
+                $r = $db0 -> query($Query); while($f = $r-> fetch_row())
+                {//LISTAR COLUMNAS
 
-                    /* obtener posición del puntero de campo */
-                    $currentfield = $r2->current_field;       
-                    $tabla_titulos=$tabla_titulos.'<th bgcolor="#A5A5A5" color="white">'.strtoupper($finfo->name)."</th>";
-                    $cuantas_columnas = $cuantas_columnas + 1;        
-            }
-            unset($r2);
-
-            $tbCont = $tbCont."  
-            <thead>
-            <tr>
-                ".$tabla_titulos."  
-            </tr>
-            </thead>"; //Encabezados
-            $tbCont = $tbCont."<tbody class='".$ClaseTabla."'>";
-            $cuantas_filas=0;
-            $r = $LaConeccion -> query($Query); while($f = $r-> fetch_row())
-            {//LISTAR COLUMNAS
-
-                $tbCont = $tbCont."<tr>";        
-                for ($i = 1; $i <= $cuantas_columnas; $i++) {      
-                    if ($cuantas_filas%2==0){
-                        $tbCont = $tbCont.'<td bgcolor="white" >'.$f[$i-1]."</td>";       
-                        
-                    }else{
-                        $tbCont = $tbCont.'<td  bgcolor="#F0F0E1" >'.$f[$i-1]."</td>";       
-                        
-                    }
-
-                    
-                    }
-
-                $tbCont = $tbCont."</tr>";
-                $cuantas_filas = $cuantas_filas + 1;        
-            }
-            unset($r);
-            $tbCont = $tbCont."</tbody>";
-            $tbCont = $tbCont."</table></div>";
-            $TablaHTML = $tbCont;
-
-            switch ($Tipo) {
-                case 0:  //HTML                 
-                    return ReporteEncabezado($id_rep).$TablaHTML.ReporteFooter($id_rep);    
-                break;
-               
-                case 1: // Interactivo
-                    echo  ReporteEncabezado($id_rep).$TablaHTML.ReporteFooter($id_rep);   
-                    echo '<script>
-                            $(document).ready(function() 
+                    $tbCont = $tbCont."<tr>";        
+                    for ($i = 1; $i <= $cuantas_columnas; $i++) 
+                        {      
+                            if ($cuantas_filas%2==0)
                                 {
-                                    $("#'.$IdTabla.'").DataTable({
-                                        "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "Todos"]]
-                                    });
-                                } );
-                        </script>';
-    
-                break;
+                                    $tbCont = $tbCont.'<td bgcolor="white" >'.$f[$i-1]."</td>";
+                                }
+                            else
+                                {
+                                    $tbCont = $tbCont.'<td  bgcolor="#F0F0E1" >'.$f[$i-1]."</td>";       
+                                }
 
-                case 2: // PDF
-                    // $IdUser = $RinteraUser;
-                    $titulo = TituloReporte($id_rep);
-                    $descripcion = DescripcionReporte($id_rep);
-                    $PageSize = "0"; // 0= carta y 1 == oficio
-                    $orientacion = "L";
-                    // $id_rep = 0;
-                    $IdCon = IdConReporte($id_rep);
-                    $info_leyenda =  InfPC()." | ".ConName($IdCon)." | ";
-                    $ArchivoDelReporte = TableToPDF($TablaHTML, $IdUser, $titulo, $descripcion, $PageSize, $orientacion,$id_rep,$info_leyenda);
-                    Historia($IdUser, "REPORTE PDF", "Utilizo el reporte ".$id_rep." - ".$titulo.". Genero el archivo <a href='".$ArchivoDelReporte."'>".$ArchivoDelReporte."</a>");
 
-                    echo "<iframe id='pdfPresenter' src='".$ArchivoDelReporte."'
-                    style='
-                        width: 100%;
-                        height: 94%;
-                        position: fixed;
-                        border: 0px;
-                        z-index: 500;
-                    '
-                    >
-                    
-                    </iframe>";
+                        }
 
-                    // echo "<script>pdf('".$ArchivoDelReporte."');</script>";
+                        
+                    $tbCont = $tbCont."</tr>";
+                    $cuantas_filas = $cuantas_filas + 1;        
+                }
 
-                break;
+                unset($r);
+                $tbCont = $tbCont."</tbody>";
+                $tbCont = $tbCont."</table></div>";
+                $TablaHTML = $tbCont;
 
-                case 3: // EXCEL
-                    // $IdUser = $RinteraUser;
-                    
-                    $titulo = TituloReporte($id_rep);
-                    $descripcion = DescripcionReporte($id_rep);
-                    $PageSize = "0"; // 0= carta y 1 == oficio
-                    $orientacion = "L";
-                    // $id_rep = 0;
-                    $IdCon = IdConReporte($id_rep);
-                    $info_leyenda =  InfPC()." | ".ConName($IdCon)." | ";
-                    // $ArchivoDelReporte = TableToPDF($TablaHTML, $IdUser, $titulo, $descripcion, $PageSize, $orientacion,$id_rep,$info_leyenda);
-                    $ArchivoDelReporte = "excel.php?IdUser=".$IdUser."&id_rep=".$id_rep;
-                    echo "<p>El Archivo del reporte se descargara automaticamente, si no es así 
-                    por favor da clic <a href='".$ArchivoDelReporte."' download>aquí<a/>";
-                    echo "<iframe id='wordPresenter' src='".$ArchivoDelReporte."'
-                    style='
-                        width: 10px;
-                        height: 10px;
-                        border: 0px solid white;
-                       
-                    '
-                    >
-                    
-                    </iframe>";
-                    // echo "<script>pdf('".$ArchivoDelReporte."');</script>";
-
-                break;
+                switch ($Tipo) {
+                    case 0:  //HTML                 
+                        return ReporteEncabezado($id_rep).$TablaHTML.ReporteFooter($id_rep);    
+                    break;
                 
-                
-                case 4: // Word
-                    // $IdUser = $RinteraUser;
-                    
-                    $titulo = TituloReporte($id_rep);
-                    $descripcion = DescripcionReporte($id_rep);
-                    $PageSize = "0"; // 0= carta y 1 == oficio
-                    $orientacion = "L";
-                    // $id_rep = 0;
-                    $IdCon = IdConReporte($id_rep);
-                    $info_leyenda =  InfPC()." | ".ConName($IdCon)." | ";
-                    // $ArchivoDelReporte = TableToPDF($TablaHTML, $IdUser, $titulo, $descripcion, $PageSize, $orientacion,$id_rep,$info_leyenda);
-                    $ArchivoDelReporte = "word.php?IdUser=".$IdUser."&id_rep=".$id_rep;
-                    echo "<p>El Archivo del reporte se descargara automaticamente, si no es así 
-                    por favor da clic <a href='".$ArchivoDelReporte."' download>aquí<a/>";
-                    echo "<iframe id='wordPresenter' src='".$ArchivoDelReporte."'
-                    style='
-                        width: 10px;
-                        height: 10px;
-                        border: 0px solid white;
-
-                       
-                    '
-                    >
-                    
-                    </iframe>";
-                    
-                    
-                    // echo "<script>pdf('".$ArchivoDelReporte."');</script>";
-
-                break;
-                
-                
-            
-
-            default:
-
-                
-            }
-            
-            
-            // return $tbCont;
+                    case 1: // Interactivo
+                        echo  ReporteEncabezado($id_rep).$TablaHTML.ReporteFooter($id_rep);   
+                        echo '<script>
+                                $(document).ready(function() 
+                                    {
+                                        $("#'.$IdTabla.'").DataTable({
+                                            "pageLength": 25,
+                                            "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "Todos"]]
+                                        });
+                                    } );
+                            </script>';
         
+                    break;
 
-        
+                    case 2: // PDF
+                        // $IdUser = $RinteraUser;
+                        $titulo = TituloReporte($id_rep);
+                        $descripcion = DescripcionReporte($id_rep);
+                        $PageSize = "0"; // 0= carta y 1 == oficio
+                        $orientacion = "L";
+                        // $id_rep = 0;
+                        $IdCon = IdConReporte($id_rep);
+                        $info_leyenda =  InfPC()." | ".ConName($IdCon)." | ";
+                        $ArchivoDelReporte = TableToPDF($TablaHTML, $IdUser, $titulo, $descripcion, $PageSize, $orientacion,$id_rep,$info_leyenda);
+                        Historia($IdUser, "REPORTE PDF", "Utilizo el reporte ".$id_rep." - ".$titulo.". Genero el archivo <a href='".$ArchivoDelReporte."'>".$ArchivoDelReporte."</a>");
 
-        } else {
-            $Con_Msg .= "<br><br><br><p>No se han encontrado resultados!. Intentelo nuevamente con otro criterio</p>";
-            $Parametros = "";
-         
-            if (isset($_POST['var1_str'])){$Parametros.= "".$_POST['var1_str'];}
-            if (isset($_POST['var2_str'])){$Parametros.= ", ".$_POST['var2_str'];}
-            if (isset($_POST['var3_str'])){$Parametros.= ", ".$_POST['var3_str'];}
+                        echo "<iframe id='pdfPresenter' src='".$ArchivoDelReporte."'
+                        style='
+                            width: 100%;
+                            height: 94%;
+                            position: fixed;
+                            border: 0px;
+                            z-index: 500;
+                        '
+                        >
+                        
+                        </iframe>";
 
-            if (isset($_GET['var1_str'])){$Parametros.= "".$_GET['var1_str'];}
-            if (isset($_GET['var2_str'])){$Parametros.= ", ".$_GET['var2_str'];}
-            if (isset($_GET['var3_str'])){$Parametros.= ", ".$_GET['var3_str'];}
+                        // echo "<script>pdf('".$ArchivoDelReporte."');</script>";
 
-            if ($Parametros == ''){
-                Historia($IdUser, "Reporte", "No encontro informacion del reporte ".$id_rep."");
+                    break;
+
+                    case 3: // EXCEL
+                        // $IdUser = $RinteraUser;
+                        
+                        $titulo = TituloReporte($id_rep);
+                        $descripcion = DescripcionReporte($id_rep);
+                        $PageSize = "0"; // 0= carta y 1 == oficio
+                        $orientacion = "L";
+                        // $id_rep = 0;
+                        $IdCon = IdConReporte($id_rep);
+                        $info_leyenda =  InfPC()." | ".ConName($IdCon)." | ";
+                        // $ArchivoDelReporte = TableToPDF($TablaHTML, $IdUser, $titulo, $descripcion, $PageSize, $orientacion,$id_rep,$info_leyenda);
+                        $ArchivoDelReporte = "excel.php?IdUser=".$IdUser."&id_rep=".$id_rep;
+                        echo "<p>El Archivo del reporte se descargara automaticamente, si no es así 
+                        por favor da clic <a href='".$ArchivoDelReporte."' download>aquí<a/>";
+                        echo "<iframe id='wordPresenter' src='".$ArchivoDelReporte."'
+                        style='
+                            width: 10px;
+                            height: 10px;
+                            border: 0px solid white;
+                        
+                        '
+                        >
+                        
+                        </iframe>";
+                        // echo "<script>pdf('".$ArchivoDelReporte."');</script>";
+
+                    break;
+                    
+                    
+                    case 4: // Word
+                        // $IdUser = $RinteraUser;
+                        
+                        $titulo = TituloReporte($id_rep);
+                        $descripcion = DescripcionReporte($id_rep);
+                        $PageSize = "0"; // 0= carta y 1 == oficio
+                        $orientacion = "L";
+                        // $id_rep = 0;
+                        $IdCon = IdConReporte($id_rep);
+                        $info_leyenda =  InfPC()." | ".ConName($IdCon)." | ";
+                        // $ArchivoDelReporte = TableToPDF($TablaHTML, $IdUser, $titulo, $descripcion, $PageSize, $orientacion,$id_rep,$info_leyenda);
+                        $ArchivoDelReporte = "word.php?IdUser=".$IdUser."&id_rep=".$id_rep;
+                        echo "<p>El Archivo del reporte se descargara automaticamente, si no es así 
+                        por favor da clic <a href='".$ArchivoDelReporte."' download>aquí<a/>";
+                        echo "<iframe id='wordPresenter' src='".$ArchivoDelReporte."'
+                        style='
+                            width: 10px;
+                            height: 10px;
+                            border: 0px solid white;
+
+                        
+                        '
+                        >
+                        
+                        </iframe>";
+                        
+                        
+                        // echo "<script>pdf('".$ArchivoDelReporte."');</script>";
+
+                    break;
+                default:
+                
+                }
+                // return $tbCont;
             } else {
-                Historia($IdUser, "Reporte", "No encontro informacion del reporte ".$id_rep." con los parametros: ".$Parametros);
+                $Con_Msg .= "<br><br><br><p>No se han encontrado resultados!. Intentelo nuevamente con otro criterio</p>";
+                $Parametros = "";
+            
+                if (isset($_POST['var1_str'])){$Parametros.= "".$_POST['var1_str'];}
+                if (isset($_POST['var2_str'])){$Parametros.= ", ".$_POST['var2_str'];}
+                if (isset($_POST['var3_str'])){$Parametros.= ", ".$_POST['var3_str'];}
+
+                if (isset($_GET['var1_str'])){$Parametros.= "".$_GET['var1_str'];}
+                if (isset($_GET['var2_str'])){$Parametros.= ", ".$_GET['var2_str'];}
+                if (isset($_GET['var3_str'])){$Parametros.= ", ".$_GET['var3_str'];}
+
+                if ($Parametros == ''){
+                    Historia($IdUser, "Reporte", "No encontro informacion del reporte ".$id_rep."");
+                } else {
+                    Historia($IdUser, "Reporte", "No encontro informacion del reporte ".$id_rep." con los parametros: ".$Parametros);
+                }
+                // return FALSE;
+                return $Con_Msg;
             }
+        } else {
+        
             // return FALSE;
-            return $Con_Msg;
+            return "Error al consultar. ".$Con_Msg;
+            // echo "Error en la base de datos";
         }
+    
+    
     } else {
-        // return FALSE;
-        return "Error al consultar. ".$Con_Msg;
-        // echo "Error en la base de datos";
+        return $Con_Msg;
+        // echo "ERROR: ".$Con_Msg;
     }
-    
-    
-} else {
-    return $Con_Msg;
-    // echo "ERROR: ".$Con_Msg;
-}
 
 
 
-include("con_close.php");
+    //include("con_close.php");
 
 
 }
-
-
-
-
 
 function Reporte($id_rep, $Tipo, $ClaseDiv, $ClaseTabla, $IdUser ){
+
     require("rintera-config.php");	
     $ClaseTabla = "tabla table-striped table-hover";
     $IdCon = IdConReporte($id_rep);
     $ConType = ConType($IdCon);
-
-    // echo "Tipo = ".$Tipo;
-    // echo "ConType=".$ConType;
-    //Validaciones
-
 
     // $Tipo = 1; // 0 = html, 1= DataTable, 2 = PDF, 3 = Excel, 4 = Word
     $Data = "";

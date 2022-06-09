@@ -213,6 +213,7 @@ if (Preference("MostrarApps", "", "")=='TRUE'){
             echo '</div>';*/
             //ENCABEZADO SILOS
             $Total = SilosDataTotal('Data');
+            
             $CapacidadMaxima = 97200*6;
             $CapacidadRestante = $CapacidadMaxima - $Total;
             $Ocupado = $CapacidadMaxima - $CapacidadRestante;
@@ -252,6 +253,7 @@ if (Preference("MostrarApps", "", "")=='TRUE'){
             ///AGREGAR SILOS 
             echo "<div id='app_contenedor'>";
             $Datas = SilosData('Data');
+            echo "$Datas";
             $Labels = SilosData('Label');
             $Datas = substr($Datas, 0, -1); //quita la ultima coma.
             $Labels = substr($Labels, 0, -1); //quita la ultima coma.
